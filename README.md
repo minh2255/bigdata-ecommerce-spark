@@ -15,7 +15,7 @@ docs/        # sơ đồ kiến trúc, data contract
 data/        # Data Lake (không lên Git): landing, raw, clean, agg, samples, reports
 ```
 
-## Chạy nhanh
+## Chạy nhanh (Lưu ý: Master UI ở http://localhost:8080 (máy TV1 đổi sang 9090 do trùng cổng).)
 ```bash
 # 1. Khởi động cụm Spark
 docker compose up -d --build

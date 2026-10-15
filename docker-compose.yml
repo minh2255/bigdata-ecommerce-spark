@@ -1,5 +1,4 @@
 x-spark-common: &spark-common
-  build: .
   image: bigdata-spark:3.5.9
   user: root
   volumes:
@@ -13,9 +12,10 @@ services:
   spark-master:
     <<: *spark-common
     container_name: spark-master
+    build: .
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     ports:
-      - "8080:8080"   # Spark Master UI
+      - "8080:8080"  # Spark Master UI
       - "7077:7077"   # cổng submit job
       - "4040:4040"   # Spark Application UI (chỉ có khi job đang chạy)
 
