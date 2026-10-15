@@ -1,0 +1,9 @@
+# Data Lake: không đưa lên Git (giữ lại .gitkeep để còn cấu trúc thư mục)
+data/*/*
+!data/*/.gitkeep
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
