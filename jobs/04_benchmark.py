@@ -11,6 +11,8 @@ import os
 import sys
 import time
 import csv
+import json
+from datetime import datetime, timezone
 from pyspark.sql import SparkSession, functions as F
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -28,9 +30,13 @@ if fraction < 1.0:
     df = df.sample(fraction=fraction, seed=42)
 
 start = time.perf_counter()
-groups = (df.groupBy("event_date", "event_type")
+query = (df.groupBy("event_date", "event_type")
             .agg(F.count("*").alias("n"), F.sum("price").alias("revenue"))
-            .count())          # count() là action -> bắt Spark thực sự chạy job
+         )
+# Only date/type groups are collected (at most 93 for October).
+# count() can prune n/revenue; collect() forces both aggregates to execute.
+result = query.collect()
+groups = len(result)
 elapsed = time.perf_counter() - start
 
 os.makedirs(f"{DATA_DIR}/reports", exist_ok=True)
@@ -41,6 +47,19 @@ with open(path, "a", newline="") as f:
     if is_new:
         w.writerow(["label", "fraction", "cores", "seconds"])
     w.writerow([label, fraction, cores, round(elapsed, 2)])
+
+with open(f"{DATA_DIR}/reports/benchmark_runs.jsonl", "a") as f:
+    f.write(json.dumps({
+        "utc_time": datetime.now(timezone.utc).isoformat(),
+        "application_id": spark.sparkContext.applicationId,
+        "data_dir": DATA_DIR, "label": label, "fraction": fraction,
+        "cores": cores, "shuffle_partitions": shuffle_parts,
+        "aqe_enabled": spark.conf.get("spark.sql.adaptive.enabled"),
+        "groups": groups, "sample_rows": sum(r["n"] for r in result),
+        "price_sum_all_event_types": sum(r["revenue"] for r in result),
+        "seconds": elapsed, "method": "read_sample_groupby_count_sum_collect",
+        "timing_scope": "action only; excludes Spark startup and schema discovery",
+    }) + "\n")
 
 print(f"[BENCH] label={label} fraction={fraction} cores={cores} "
       f"shuffle_partitions={shuffle_parts} groups={groups} seconds={elapsed:.2f}")
