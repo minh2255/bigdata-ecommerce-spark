@@ -1,2 +1,9 @@
 *.sh text eol=lf
 *.py text eol=lf
+
+# Curated evidence must retain the exact bytes recorded in manifest.json.
+docs/evidence/tv3/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+# Spark emits trailing spaces in genuine logs; preserve those log records.
+docs/evidence/tv3/*.log -whitespace
+*.docx binary
+*.png binary

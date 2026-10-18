@@ -1,0 +1,3 @@
+compose file "D:\\d\\Desktop\\BigData\\docker-compose.yml" is invalid: open D:\d\Desktop\BigData\docker-compose.yml: The system cannot find the path specified.
+[ERROR] Compose config failed
+[EXIT] stage=docker-config code=4 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T163706Z-475.log

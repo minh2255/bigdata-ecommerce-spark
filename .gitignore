@@ -1,9 +1,31 @@
-# Data Lake: không đưa lên Git (giữ lại .gitkeep để còn cấu trúc thư mục)
-data/*/*
-!data/*/.gitkeep
+# Data Lake and all local runs/reports: keep only the existing tracked .gitkeep files.
+# Tracked placeholders stay tracked even though new data files are ignored.
+data/
 
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .vscode/
 .DS_Store
+
+# Local credentials and generated workspace files.
+.env
+.env.*
+!.env.example
+kaggle.json
+credentials.json
+*.pem
+*.key
+id_rsa
+id_ed25519
+.venv/
+node_modules/
+*.tmp
+*.temp
+*.bak
+~$*
+Thumbs.db
+
+# Only intentionally selected, small evidence logs belong in Git.
+*.log
+!docs/evidence/tv3/*.log

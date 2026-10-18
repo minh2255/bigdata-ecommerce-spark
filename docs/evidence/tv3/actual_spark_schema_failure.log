@@ -1,0 +1,97 @@
+[PREFLIGHT] mode=--clean-only root=/data/tv3 rejected schema 4c07ecbfac data_kind=synthetic; inputs/config/output guards PASS
+[RUN] 02_cleaning.py  DATA_DIR=/data/tv3 rejected schema 4c07ecbfac
+26/10/18 16:58:26 INFO SparkContext: Running Spark version 3.5.9
+26/10/18 16:58:26 INFO SparkContext: OS info Linux, 6.6.87.2-microsoft-standard-WSL2, amd64
+26/10/18 16:58:26 INFO SparkContext: Java version 17.0.19
+26/10/18 16:58:26 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/10/18 16:58:26 INFO ResourceUtils: ==============================================================
+26/10/18 16:58:26 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/10/18 16:58:26 INFO ResourceUtils: ==============================================================
+26/10/18 16:58:26 INFO SparkContext: Submitted application: 02_cleaning
+26/10/18 16:58:26 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/10/18 16:58:26 INFO ResourceProfile: Limiting resource is cpu
+26/10/18 16:58:26 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/10/18 16:58:26 INFO SecurityManager: Changing view acls to: root
+26/10/18 16:58:26 INFO SecurityManager: Changing modify acls to: root
+26/10/18 16:58:26 INFO SecurityManager: Changing view acls groups to: 
+26/10/18 16:58:26 INFO SecurityManager: Changing modify acls groups to: 
+26/10/18 16:58:26 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/10/18 16:58:26 INFO Utils: Successfully started service 'sparkDriver' on port 38269.
+26/10/18 16:58:26 INFO SparkEnv: Registering MapOutputTracker
+26/10/18 16:58:26 INFO SparkEnv: Registering BlockManagerMaster
+26/10/18 16:58:26 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/10/18 16:58:26 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/10/18 16:58:26 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/10/18 16:58:26 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-424207d7-8637-4776-b1d4-2e59a7d15ced
+26/10/18 16:58:26 INFO MemoryStore: MemoryStore started with capacity 1048.8 MiB
+26/10/18 16:58:26 INFO SparkEnv: Registering OutputCommitCoordinator
+26/10/18 16:58:26 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/10/18 16:58:26 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/10/18 16:58:27 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+26/10/18 16:58:27 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.2:7077 after 21 ms (0 ms spent in bootstraps)
+26/10/18 16:58:27 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20261018165827-0052
+26/10/18 16:58:27 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 32867.
+26/10/18 16:58:27 INFO NettyBlockTransferService: Server created on 365573457f4c:32867
+26/10/18 16:58:27 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/10/18 16:58:27 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20261018165827-0052/0 on worker-20261018160210-172.18.0.3-35373 (172.18.0.3:35373) with 2 core(s)
+26/10/18 16:58:27 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 365573457f4c, 32867, None)
+26/10/18 16:58:27 INFO StandaloneSchedulerBackend: Granted executor ID app-20261018165827-0052/0 on hostPort 172.18.0.3:35373 with 2 core(s), 1024.0 MiB RAM
+26/10/18 16:58:27 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20261018165827-0052/1 on worker-20261018160210-172.18.0.4-36483 (172.18.0.4:36483) with 2 core(s)
+26/10/18 16:58:27 INFO StandaloneSchedulerBackend: Granted executor ID app-20261018165827-0052/1 on hostPort 172.18.0.4:36483 with 2 core(s), 1024.0 MiB RAM
+26/10/18 16:58:27 INFO BlockManagerMasterEndpoint: Registering block manager 365573457f4c:32867 with 1048.8 MiB RAM, BlockManagerId(driver, 365573457f4c, 32867, None)
+26/10/18 16:58:27 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 365573457f4c, 32867, None)
+26/10/18 16:58:27 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 365573457f4c, 32867, None)
+26/10/18 16:58:27 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+26/10/18 16:58:27 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+26/10/18 16:58:27 INFO SharedState: Warehouse path is 'file:/opt/spark/work-dir/spark-warehouse'.
+26/10/18 16:58:27 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20261018165827-0052/0 is now RUNNING
+26/10/18 16:58:27 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20261018165827-0052/1 is now RUNNING
+26/10/18 16:58:29 INFO InMemoryFileIndex: It took 208 ms to list leaf files for 1 paths.
+26/10/18 16:58:30 INFO SparkContext: Starting job: parquet at NativeMethodAccessorImpl.java:0
+26/10/18 16:58:30 INFO DAGScheduler: Got job 0 (parquet at NativeMethodAccessorImpl.java:0) with 1 output partitions
+26/10/18 16:58:30 INFO DAGScheduler: Final stage: ResultStage 0 (parquet at NativeMethodAccessorImpl.java:0)
+26/10/18 16:58:30 INFO DAGScheduler: Parents of final stage: List()
+26/10/18 16:58:30 INFO DAGScheduler: Missing parents: List()
+26/10/18 16:58:30 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at parquet at NativeMethodAccessorImpl.java:0), which has no missing parents
+26/10/18 16:58:30 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 103.4 KiB, free 1048.7 MiB)
+26/10/18 16:58:30 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 37.3 KiB, free 1048.7 MiB)
+26/10/18 16:58:30 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 365573457f4c:32867 (size: 37.3 KiB, free: 1048.8 MiB)
+26/10/18 16:58:30 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1611
+26/10/18 16:58:30 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at parquet at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0))
+26/10/18 16:58:30 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks resource profile 0
+26/10/18 16:58:30 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.18.0.4:60234) with ID 1,  ResourceProfileId 0
+26/10/18 16:58:30 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (172.18.0.3:42712) with ID 0,  ResourceProfileId 0
+26/10/18 16:58:30 INFO BlockManagerMasterEndpoint: Registering block manager 172.18.0.3:41743 with 434.4 MiB RAM, BlockManagerId(0, 172.18.0.3, 41743, None)
+26/10/18 16:58:30 INFO BlockManagerMasterEndpoint: Registering block manager 172.18.0.4:33753 with 434.4 MiB RAM, BlockManagerId(1, 172.18.0.4, 33753, None)
+26/10/18 16:58:30 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (172.18.0.3, executor 0, partition 0, PROCESS_LOCAL, 9178 bytes) 
+26/10/18 16:58:30 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.18.0.3:41743 (size: 37.3 KiB, free: 434.4 MiB)
+26/10/18 16:58:31 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 852 ms on 172.18.0.3 (executor 0) (1/1)
+26/10/18 16:58:31 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+26/10/18 16:58:31 INFO DAGScheduler: ResultStage 0 (parquet at NativeMethodAccessorImpl.java:0) finished in 1.447 s
+26/10/18 16:58:31 INFO DAGScheduler: Job 0 is finished. Cancelling potential speculative or zombie tasks for this job
+26/10/18 16:58:31 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage finished
+26/10/18 16:58:31 INFO DAGScheduler: Job 0 finished: parquet at NativeMethodAccessorImpl.java:0, took 1.510320 s
+26/10/18 16:58:31 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 365573457f4c:32867 in memory (size: 37.3 KiB, free: 1048.8 MiB)
+26/10/18 16:58:31 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 172.18.0.3:41743 in memory (size: 37.3 KiB, free: 434.4 MiB)
+26/10/18 16:58:32 INFO SparkContext: SparkContext is stopping with exitCode 0.
+26/10/18 16:58:32 INFO SparkUI: Stopped Spark web UI at http://365573457f4c:4040
+26/10/18 16:58:32 INFO StandaloneSchedulerBackend: Shutting down all executors
+26/10/18 16:58:32 INFO StandaloneSchedulerBackend$StandaloneDriverEndpoint: Asking each executor to shut down
+26/10/18 16:58:32 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+26/10/18 16:58:32 INFO MemoryStore: MemoryStore cleared
+26/10/18 16:58:32 INFO BlockManager: BlockManager stopped
+26/10/18 16:58:32 INFO BlockManagerMaster: BlockManagerMaster stopped
+26/10/18 16:58:32 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+26/10/18 16:58:32 INFO SparkContext: Successfully stopped SparkContext
+Traceback (most recent call last):
+  File "/opt/jobs/02_cleaning.py", line 126, in <module>
+    main()
+  File "/opt/jobs/02_cleaning.py", line 53, in main
+    raise ValueError(f"Raw schema does not match the guide: {actual_types}")
+ValueError: Raw schema does not match the guide: {'event_time': 'string', 'event_type': 'string', 'product_id': 'bigint', 'category_id': 'bigint', 'category_code': 'string', 'brand': 'string', 'price': 'string', 'user_id': 'bigint', 'user_session': 'string'}
+26/10/18 16:58:32 INFO ShutdownHookManager: Shutdown hook called
+26/10/18 16:58:32 INFO ShutdownHookManager: Deleting directory /tmp/spark-c0582819-1679-4aed-9b00-c8f9449a8324
+26/10/18 16:58:32 INFO ShutdownHookManager: Deleting directory /tmp/spark-d3f7eb81-0e63-414f-856d-effc4432ea9a/pyspark-608f0412-be87-4c6b-a9c5-c45e463f582e
+26/10/18 16:58:32 INFO ShutdownHookManager: Deleting directory /tmp/spark-d3f7eb81-0e63-414f-856d-effc4432ea9a
+[SUBMIT ERROR] job=02_cleaning.py exit=1
+[EXIT] stage=02_cleaning.py  code=1 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T165821Z-226.log

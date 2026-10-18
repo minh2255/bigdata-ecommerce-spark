@@ -1,0 +1,2 @@
+PASS: four fixtures match values after provenance guard; reports protected
+PASS: unknown/real provenance and large fixture verification rejected before materializing rows

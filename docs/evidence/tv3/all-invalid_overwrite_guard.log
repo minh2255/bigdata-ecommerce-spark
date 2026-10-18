@@ -1,0 +1,3 @@
+[PREFLIGHT ERROR] Existing clean output: choose a new DATA_DIR
+[ERROR] Data/job preflight failed
+[EXIT] stage=data-preflight code=4 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T163958Z-719.log

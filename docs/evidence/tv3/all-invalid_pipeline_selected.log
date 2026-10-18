@@ -1,0 +1,13 @@
+[PREFLIGHT] mode=--ingest-clean root=/data/tv3 handoff 20261018_233715_9e89b2/all-invalid case data_kind=synthetic; inputs/config/output guards PASS
+[RUN] 00_ingest.py  DATA_DIR=/data/tv3 handoff 20261018_233715_9e89b2/all-invalid case
+[INGEST] rows=2 time=7.0s
+[RUN] 02_cleaning.py  DATA_DIR=/data/tv3 handoff 20261018_233715_9e89b2/all-invalid case
+[CLEAN] raw=2 removed=0 stage_seconds=2.672
+[CLEAN] after_dedup=2 removed=0 stage_seconds=4.104
+[CLEAN] after_timestamp=1 removed=1 stage_seconds=1.744
+[CLEAN] after_event_type=1 removed=0 stage_seconds=1.95
+[CLEAN] after_price=0 removed=1 stage_seconds=1.194
+[CLEAN] after_identity=0 removed=0 stage_seconds=0.972
+[CLEAN] raw=2 after_dedup=2 after_filter=0 time=19.931s
+[DONE TV3] mode=--ingest-clean; profiling and aggregation were not run
+[EXIT] stage=complete code=0 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T163901Z-1482.log
