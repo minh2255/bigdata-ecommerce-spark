@@ -118,8 +118,34 @@ số lượng thực tế vào `reports/generate_data_truth.json` để đối c
 Vùng dữ liệu giả phải để trong `DATA_DIR` riêng, tên file có chữ `synthetic`
 (pipeline từ chối trộn với dữ liệu Kaggle thật).
 
+## 7. Kiểm chứng luật trên dữ liệu Kaggle thật (22/10/2026)
+
+Quét toàn bộ `2019-Oct.csv` (42.448.764 dòng) để xem luật có hợp lý không. Các số dưới đây
+là số trên **raw**, chưa qua cleaning; `profiling_raw.json` sẽ thay thế khi có.
+
+| Hiện tượng | Số dòng | Quy tắc | Nhận xét |
+| --- | --- | --- | --- |
+| Dòng trùng cả 9 cột | 30.220 (0,07%) | 1 | Có thật, cần dedup |
+| `price = 0` | 68.673 (0,16%) | 4a | 68.523 `view` + 150 `cart`, **không có `purchase`** nên loại không làm lệch doanh thu |
+| `price` < 0, NaN, Inf | 0 | 4a | Chưa thấy ở dữ liệu thật; luật vẫn giữ để chặn dữ liệu bẩn |
+| `user_session` rỗng | 2 | 4c | Có thật (2 dòng `cart`), loại là đúng |
+| `user_id` null / ≤ 0 | 0 | 4b | Không cần luật ID dương |
+| `user_session` không phải UUID | 0 | — | Không cần luật UUID |
+| `product_id`, `category_id` null | 0 | — | Không cần loại |
+| `category_code` null | 13.515.609 (31,8%) | 5 | Rất lớn, **phải** thành `unknown`, không được loại dòng |
+| `brand` null | 6.113.008 (14,4%) | 6 | Như trên |
+| `brand` có chữ hoa / khoảng trắng thừa | 0 | 6 | Dữ liệu gốc đã chữ thường; lowercase+trim chỉ là phòng ngừa |
+| `event_time` sai định dạng | 0 | 2 | Khoảng 2019-10-01 00:00:00 đến 2019-10-31 23:59:59 |
+| `event_type` | view 40.779.399; cart 926.516; purchase 742.849 | 3 | Chỉ có 3 giá trị hợp lệ |
+| `category_code` sâu 3 cấp | 36.242 (0,09%) | 5 | Cấp 3 bị bỏ vì clean chỉ giữ `cat_l1`, `cat_l2`; `category_code` gốc vẫn còn trong clean |
+
+**Kết luận:** 7 quy tắc + 3 mở rộng của v1.0 phù hợp, không cần đổi `02_cleaning.py`.
+Dự kiến clean ≈ 42.448.764 − 30.220 (trùng) − ~68.673 (giá 0) − 2 (session rỗng) ≈ 42,35 triệu
+dòng (có thể lệch nhỏ vì các lỗi giao nhau); con số chính thức lấy từ `cleaning_metrics.json`.
+
 ## 6. Lịch sử phiên bản
 
 | Phiên bản | Nội dung |
 | --- | --- |
 | 1.0 | Chốt 7 quy tắc + 3 mở rộng (price hữu hạn, session không trắng, blank → unknown); ID dương/UUID chỉ ghi nhận |
+| 1.0 (bổ sung) | Thêm mục 7: kiểm chứng luật trên dữ liệu thật, không đổi luật |
