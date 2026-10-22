@@ -93,26 +93,45 @@ Ghi chú về kiểu:
 | 13 | event_hour | int | **mới**, giờ của `event_ts` | 0–23 |
 | 14 | day_of_week | string | **mới**, thứ của `event_ts` | `Mon` … `Sun` (chữ, không phải số) |
 
-Ví dụ: dòng raw thứ hai ở mục A.2 sau khi làm sạch (`category_code` có 3 cấp nên cấp 3 `water_heater` không có cột riêng, nhưng vẫn còn trong `category_code`):
+Ví dụ thật: hai dòng raw ở mục A.2 được đọc lại từ `raw/events` và `clean/events` của `data/real_sample3m_run01` (lọc theo `product_id` và `user_session`; lệnh đọc ở cuối mục).
 
-| Cột | Giá trị |
-| --- | --- |
-| event_type | `view` |
-| product_id | `3900821` |
-| category_id | `2053013552326770905` |
-| category_code | `appliances.environment.water_heater` |
-| brand | `aqua` |
-| price | `33.2` |
-| user_id | `554748717` |
-| user_session | `9333dfbd-b87a-4708-9857-6336556b0fcc` |
-| event_ts | `2019-10-01 00:00:00` |
-| cat_l1 | `appliances` |
-| cat_l2 | `environment` |
-| event_date | `2019-10-01` |
-| event_hour | `0` |
-| day_of_week | `Tue` |
+| Cột | Dòng 1 (thiếu danh mục) | Dòng 2 (danh mục 3 cấp) |
+| --- | --- | --- |
+| event_type | `view` | `view` |
+| product_id | `44600062` | `3900821` |
+| category_id | `2103807459595387724` | `2053013552326770905` |
+| category_code | null | `appliances.environment.water_heater` |
+| brand | `shiseido` | `aqua` |
+| price | `35.79` | `33.2` |
+| user_id | `541312140` | `554748717` |
+| user_session | `72d76fde-8bb3-4e00-8c23-a032dfed738c` | `9333dfbd-b87a-4708-9857-6336556b0fcc` |
+| event_ts | `2019-10-01 00:00:00` | `2019-10-01 00:00:00` |
+| cat_l1 | `unknown` | `appliances` |
+| cat_l2 | `unknown` | `environment` |
+| event_hour | `0` | `0` |
+| day_of_week | `Tue` | `Tue` |
+| event_date | `2019-10-01` | `2019-10-01` |
 
-Dòng raw thứ nhất (thiếu `category_code`) sẽ có `cat_l1 = cat_l2 = unknown` và `category_code = null`.
+Những điểm thấy được từ kết quả thật:
+
+- Dòng 1: ô `category_code` rỗng trong CSV đã thành null ngay từ raw, nên `cat_l1`, `cat_l2` thành `unknown`, còn `category_code` vẫn null.
+- Dòng 2: cấp 3 `water_heater` không có cột riêng nhưng vẫn còn trong `category_code`.
+- `price` ghi `33.20` trong CSV, thành `33.2` từ tầng raw vì là kiểu `double`.
+- Phiên `72d76fde…` còn một sự kiện khác cùng sản phẩm lúc `00:00:15`. Trong clean có cả hai dòng, đúng với việc `user_session` không phải khóa duy nhất.
+
+Lệnh đọc (chạy trong container, chỉ dùng `pyarrow` nên không cần tạo job Spark):
+
+```python
+import pyarrow.dataset as ds, pyarrow.compute as pc
+d = ds.dataset("/data/real_sample3m_run01/clean/events", format="parquet", partitioning="hive")
+f = (pc.field("product_id").isin([44600062, 3900821])
+     & pc.field("user_session").isin(["72d76fde-8bb3-4e00-8c23-a032dfed738c",
+                                      "9333dfbd-b87a-4708-9857-6336556b0fcc"]))
+for row in d.to_table(filter=f).to_pylist():
+    print(row)
+```
+
+Khi đọc bằng `pyarrow`, `event_date` lấy từ tên thư mục nên ra kiểu chuỗi; Spark đọc ra kiểu `date`.
 
 Ghi chú khi đọc tầng clean:
 
