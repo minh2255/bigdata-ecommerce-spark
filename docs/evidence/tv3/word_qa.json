@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "pages": 12,
+  "chapter_2_2_pages": [
+    1,
+    2,
+    3
+  ],
+  "chapter_5_pages": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "uniform_font_size_pt": 12,
+  "black_text_and_table_borders": true,
+  "all_12_pages_visually_inspected": true,
+  "monochrome_pixel_check": {
+    "page-1.png": 0,
+    "page-10.png": 0,
+    "page-11.png": 0,
+    "page-12.png": 0,
+    "page-2.png": 0,
+    "page-3.png": 0,
+    "page-4.png": 0,
+    "page-5.png": 0,
+    "page-6.png": 0,
+    "page-7.png": 0,
+    "page-8.png": 0,
+    "page-9.png": 0
+  },
+  "renderer": "Microsoft Word PDF export + packaged render_docx.rasterize + bundled Poppler",
+  "bundled_libreoffice_available": false,
+  "qa_files": "data/reports/tv3_handoff_20261018/word_qa/final",
+  "docx_sha256": "b44b72d0cfa74d12d801b06263bf3de2c8b6dc352af750cfcf66fc2970a4be59"
+}

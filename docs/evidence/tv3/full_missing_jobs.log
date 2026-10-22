@@ -1,0 +1,4 @@
+[MISSING] 01_profiling.py
+[MISSING] 03_aggregation.py
+[ERROR] Required source missing; no Spark job started
+[EXIT] stage=source-preflight code=3 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T163717Z-994.log

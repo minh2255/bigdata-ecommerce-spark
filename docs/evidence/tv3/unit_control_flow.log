@@ -1,0 +1,12 @@
+test_bad_compose_config (__main__.PipelineControlTests.test_bad_compose_config) ... ok
+test_clean_only_does_not_require_other_sources (__main__.PipelineControlTests.test_clean_only_does_not_require_other_sources) ... ok
+test_data_preflight_failure (__main__.PipelineControlTests.test_data_preflight_failure) ... ok
+test_full_order_stops_at_cleaning (__main__.PipelineControlTests.test_full_order_stops_at_cleaning) ... ok
+test_invalid_memory (__main__.PipelineControlTests.test_invalid_memory) ... ok
+test_missing_job_stops_before_docker (__main__.PipelineControlTests.test_missing_job_stops_before_docker) ... ok
+test_submit_error_is_preserved_with_spaces (__main__.PipelineControlTests.test_submit_error_is_preserved_with_spaces) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.207s
+
+OK

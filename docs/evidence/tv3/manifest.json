@@ -1,0 +1,289 @@
+[
+  {
+    "file": "integration_summary.json",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\summary.json",
+    "purpose": "26 recorded steps including unit suite; real Spark edge fixtures; same host only",
+    "bytes": 6291,
+    "sha256": "52c1025fa119de9372eaed283e3b03518353c98d76f90247ee9615c303110f2b"
+  },
+  {
+    "file": "unit_control_flow.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\unit_control_flow.log",
+    "purpose": "Seven shell unit tests with deliberately failing mock Docker; not Spark full-pipeline proof",
+    "bytes": 849,
+    "sha256": "e51594f68edd958f997d6c43cb18c1865edf417f7a9eb86cddc5d03d13dc6931"
+  },
+  {
+    "file": "full_missing_jobs.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\full_missing_jobs.log",
+    "purpose": "Actual full mode exit 3 before submit; missing TV2/TV4 jobs",
+    "bytes": 233,
+    "sha256": "d26cf896be771d5bb727e9134c2a98decea42d32188e79f12660bbfa65373fcd"
+  },
+  {
+    "file": "mixed_cleaning_metrics.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\mixed case\\reports\\cleaning_metrics.json",
+    "purpose": "Synthetic mixed fixture, current TV3 implementation",
+    "bytes": 1206,
+    "sha256": "42ff59d843b11fa20f1cac87fb34336aa56df4b5dbf44293ed49a97d1fb200fd"
+  },
+  {
+    "file": "mixed_cleaning_schema.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\mixed case\\reports\\cleaning_schema.json",
+    "purpose": "Synthetic mixed fixture, current TV3 implementation",
+    "bytes": 1560,
+    "sha256": "311feeffeaf6500bf09ee18e39fc43b4712758467781d7cd323e6a7248115d32"
+  },
+  {
+    "file": "mixed_tv3_validation.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\mixed case\\reports\\tv3_validation.json",
+    "purpose": "Synthetic mixed fixture, current TV3 implementation",
+    "bytes": 937,
+    "sha256": "6e48601969f1928ff8c64e362fd7e27ad9327b177f94df41df360c8271540e2a"
+  },
+  {
+    "file": "mixed_cleaning_validation_spark.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\mixed case\\reports\\cleaning_validation_spark.json",
+    "purpose": "Synthetic mixed fixture, current TV3 implementation",
+    "bytes": 692,
+    "sha256": "83cbf91d7bb7b0012cf81347342a0cff0bcc0d9ce19949d8f569cf08e821ffde"
+  },
+  {
+    "file": "mixed_pipeline_selected.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\mixed_pipeline.log",
+    "purpose": "Selected real pipeline markers; verbose Spark log retained in ignored data",
+    "bytes": 912,
+    "sha256": "c2672e7d2fcdaae50081bc5f5146361217e0e1e6144f46a4166e7d401bfa9b6c"
+  },
+  {
+    "file": "mixed_overwrite_guard.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\mixed_overwrite_guard.log",
+    "purpose": "Actual preflight refuses existing output; runner verifies file and metrics hashes",
+    "bytes": 221,
+    "sha256": "5594014612d1a9b8fc1ed9ffda208188bedd1a55972cb1c760f7ba20d7fc006e"
+  },
+  {
+    "file": "empty_cleaning_metrics.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\empty case\\reports\\cleaning_metrics.json",
+    "purpose": "Synthetic empty fixture, current TV3 implementation",
+    "bytes": 1208,
+    "sha256": "917e1a471b6b683d3118daec177931076fb50606f313f05959261afd99ca1f24"
+  },
+  {
+    "file": "empty_cleaning_schema.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\empty case\\reports\\cleaning_schema.json",
+    "purpose": "Synthetic empty fixture, current TV3 implementation",
+    "bytes": 1560,
+    "sha256": "311feeffeaf6500bf09ee18e39fc43b4712758467781d7cd323e6a7248115d32"
+  },
+  {
+    "file": "empty_tv3_validation.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\empty case\\reports\\tv3_validation.json",
+    "purpose": "Synthetic empty fixture, current TV3 implementation",
+    "bytes": 893,
+    "sha256": "318caa24464cbf11a346769090af656342004948332d9e0fd314b3b35335d7ce"
+  },
+  {
+    "file": "empty_cleaning_validation_spark.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\empty case\\reports\\cleaning_validation_spark.json",
+    "purpose": "Synthetic empty fixture, current TV3 implementation",
+    "bytes": 691,
+    "sha256": "dbd8aa7cf56b401437de989b2b6633ef653c3a297a1f37517ba19610f247f152"
+  },
+  {
+    "file": "empty_pipeline_selected.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\empty_pipeline.log",
+    "purpose": "Selected real pipeline markers; verbose Spark log retained in ignored data",
+    "bytes": 904,
+    "sha256": "cc079fe603b1d7e0446510bfc57aa34257832a4d3927c3232861e19baba73415"
+  },
+  {
+    "file": "empty_overwrite_guard.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\empty_overwrite_guard.log",
+    "purpose": "Actual preflight refuses existing output; runner verifies file and metrics hashes",
+    "bytes": 220,
+    "sha256": "154911199753912520e97dc065008be8b65fe956edef8e71554bb1e154f3ba09"
+  },
+  {
+    "file": "all-invalid_cleaning_metrics.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\all-invalid case\\reports\\cleaning_metrics.json",
+    "purpose": "Synthetic all-invalid fixture, current TV3 implementation",
+    "bytes": 1213,
+    "sha256": "16a1bd62dfa3b1fd3f87760c19bd6828a402f1d9e9d293f4c9d91b99d0bd7cda"
+  },
+  {
+    "file": "all-invalid_cleaning_schema.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\all-invalid case\\reports\\cleaning_schema.json",
+    "purpose": "Synthetic all-invalid fixture, current TV3 implementation",
+    "bytes": 1560,
+    "sha256": "311feeffeaf6500bf09ee18e39fc43b4712758467781d7cd323e6a7248115d32"
+  },
+  {
+    "file": "all-invalid_tv3_validation.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\all-invalid case\\reports\\tv3_validation.json",
+    "purpose": "Synthetic all-invalid fixture, current TV3 implementation",
+    "bytes": 893,
+    "sha256": "5802c939146751b7b8c04bc057903fb50f15c74b9b02eae5311e187595b54282"
+  },
+  {
+    "file": "all-invalid_cleaning_validation_spark.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\all-invalid case\\reports\\cleaning_validation_spark.json",
+    "purpose": "Synthetic all-invalid fixture, current TV3 implementation",
+    "bytes": 691,
+    "sha256": "6aec92353a749f396be7e50260b31e60de798dbe03a81da2e5658cd35462f1bd"
+  },
+  {
+    "file": "all-invalid_pipeline_selected.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\all-invalid_pipeline.log",
+    "purpose": "Selected real pipeline markers; verbose Spark log retained in ignored data",
+    "bytes": 924,
+    "sha256": "14990f027ca25fb2d55fd9f49bccdef1caac06eca103c3dc2cea3521023648a0"
+  },
+  {
+    "file": "all-invalid_overwrite_guard.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\all-invalid_overwrite_guard.log",
+    "purpose": "Actual preflight refuses existing output; runner verifies file and metrics hashes",
+    "bytes": 220,
+    "sha256": "3643765bee5122d1d9c65aba6b3c0ba0098e690601b91e2fbcda967b3386d227"
+  },
+  {
+    "file": "valid-repeat_cleaning_metrics.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\valid-repeat case\\reports\\cleaning_metrics.json",
+    "purpose": "Synthetic valid-repeat fixture, current TV3 implementation",
+    "bytes": 1210,
+    "sha256": "a6a1f41df8eebf1a9d03cd7843e096dce466ef75bff4dd2f107cdecd5f3965fd"
+  },
+  {
+    "file": "valid-repeat_cleaning_schema.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\valid-repeat case\\reports\\cleaning_schema.json",
+    "purpose": "Synthetic valid-repeat fixture, current TV3 implementation",
+    "bytes": 1560,
+    "sha256": "311feeffeaf6500bf09ee18e39fc43b4712758467781d7cd323e6a7248115d32"
+  },
+  {
+    "file": "valid-repeat_tv3_validation.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\valid-repeat case\\reports\\tv3_validation.json",
+    "purpose": "Synthetic valid-repeat fixture, current TV3 implementation",
+    "bytes": 933,
+    "sha256": "db0a798f9aac1a9756909eced8330bbf322a22fea5842204d59f87e17cd2ed43"
+  },
+  {
+    "file": "valid-repeat_cleaning_validation_spark.json",
+    "origin": "data\\tv3 handoff 20261018_233715_9e89b2\\valid-repeat case\\reports\\cleaning_validation_spark.json",
+    "purpose": "Synthetic valid-repeat fixture, current TV3 implementation",
+    "bytes": 691,
+    "sha256": "04d6bd0ec8ec94b132b28bca24507b526ed6bf028440fe168d8fbfb70f955ae7"
+  },
+  {
+    "file": "valid-repeat_pipeline_selected.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\valid-repeat_pipeline.log",
+    "purpose": "Selected real pipeline markers; verbose Spark log retained in ignored data",
+    "bytes": 806,
+    "sha256": "c90fb2be43761fd0f752148c6701452f9ccc16bf94572075b281fb13b27c0194"
+  },
+  {
+    "file": "valid-repeat_overwrite_guard.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\valid-repeat_overwrite_guard.log",
+    "purpose": "Actual preflight refuses existing output; runner verifies file and metrics hashes",
+    "bytes": 220,
+    "sha256": "9b4d31b01f62654475e65a0e48e20d2c087e4e352b4eba553dc262962b241010"
+  },
+  {
+    "file": "missing-input.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\missing-input.log",
+    "purpose": "Actual input preflight failure, no ingest started",
+    "bytes": 200,
+    "sha256": "38e8e682132a0ff34010ed5ef391811e13d4dcc52bd84fadf4a290b6ad214c4c"
+  },
+  {
+    "file": "mixed-input.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\mixed-input.log",
+    "purpose": "Actual input preflight failure, no ingest started",
+    "bytes": 230,
+    "sha256": "bbb89f58e07677e28f57dec9b1b58e2bc76f759a3d1b2931c4c4a6a95ae57a62"
+  },
+  {
+    "file": "bad-header.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233715_9e89b2\\bad-header.log",
+    "purpose": "Actual input preflight failure, no ingest started",
+    "bytes": 231,
+    "sha256": "8b72d281eeaff9edd92baab49042b1da1c33a944f24574702c9bb263bab64c59"
+  },
+  {
+    "file": "fixture_guard_final.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\fixture_guard_final.log",
+    "purpose": "Final synthetic-provenance and 10000-row guard checks; no Spark rerun",
+    "bytes": 171,
+    "sha256": "7385a4335c2faea58c43a94c6b6e2a4720b15fcca503e3aaaddd7d521f83eb33"
+  },
+  {
+    "file": "initial_git_bash_path_failure.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261018_233703_57a409\\mixed_pipeline.log",
+    "purpose": "Preserved failed first attempt; Compose path fixed before successful suite",
+    "bytes": 312,
+    "sha256": "9ad8d01e39c5f50fbf5d0027214951773fbb1d1abbcf29adbbe502b5b168e9f5"
+  },
+  {
+    "file": "baseline_synthetic_cleaning_metrics.json",
+    "origin": "data\\synthetic_tv3_20261018_optimized\\reports\\cleaning_metrics.json",
+    "purpose": "Historical verified 201995 -> 197973 baseline; not rerun",
+    "bytes": 600,
+    "sha256": "0eb3efd7aec2537ca64af0c89a99645e246d5e5f5bf86b999e42bf42360ea60d"
+  },
+  {
+    "file": "baseline_historical_independent_validation.json",
+    "origin": "data\\synthetic_tv3_20261018_optimized\\reports\\tv3_validation.json",
+    "purpose": "Historical whole-value check using previous checker on synthetic; current checker is bounded",
+    "bytes": 970,
+    "sha256": "004eed9d3b4b2d93bf424f037e2fe3a7a284779b96f12d8b47c1d9cc93bbe0a9"
+  },
+  {
+    "file": "baseline_current_distributed_validation.json",
+    "origin": "data\\synthetic_tv3_20261018_optimized\\reports\\cleaning_validation_spark.json",
+    "purpose": "Current distributed schema/count/constraints validation, 0 invalid; not raw-to-clean full equivalence",
+    "bytes": 712,
+    "sha256": "ba71798dfb360043a9a476caea6a700467db7214efeb5c0e9179f1cf0420509f"
+  },
+  {
+    "file": "baseline_cleaning_synthetic.png",
+    "origin": "data\\synthetic_tv3_20261018_optimized\\reports\\tv3_cleaning_synthetic.png",
+    "purpose": "Historical quality chart only; no benchmark rerun",
+    "bytes": 51624,
+    "sha256": "e303468627958c5ab7d531bf8fd3bf1d497b7da1b7813e03d8eaaee189115dba"
+  },
+  {
+    "file": "spark_master_2_workers.png",
+    "origin": "data\\reports\\tv3_setup_20261018\\spark_master_2_workers.png",
+    "purpose": "Historical two-worker cluster screenshot",
+    "bytes": 37774,
+    "sha256": "ed043f607337e470e08a0420023e03f6a8f8733a2fdb02b2f10416039d0c9f7e"
+  },
+  {
+    "file": "cleaning_jobs.png",
+    "origin": "data\\reports\\tv3_setup_20261018\\cleaning_jobs.png",
+    "purpose": "Historical UI during first cleaning attempt later interrupted; NOT successful-final-run proof",
+    "bytes": 84239,
+    "sha256": "ac53c38a87488124ff97bf83c3b5857f1050f37699b0651a9fd62c330c56c8e0"
+  },
+  {
+    "file": "cleaning_stages.png",
+    "origin": "data\\reports\\tv3_setup_20261018\\cleaning_stages.png",
+    "purpose": "Historical UI during first cleaning attempt later interrupted; NOT successful-final-run proof",
+    "bytes": 80887,
+    "sha256": "efb7f3f76dba017be34ae5a72efa97621c863cadd7aabd3da1fc01b111d5217c"
+  },
+  {
+    "file": "cleaning_sql.png",
+    "origin": "data\\reports\\tv3_setup_20261018\\cleaning_sql.png",
+    "purpose": "Historical UI during first cleaning attempt later interrupted; NOT successful-final-run proof",
+    "bytes": 78416,
+    "sha256": "c438c1bf140e235851392463d250a194b47375b4e27fac11baca73070292cde7"
+  },
+  {
+    "file": "kb5_cleaning_steps.csv",
+    "origin": "Selected metrics files; see CSV source column",
+    "purpose": "Support data for TV2 KB5, not official profiling",
+    "bytes": 5050,
+    "sha256": "522048cc7035bff204b35e4b2c656dc1f28b083e5f1b57d394394adba48eee02"
+  }
+]

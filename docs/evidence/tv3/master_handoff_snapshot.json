@@ -1,0 +1,22 @@
+{
+  "url": "http://localhost:8080/json/",
+  "captured_utc": "2026-10-18T16:54:10.0861931Z",
+  "workers": [
+    {
+      "id": "worker-20261018160210-172.18.0.4-36483",
+      "state": "ALIVE",
+      "cores": 2,
+      "memory": 2048,
+      "coresused": 0,
+      "memoryused": 0
+    },
+    {
+      "id": "worker-20261018160210-172.18.0.3-35373",
+      "state": "ALIVE",
+      "cores": 2,
+      "memory": 2048,
+      "coresused": 0,
+      "memoryused": 0
+    }
+  ]
+}

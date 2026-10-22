@@ -1,0 +1,45 @@
+{
+  "data_dir": "/data/tv3 handoff 20261018_233715_9e89b2/empty case",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 0,
+    "after_dedup": 0,
+    "after_timestamp": 0,
+    "after_event_type": 0,
+    "after_price": 0,
+    "after_identity": 0,
+    "written": 0
+  },
+  "removed": {
+    "raw_to_after_dedup": 0,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 0,
+    "after_event_type_to_after_price": 0,
+    "after_price_to_after_identity": 0
+  },
+  "stage_seconds": {
+    "raw": 2.65,
+    "after_dedup": 0.245,
+    "after_timestamp": 0.223,
+    "after_event_type": 0.198,
+    "after_price": 0.205,
+    "after_identity": 0.183,
+    "write": 2.092,
+    "readback_count": 0.932
+  },
+  "status": "SUCCESS_EMPTY",
+  "data_kind": "synthetic",
+  "application_id": "app-20261018163830-0043",
+  "empty_output": true,
+  "partition_columns": [
+    "event_date"
+  ],
+  "extensions_pending_tv2": [
+    "finite price (reject NaN/Inf)",
+    "reject whitespace-only session",
+    "blank category/brand becomes unknown"
+  ],
+  "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
+  "seconds": 10.221,
+  "rules_source": "BD_Project.docx section 5.3; TV2 contract pending"
+}

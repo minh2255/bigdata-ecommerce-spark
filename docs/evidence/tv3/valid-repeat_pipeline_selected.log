@@ -1,0 +1,11 @@
+[PREFLIGHT] mode=--clean-only root=/data/tv3 handoff 20261018_233715_9e89b2/valid-repeat case data_kind=synthetic; inputs/config/output guards PASS
+[RUN] 02_cleaning.py  DATA_DIR=/data/tv3 handoff 20261018_233715_9e89b2/valid-repeat case
+[CLEAN] raw=3 removed=0 stage_seconds=2.926
+[CLEAN] after_dedup=3 removed=0 stage_seconds=5.072
+[CLEAN] after_timestamp=3 removed=0 stage_seconds=2.022
+[CLEAN] after_event_type=3 removed=0 stage_seconds=2.175
+[CLEAN] after_price=3 removed=0 stage_seconds=2.09
+[CLEAN] after_identity=3 removed=0 stage_seconds=1.822
+[CLEAN] raw=3 after_dedup=3 after_filter=3 time=25.213s
+[DONE TV3] mode=--clean-only; profiling and aggregation were not run
+[EXIT] stage=complete code=0 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261018T164014Z-186.log

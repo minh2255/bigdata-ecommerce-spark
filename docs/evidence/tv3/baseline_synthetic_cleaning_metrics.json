@@ -1,0 +1,22 @@
+{
+  "data_dir": "/data/synthetic_tv3_20261018_optimized",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 201995,
+    "after_dedup": 200000,
+    "after_timestamp": 200000,
+    "after_event_type": 200000,
+    "after_price": 197973,
+    "after_identity": 197973,
+    "written": 197973
+  },
+  "removed": {
+    "raw_to_after_dedup": 1995,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 0,
+    "after_event_type_to_after_price": 2027,
+    "after_price_to_after_identity": 0
+  },
+  "seconds": 32.46,
+  "rules_source": "BD_Project.docx section 5.3; TV2 contract pending"
+}

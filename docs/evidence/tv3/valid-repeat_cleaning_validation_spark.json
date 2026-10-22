@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "scope": "distributed constraints/count/schema; not full raw-to-clean value equivalence",
+  "data_kind": "synthetic",
+  "result": {
+    "rows": 3,
+    "invalid_rows": 0,
+    "dates": 2
+  },
+  "raw_rows": 3,
+  "schema": {
+    "event_type": "string",
+    "product_id": "bigint",
+    "category_id": "bigint",
+    "category_code": "string",
+    "brand": "string",
+    "price": "double",
+    "user_id": "bigint",
+    "user_session": "string",
+    "event_ts": "timestamp",
+    "cat_l1": "string",
+    "cat_l2": "string",
+    "event_hour": "int",
+    "day_of_week": "string",
+    "event_date": "date"
+  },
+  "timezone": "UTC",
+  "application_id": "app-20261018164050-0050"
+}

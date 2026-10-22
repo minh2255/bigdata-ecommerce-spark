@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "data_kind": "SYNTHETIC_TEST_ONLY",
+  "counts": {
+    "raw": 3,
+    "after_dedup": 3,
+    "after_timestamp": 3,
+    "after_event_type": 3,
+    "after_price": 3,
+    "after_identity": 3,
+    "written": 3
+  },
+  "date_partitions": 2,
+  "parquet_files": 2,
+  "schema": "event_type: string\nproduct_id: int64\ncategory_id: int64\ncategory_code: string\nbrand: string\nprice: double\nuser_id: int64\nuser_session: string\nevent_ts: timestamp[ns]\ncat_l1: string\ncat_l2: string\nevent_hour: int32\nday_of_week: string\nevent_date: dictionary<values=string, indices=int32, ordered=0>\n-- schema metadata --\norg.apache.spark.version: '3.5.9'\norg.apache.spark.sql.parquet.row.metadata: '{\"type\":\"struct\",\"fields\":[{\"' + 865",
+  "checks": [
+    "all output values vs independent Python rules",
+    "per-stage counts",
+    "UTC derived columns",
+    "date partitions",
+    "invalid prices and identities"
+  ]
+}
