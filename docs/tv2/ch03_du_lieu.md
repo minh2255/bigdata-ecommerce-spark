@@ -34,7 +34,7 @@ Bảng 3.2. Các bất thường trên dữ liệu raw
 | --- | --- | --- | --- |
 | Dòng trùng cả 9 cột | 30.220 | 0,07% | Có thật; làm sai số đếm và doanh thu nếu để nguyên |
 | `price = 0` | 68.673 | 0,16% | 68.523 dòng `view`, 150 dòng `cart`, **không có `purchase`** nên loại không làm lệch doanh thu |
-| `user_session` rỗng | 2 | ≈ 0 | Cả hai là sự kiện `cart`; không gán được vào phiên nào |
+| `user_session` thiếu (ô rỗng trong CSV, đọc thành null) | 2 | ≈ 0 | Cả hai là sự kiện `cart`; không gán được vào phiên nào |
 | `category_code` null | 13.515.609 | 31,8% | Rất lớn; nếu loại dòng sẽ mất gần một phần ba dữ liệu |
 | `brand` null | 6.113.008 | 14,4% | Như trên |
 | `category_code` sâu 3 cấp | 36.242 | 0,09% | Clean chỉ giữ 2 cấp đầu |
