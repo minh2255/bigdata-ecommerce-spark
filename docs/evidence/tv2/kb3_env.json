@@ -1,0 +1,17 @@
+{
+  "data_dir": "/data/real_oct_run01",
+  "repeats": 3,
+  "csv_files": [
+    "/data/real_oct_run01/landing/2019-Oct.csv"
+  ],
+  "cpu_count_in_container": 8,
+  "mem_total_gb_in_container": 4.8,
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "spark_version": "3.5.9",
+  "default_parallelism": 2,
+  "executor_memory": "2g",
+  "driver_memory": "2g",
+  "master": "spark://spark-master:7077",
+  "application_id": "app-20261102083157-0027",
+  "note": "Cụm Docker: 1 master + 2 worker; số core/RAM worker lấy từ docker-compose.yml"
+}

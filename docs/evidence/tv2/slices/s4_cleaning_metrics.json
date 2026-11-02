@@ -1,0 +1,45 @@
+{
+  "data_dir": "/data/real_oct_s4",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 6158388,
+    "after_dedup": 6153300,
+    "after_timestamp": 6153300,
+    "after_event_type": 6153300,
+    "after_price": 6140662,
+    "after_identity": 6140662,
+    "written": 6140662
+  },
+  "removed": {
+    "raw_to_after_dedup": 5088,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 0,
+    "after_event_type_to_after_price": 12638,
+    "after_price_to_after_identity": 0
+  },
+  "stage_seconds": {
+    "raw": 20.816,
+    "after_dedup": 131.429,
+    "after_timestamp": 48.832,
+    "after_event_type": 24.642,
+    "after_price": 26.584,
+    "after_identity": 27.111,
+    "write": 87.733,
+    "readback_count": 2.746
+  },
+  "status": "SUCCESS",
+  "data_kind": "real",
+  "application_id": "app-20261102074833-0011",
+  "empty_output": false,
+  "partition_columns": [
+    "event_date"
+  ],
+  "extensions_pending_tv2": [
+    "finite price (reject NaN/Inf)",
+    "reject whitespace-only session",
+    "blank category/brand becomes unknown"
+  ],
+  "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
+  "seconds": 377.607,
+  "rules_source": "BD_Project.docx section 5.3; TV2 contract pending"
+}

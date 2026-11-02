@@ -137,7 +137,7 @@ Ghi chú khi đọc tầng clean:
 
 - **Đọc từ gốc `clean/events`**, không đọc thẳng một thư mục ngày; như vậy Spark mới nhận ra cột `event_date` từ tên thư mục. Khi đọc lại, Spark đưa cột phân vùng `event_date` xuống **cuối** schema, nên thứ tự cột lúc đọc khác thứ tự trong `cleaning_schema.json`.
 - Spark khai báo mọi cột là `nullable = true`, kể cả các cột đã đảm bảo không null. Bất biến nghiệp vụ được kiểm bằng `jobs/01_profiling.py clean` (mục `invariants` trong `profiling_clean.json`), không dựa vào cờ nullable.
-- `unknown` là nhãn quy ước, không phải thương hiệu hay danh mục thật. Trên 3 triệu dòng đầu, `brand = unknown` chiếm 14,5% và `cat_l1 = unknown` chiếm 31,4%.
+- `unknown` là nhãn quy ước, không phải thương hiệu hay danh mục thật. Trên toàn tháng 10 (42.349.872 dòng clean), `brand = unknown` chiếm 14,27% (6.043.456 dòng) và `cat_l1 = unknown` chiếm 31,82% (13.475.214 dòng); trên 3 triệu dòng đầu là 14,5% và 31,4%.
 - Clean có thể có dòng giống nhau, vì dedup chạy trên raw **trước** khi chuẩn hóa. Các job sau không `dropDuplicates` lại (contract mục 2).
 - Tập rỗng hợp lệ: khi mọi dòng bị loại, `clean/events` không có thư mục ngày nhưng vẫn có một file Parquet mang schema, và `cleaning_metrics.json` có `status = SUCCESS_EMPTY`.
 

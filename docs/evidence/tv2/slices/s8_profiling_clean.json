@@ -1,0 +1,112 @@
+{
+  "layer": "clean",
+  "data_dir": "/data/real_oct_s8",
+  "timezone": "UTC",
+  "status": "SUCCESS",
+  "rows": 3676178,
+  "columns": [
+    "event_type",
+    "product_id",
+    "category_id",
+    "category_code",
+    "brand",
+    "price",
+    "user_id",
+    "user_session",
+    "event_ts",
+    "cat_l1",
+    "cat_l2",
+    "event_hour",
+    "day_of_week",
+    "event_date"
+  ],
+  "duplicate_rows": 0,
+  "duplicate_ratio": 0.0,
+  "nulls": {
+    "event_type": 0,
+    "product_id": 0,
+    "category_id": 0,
+    "category_code": 1179435,
+    "brand": 0,
+    "price": 0,
+    "user_id": 0,
+    "user_session": 0,
+    "event_ts": 0,
+    "cat_l1": 0,
+    "cat_l2": 0,
+    "event_hour": 0,
+    "day_of_week": 0,
+    "event_date": 0
+  },
+  "blank_strings": {
+    "event_type": 0,
+    "category_code": 0,
+    "brand": 0,
+    "user_session": 0,
+    "cat_l1": 0,
+    "cat_l2": 0,
+    "day_of_week": 0
+  },
+  "price": {
+    "price_null": 0,
+    "price_le_0": 0,
+    "price_negative": 0,
+    "price_zero": 0,
+    "price_nan": 0,
+    "price_inf": 0,
+    "price_min": 0.77,
+    "price_max": 2574.07,
+    "price_mean": 289.93413016458584
+  },
+  "price_le_0_ratio": 0.0,
+  "event_type_counts": {
+    "cart": 49360,
+    "purchase": 61284,
+    "view": 3565534
+  },
+  "event_type_invalid": 0,
+  "ids": {
+    "user_id_le_0": 0,
+    "product_id_le_0": 0,
+    "category_id_le_0": 0,
+    "session_not_uuid": 0
+  },
+  "distinct_approx": {
+    "users": 535875,
+    "sessions": 863951,
+    "products": 107872
+  },
+  "timestamp_min": "2019-10-29 00:00:00",
+  "timestamp_max": "2019-10-31 23:59:59",
+  "date_range": {
+    "min": "2019-10-29",
+    "max": "2019-10-31"
+  },
+  "event_hour_range": {
+    "min": 0,
+    "max": 23
+  },
+  "unknown_ratio": {
+    "brand": 0.157846,
+    "cat_l1": 0.320832,
+    "cat_l2": 0.320832,
+    "brand_rows": 580271,
+    "cat_l1_rows": 1179435,
+    "cat_l2_rows": 1179435
+  },
+  "invariants": {
+    "no_price_le_0": true,
+    "no_price_nan_or_inf": true,
+    "no_null_required_columns": true,
+    "no_blank_session": true,
+    "event_type_valid": true,
+    "event_hour_0_23": true,
+    "day_of_week_valid": true,
+    "date_within_raw_range": true,
+    "rows_not_more_than_raw_distinct": true,
+    "all_pass": true
+  },
+  "profile_seconds": 37.513,
+  "data_kind": "real",
+  "application_id": "app-20261102082614-0025"
+}

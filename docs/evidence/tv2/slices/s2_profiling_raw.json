@@ -1,0 +1,80 @@
+{
+  "layer": "raw",
+  "data_dir": "/data/real_oct_s2",
+  "timezone": "UTC",
+  "status": "SUCCESS",
+  "rows": 5219882,
+  "columns": [
+    "event_time",
+    "event_type",
+    "product_id",
+    "category_id",
+    "category_code",
+    "brand",
+    "price",
+    "user_id",
+    "user_session"
+  ],
+  "duplicate_rows": 3333,
+  "duplicate_ratio": 0.000639,
+  "nulls": {
+    "event_time": 0,
+    "event_type": 0,
+    "product_id": 0,
+    "category_id": 0,
+    "category_code": 1752335,
+    "brand": 726354,
+    "price": 0,
+    "user_id": 0,
+    "user_session": 1
+  },
+  "blank_strings": {
+    "event_time": 0,
+    "event_type": 0,
+    "category_code": 0,
+    "brand": 0,
+    "user_session": 0
+  },
+  "price": {
+    "price_null": 0,
+    "price_le_0": 9795,
+    "price_negative": 0,
+    "price_zero": 9795,
+    "price_nan": 0,
+    "price_inf": 0,
+    "price_min": 0.0,
+    "price_max": 2574.07,
+    "price_mean": 292.9227733557825
+  },
+  "price_le_0_ratio": 0.001876,
+  "event_type_counts": {
+    "cart": 104137,
+    "purchase": 90115,
+    "view": 5025630
+  },
+  "event_type_invalid": 0,
+  "ids": {
+    "user_id_le_0": 0,
+    "product_id_le_0": 0,
+    "category_id_le_0": 0,
+    "session_not_uuid": 0
+  },
+  "distinct_approx": {
+    "users": 645963,
+    "sessions": 1139756,
+    "products": 108175
+  },
+  "timestamp_min": "2019-10-05 00:00:00",
+  "timestamp_max": "2019-10-08 23:59:59",
+  "event_time": {
+    "bad_format": 0,
+    "unparsable": 0
+  },
+  "brand_normalization_needed": {
+    "has_upper": 0,
+    "has_outer_space": 0
+  },
+  "profile_seconds": 86.313,
+  "data_kind": "real",
+  "application_id": "app-20261102073546-0006"
+}
