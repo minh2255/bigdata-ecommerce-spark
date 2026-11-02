@@ -1,0 +1,124 @@
+{
+ "data_dir": "/data/real_oct_full",
+ "note": "Merged from 8 day-slices (real_oct_s1..s8) because the full 42.4M-row cleaning ran out of executor memory on an 8 GB machine. Duplicates share event_time, so per-slice dedup equals whole-month dedup.",
+ "counts": {
+  "raw": 42448764,
+  "after_dedup": 42418544,
+  "after_timestamp": 42418544,
+  "after_event_type": 42418544,
+  "after_price": 42349874,
+  "after_identity": 42349872,
+  "written": 42349872
+ },
+ "removed": {
+  "raw_to_after_dedup": 30220,
+  "after_dedup_to_written": 68672
+ },
+ "cleaning_seconds_total": 2552.5,
+ "slices": [
+  {
+   "slice": 1,
+   "counts": {
+    "raw": 4980066,
+    "after_dedup": 4977131,
+    "after_timestamp": 4977131,
+    "after_event_type": 4977131,
+    "after_price": 4970309,
+    "after_identity": 4970309,
+    "written": 4970309
+   },
+   "seconds": 392.682
+  },
+  {
+   "slice": 2,
+   "counts": {
+    "raw": 5219882,
+    "after_dedup": 5216549,
+    "after_timestamp": 5216549,
+    "after_event_type": 5216549,
+    "after_price": 5206754,
+    "after_identity": 5206753,
+    "written": 5206753
+   },
+   "seconds": 322.26
+  },
+  {
+   "slice": 3,
+   "counts": {
+    "raw": 5606859,
+    "after_dedup": 5604004,
+    "after_timestamp": 5604004,
+    "after_event_type": 5604004,
+    "after_price": 5592259,
+    "after_identity": 5592259,
+    "written": 5592259
+   },
+   "seconds": 382.097
+  },
+  {
+   "slice": 4,
+   "counts": {
+    "raw": 6158388,
+    "after_dedup": 6153300,
+    "after_timestamp": 6153300,
+    "after_event_type": 6153300,
+    "after_price": 6140662,
+    "after_identity": 6140662,
+    "written": 6140662
+   },
+   "seconds": 377.607
+  },
+  {
+   "slice": 5,
+   "counts": {
+    "raw": 5848091,
+    "after_dedup": 5843106,
+    "after_timestamp": 5843106,
+    "after_event_type": 5843106,
+    "after_price": 5836241,
+    "after_identity": 5836241,
+    "written": 5836241
+   },
+   "seconds": 271.46
+  },
+  {
+   "slice": 6,
+   "counts": {
+    "raw": 5519915,
+    "after_dedup": 5515359,
+    "after_timestamp": 5515359,
+    "after_event_type": 5515359,
+    "after_price": 5507337,
+    "after_identity": 5507337,
+    "written": 5507337
+   },
+   "seconds": 289.63
+  },
+  {
+   "slice": 7,
+   "counts": {
+    "raw": 5432029,
+    "after_dedup": 5427614,
+    "after_timestamp": 5427614,
+    "after_event_type": 5427614,
+    "after_price": 5420134,
+    "after_identity": 5420133,
+    "written": 5420133
+   },
+   "seconds": 350.636
+  },
+  {
+   "slice": 8,
+   "counts": {
+    "raw": 3683534,
+    "after_dedup": 3681481,
+    "after_timestamp": 3681481,
+    "after_event_type": 3681481,
+    "after_price": 3676178,
+    "after_identity": 3676178,
+    "written": 3676178
+   },
+   "seconds": 166.162
+  }
+ ]
+}
