@@ -6,7 +6,7 @@
 
 **Mục tiêu.** Kiểm chứng hai lợi ích của Parquet đã nêu ở mục 2.1.3: nén tốt hơn và đọc nhanh hơn, đặc biệt khi chỉ cần một cột.
 
-**Cách đo.** Cùng một tập dữ liệu gốc `2019-Oct.csv` (42.448.764 dòng): bản CSV ở tầng landing và bản Parquet ở tầng raw do `00_ingest.py` tạo (ingest mất 173,5 giây). Job `jobs/kb3_csv_vs_parquet.py` đọc CSV với schema cố định (giống ingest, không `inferSchema`) và đo hai phép:
+**Cách đo.** Cùng một tập dữ liệu gốc `2019-Oct.csv` (42.448.764 dòng): bản CSV ở tầng landing và bản Parquet ở tầng raw do `00_ingest.py` tạo (ingest mất 173,5 giây, theo `ingest_log.csv`). Job `jobs/kb3_csv_vs_parquet.py` đọc CSV với schema cố định (giống ingest, không `inferSchema`) và đo hai phép:
 
 - `count()` toàn bộ;
 - `sum(price)`, chỉ cần một cột trong 9 cột.
@@ -51,7 +51,7 @@ Parquet nhanh hơn CSV khoảng 17,7 lần ở cả hai phép đo.
 
 **Cách làm.** Chạy `01_profiling.py raw` trên tầng raw và `01_profiling.py clean` trên tầng clean, so hai file JSON; đối chiếu với log `[CLEAN]` của TV3 (raw → dedup → lọc).
 
-**Phương pháp chạy.** Cleaning toàn bộ 42,4 triệu dòng trong một lần làm executor 2 GB hết bộ nhớ (hai lần thử, mã lỗi 52). Nhóm chia raw thành 8 lát theo ngày và chạy nguyên `02_cleaning.py` cho từng lát, rồi gộp. Cách này không đổi kết quả dedup vì dòng trùng có cùng `event_time`, tức luôn nằm trong cùng một lát. Số liệu từng lát: `docs/evidence/tv2/slices/`.
+**Phương pháp chạy.** Cleaning toàn bộ 42,4 triệu dòng trong một lần làm executor hết bộ nhớ (ba lần thử, mã lỗi 52). Nhóm chia raw thành 8 lát theo ngày và chạy nguyên `02_cleaning.py` cho từng lát, rồi gộp. Cách này không đổi kết quả dedup vì dòng trùng có cùng `event_time`, tức luôn nằm trong cùng một lát. Số liệu từng lát: `docs/evidence/tv2/slices/`.
 
 Bảng 6.3. Số dòng qua các bước cleaning (tổng 8 lát)
 
@@ -91,7 +91,7 @@ Bảng 6.4. So `profiling_raw` với `profiling_clean`
 1. Mọi lỗi định nghĩa trong contract (trùng, giá ≤ 0, session rỗng) đều về 0 ở clean; số dòng bị loại ở từng bước khớp số lỗi đếm được ở raw.
 2. `brand` và `category_code` thiếu không làm mất dòng: chúng được gán `unknown`, nên số dòng clean chỉ giảm 0,23% dù gần một phần ba dòng thiếu danh mục.
 3. **Lưu ý của TV3:** dedup chạy trên dòng raw, *trước* khi chuẩn hóa `brand`. Hai dòng chỉ khác chữ hoa/thường của `brand` không bị coi là trùng ở raw nhưng có thể giống nhau sau chuẩn hóa. Với dữ liệu thật, `brand` đã là chữ thường (0 dòng cần chuẩn hóa), nên hiện tượng này không xảy ra; contract vẫn giữ quy tắc phòng ngừa.
-4. **Dòng bị loại tập trung ở loại sự kiện nào.** `view` giảm 70.592 dòng, `cart` giảm 28.224, `purchase` giảm 76 (tổng 98.892). Giá bằng 0 chỉ có ở `view` (68.523) và `cart` (150), nên 76 dòng `purchase` bị loại đều là dòng trùng và doanh thu không bị ảnh hưởng. Đáng chú ý là `cart` mất ít nhất 28.074 dòng trùng (3,0% số `cart`), trong khi `view` chỉ mất khoảng 2.000 dòng trùng (0,005%): dòng trùng chủ yếu là sự kiện thêm giỏ hàng bị ghi lặp. Đây là suy luận từ hiệu số, chưa kiểm tra trực tiếp từng dòng.
+4. **Dòng bị loại tập trung ở loại sự kiện nào.** `view` giảm 70.592 dòng, `cart` giảm 28.224, `purchase` giảm 76 (tổng 98.892). Giá bằng 0 chỉ có ở `view` (68.523) và `cart` (150), nên 76 dòng `purchase` bị loại đều là bản trùng; doanh thu sau làm sạch phản ánh đúng hơn, không còn bị cộng lặp. Đáng chú ý là `cart` mất ít nhất 28.074 dòng trùng (3,0% số `cart`), trong khi `view` chỉ mất khoảng 2.000 dòng trùng (0,005%). Nhận định dòng trùng tập trung ở `cart` được suy ra từ hiệu số, chưa đếm trực tiếp theo `event_type`.
 5. Số dòng giá ≤ 0 bị loại (68.670) nhỏ hơn số đếm ở raw (68.673) đúng 3 dòng, vì 3 dòng đó là bản trùng đã bị loại ở bước dedup.
 
 **Minh chứng:** `docs/evidence/tv2/` (kb3.csv, kb3_env.json, cleaning_metrics_merged.json, slices/*, `profiling_raw.json`, `profiling_clean.json`).

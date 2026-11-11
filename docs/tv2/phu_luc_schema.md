@@ -19,19 +19,19 @@ Cây thư mục của một lần chạy (ví dụ `data/real_sample3m_run01`):
 ```text
 real_sample3m_run01/
 ├── landing/
-│   └── 2019-Oct_first3m.csv               383 MB
+│   └── 2019-Oct_first3m.csv               400.957.999 byte ≈ 382,4 MiB
 ├── raw/
 │   └── events/
 │       ├── _SUCCESS
 │       ├── part-00000-*.snappy.parquet
-│       └── part-00001-*.snappy.parquet     95 MB tổng
+│       └── part-00001-*.snappy.parquet     98.256.658 byte ≈ 93,7 MiB tổng
 ├── clean/
 │   └── events/
 │       ├── _SUCCESS
 │       ├── event_date=2019-10-01/
 │       │   └── part-*.c000.snappy.parquet
 │       ├── event_date=2019-10-02/
-│       └── event_date=2019-10-03/        150 MB tổng
+│       └── event_date=2019-10-03/          155.044.118 byte ≈ 147,9 MiB tổng
 └── reports/
     ├── ingest_log.csv
     ├── cleaning_metrics.json
