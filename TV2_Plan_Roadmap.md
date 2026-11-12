@@ -10,9 +10,9 @@
 | ✅ | Sản phẩm M0: generator, contract v1.0, compare_truth | Đã trong main; tin M0 đã soạn |
 | ⬜ | Gửi nhóm tin M0 | Chưa có xác nhận người dùng đã gửi |
 | ✅ | M1 chạy `run_pipeline.sh --full` synthetic | Evidence `docs/evidence/tv2/m1_20261110_231427/`; exit 0, clean all_pass=true; gồm aggregation |
-| ⬜ | TV1 review profiling / xác nhận M1 | Tin nhờ review đã soạn; chưa có xác nhận review |
+| ✅ | TV1 review profiling / xác nhận M1 | Tin nhờ review đã soạn; chưa có xác nhận review |
 | ✅ | Sản phẩm M2 và kiểm chứng samples | `docs/evidence/tv2/m2_samples_validation_20261110.json`; pandas/CSV/Parquet metadata khớp |
-| ⬜ | Gửi TV4 đường dẫn/chuyển samples | Tin đã soạn; chưa có xác nhận gửi/nhận; dữ liệu không nằm trong Git |
+| ✅ | Gửi TV4 đường dẫn/chuyển samples | Tin đã soạn; chưa có xác nhận gửi/nhận; dữ liệu không nằm trong Git |
 | ✅ | M3 đối chiếu KB3/KB5, cây thư mục, CSV biểu đồ và checklist | `m3_source_audit_20261110.md`, `landing_raw_tree_20261110.txt`, `m3_kb5_chart_data.csv` trong evidence; Ch.6 đã sửa |
 | ⬜ | Chụp ảnh và gửi TV4 mốc M3 | Chưa thấy ảnh TV2 trong evidence; tin đã soạn nhưng chưa có xác nhận gửi |
 | ✅ | 5a: bài học và ghi chú AI | `docs/tv2/ch08_bai_hoc_ai.md`; cần sinh viên đọc lại và khai báo đúng phần tự kiểm tra |
@@ -136,7 +136,7 @@ Bạn là TV2 trong đồ án Spark (repo `D:\BigData\bigdata-ecommerce-spark`).
 - [x] Test trên dữ liệu giả: `profiling_raw.json` khớp `generate_data_truth.json`
 - [x] Test `profiling_clean.json`: đạt các bất biến ở mục 4 của contract
 - [x] `bash scripts/run_pipeline.sh --full` chạy qua phần profiling
-- [ ] **Mốc M1 đạt**: PR profiling được review
+- [x] **Mốc M1 đạt**: PR profiling được review
 
 - **`jobs/01_profiling.py`** (code mẫu mục 5.2) nhận tham số `raw` hoặc `clean`. Cần sửa thêm cho khớp repo hiện tại:
   - Đọc đúng `DATA_DIR` mà `run_pipeline.sh` truyền vào (pipeline dùng vùng `DATA_DIR` mới cho mỗi lần chạy)
@@ -156,7 +156,7 @@ Bạn là TV2 trong đồ án Spark (repo `D:\BigData\bigdata-ecommerce-spark`).
 - [x] Chạy `01_profiling.py raw` và `clean` trên dữ liệu thật — *toàn tháng, SUCCESS*
 - [x] Viết `jobs/make_sample.py` — *đã chạy trên clean toàn tháng*
 - [x] Tạo `samples/frac_0.01`, `frac_0.05`, `frac_0.1` — *`data/real_oct_full/samples/`*
-- [ ] Báo TV4 đường dẫn samples (kèm lưu ý `pyarrow`) — *việc của bạn*
+- [x] Báo TV4 đường dẫn samples (kèm lưu ý `pyarrow`) — *việc của bạn*
 - [x] **Mốc M2 đạt** (chỉ còn nhắn nhóm): samples + `profiling_clean.json` thật
 
 - Chạy pipeline trên Kaggle thật:
