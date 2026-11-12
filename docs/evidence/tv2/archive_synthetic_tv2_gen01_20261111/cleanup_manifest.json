@@ -1,0 +1,55 @@
+{
+    "source_path":  "D:\\BigData\\bigdata-ecommerce-spark\\data\\synthetic_tv2_gen01",
+    "backup_path":  "D:\\BigData\\bigdata-ecommerce-spark\\docs\\evidence\\tv2\\archive_synthetic_tv2_gen01_20261111",
+    "backup_verified":  true,
+    "deleted":  false,
+    "original_files":  82,
+    "original_logical_bytes":  53170674,
+    "reports":  [
+                    {
+                        "file":  "cleaning_metrics.json",
+                        "bytes":  1224,
+                        "sha256":  "D033498A4D5D4E59C46AA75A23AAC72972519510B949380A4D311B03718B5DBC",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "cleaning_schema.json",
+                        "bytes":  1560,
+                        "sha256":  "311FEEFFEAF6500BF09EE18E39FC43B4712758467781D7CD323E6A7248115D32",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "generate_data_truth.json",
+                        "bytes":  227,
+                        "sha256":  "E8C3A5A9BD1C23570AB2AA58C5F61D962725414F2B833262E2A1939CEA0294D3",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "ingest_log.csv",
+                        "bytes":  28,
+                        "sha256":  "A10685AC9BFEA8B12685C2241442F2FD9E1B18F603322B236AE7CA514D2D7A3D",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "profiling_clean.json",
+                        "bytes":  2326,
+                        "sha256":  "B33B3622FFE32755D3E7771D6F5F3A19CC81165719C677DA2D31D75618A7B47D",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "profiling_raw.json",
+                        "bytes":  1681,
+                        "sha256":  "843832B2F0E33F61C69049C51F065E7C68808DC1BDEE0826681A74FF163AEAB1",
+                        "verified":  true
+                    },
+                    {
+                        "file":  "source.json",
+                        "bytes":  97,
+                        "sha256":  "1F4CDAF858DD1FB28F39AACC4DBDA3926422FA99B0E07C15FBF309D0AC2D852F",
+                        "verified":  true
+                    }
+                ],
+    "deletion_authorized_by_user":  true,
+    "deletion_blocked_by_policy":  true,
+    "deletion_rejection":  "rejected: blocked by policy"
+}

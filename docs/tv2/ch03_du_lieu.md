@@ -1,10 +1,10 @@
 # Chương 3. Dữ liệu và yêu cầu
 
-> Bản nháp TV2. Số trong mục 3.2 là kết quả quét toàn bộ file gốc (docs/data_contract.md, mục 7) và khớp với `profiling_raw.json` của 8 lát; số ở mục 3.3–3.4 lấy từ `cleaning_metrics.json` đã gộp (`data/real_oct_full/reports/`).
+> Số liệu toàn tháng lấy từ `profiling_raw.json`, `profiling_clean.json` và `cleaning_metrics_merged.json` trong `docs/evidence/tv2/`. Số liệu tập thử lấy từ `docs/evidence/tv2/audit_5b_sample3m/`. Các tỷ lệ dạng thập phân được giữ nguyên độ chính xác của JSON nguồn.
 
 ## 3.1 Nguồn dữ liệu
 
-Đồ án dùng bộ dữ liệu công khai *eCommerce behavior data from multi category store* trên Kaggle, file `2019-Oct.csv` (hành vi người dùng của một cửa hàng trực tuyến đa ngành hàng trong tháng 10/2019). File có dung lượng 5.668.612.855 byte (khoảng 5,7 GB) và 42.448.764 dòng. Mỗi dòng là một sự kiện của một người dùng trên website; thời gian trải từ 2019-10-01 00:00:00 đến 2019-10-31 23:59:59 (UTC).
+Đồ án dùng bộ dữ liệu công khai *eCommerce behavior data from multi category store* trên Kaggle, file `2019-Oct.csv` (hành vi người dùng của một cửa hàng trực tuyến đa ngành hàng trong tháng 10/2019). File có dung lượng 5.668.612.855 byte và 42.448.764 dòng. Mỗi dòng là một sự kiện của một người dùng trên website; thời gian trải từ 2019-10-01 00:00:00 đến 2019-10-31 23:59:59 (UTC).
 
 Bảng 3.1. Schema tầng raw (9 cột, đúng thứ tự trong file CSV)
 
@@ -30,31 +30,30 @@ Nhóm không giả định dữ liệu "sạch". Trước khi viết luật làm
 
 Bảng 3.2. Các bất thường trên dữ liệu raw
 
-| Hiện tượng | Số dòng | Tỷ lệ | Nhận xét |
-| --- | --- | --- | --- |
-| Dòng trùng cả 9 cột | 30.220 | 0,07% | Có thật; làm sai số đếm và doanh thu nếu để nguyên |
-| `price = 0` | 68.673 | 0,16% | 68.523 dòng `view`, 150 dòng `cart`, **không có `purchase`** nên loại không làm lệch doanh thu |
-| `user_session` thiếu (ô rỗng trong CSV, đọc thành null) | 2 | ≈ 0 | Cả hai là sự kiện `cart`; không gán được vào phiên nào |
-| `category_code` null | 13.515.609 | 31,8% | Rất lớn; nếu loại dòng sẽ mất gần một phần ba dữ liệu |
-| `brand` null | 6.113.008 | 14,4% | Như trên |
-| `category_code` sâu 3 cấp | 36.242 | 0,09% | Clean chỉ giữ 2 cấp đầu |
-| `price` âm, NaN, Infinity | 0 | 0 | Chưa gặp ở dữ liệu thật, nhưng luật vẫn giữ để chặn dữ liệu bẩn |
-| `user_id` null hoặc ≤ 0 | 0 | 0 | Không cần luật ID dương |
-| `user_session` không phải UUID | 0 | 0 | Không cần luật UUID |
-| `event_time` sai định dạng | 0 | 0 | Mọi dòng parse được |
+| Hiện tượng | Số dòng | Nhận xét |
+| --- | --- | --- |
+| Dòng trùng cả 9 cột | 30.220 | `duplicate_ratio = 0.000712`; cần dedup trước khi tính KPI |
+| `price = 0` | 68.673 | Cũng là toàn bộ nhóm `price ≤ 0`; `price_le_0_ratio = 0.001618` |
+| `user_session` thiếu (ô rỗng trong CSV, đọc thành null) | 2 | Không gán được vào phiên nào |
+| `category_code` null | 13.515.609 | Giữ dòng, gán `unknown` ở các cột danh mục chuẩn hóa |
+| `brand` null | 6.113.008 | Giữ dòng, chuẩn hóa thành `unknown` |
+| `price` âm, NaN, Infinity | 0 | Mỗi bộ đếm đều bằng 0; luật vẫn kiểm tra các trường hợp này |
+| `user_id` null hoặc ≤ 0 | 0 | Hai bộ đếm đều bằng 0; contract chỉ yêu cầu khác null |
+| `user_session` không phải UUID | 0 | Profiling chỉ ghi nhận, contract không lọc theo UUID |
+| `event_time` sai định dạng hoặc không parse được | 0 | Hai bộ đếm đều bằng 0 |
 
-Thành phần sự kiện: `view` 40.779.399 (96,1%), `cart` 926.516 (2,2%), `purchase` 742.849 (1,7%). Tỷ lệ này cũng là cơ sở của phễu chuyển đổi mà TV4 tính ở Chương 5.
+Thành phần sự kiện theo `event_type_counts`: `view` 40.779.399, `cart` 926.516, `purchase` 742.849. Đây là số sự kiện; phễu chuyển đổi cần đếm phiên phân biệt theo định nghĩa KPI, không lấy tỷ lệ số sự kiện thay cho tỷ lệ chuyển đổi phiên. Bộ evidence hiện chưa có bảng chéo lỗi theo `event_type` hoặc thống kê độ sâu danh mục, nên không dùng các chi tiết đó để kết luận về doanh thu hay số dòng trùng riêng của từng loại sự kiện.
 
 Hai điểm đáng chú ý khi đọc bảng:
 
-1. **Bẩn có thật nhưng ít**: lỗi cần loại chiếm dưới 0,3% số dòng, nhưng nếu không loại thì dòng trùng và giá 0 vẫn làm sai số đếm sự kiện và giá trung bình.
+1. **Lỗi cần được xử lý theo thứ tự**: cleaning loại tổng cộng 98.892 dòng; các nhóm lỗi có thể giao nhau nên không cộng trực tiếp các bộ đếm raw.
 2. **Thiếu nhiều nhưng không phải lỗi**: `category_code` và `brand` thiếu rất nhiều. Đây là đặc điểm của nguồn, không phải lỗi nhập; xử lý bằng nhãn `unknown` thay vì xóa dòng.
 
-Một lưu ý cho cả nhóm khi đọc số liệu: tỷ lệ lỗi trong lần chạy thử 3 triệu dòng đầu (trùng 1.435 = 0,048%; giá ≤ 0 4.694 = 0,16%) khác nhẹ so với toàn tháng (0,07% và 0,16%) vì 3 triệu dòng đầu chỉ phủ 1–3/10. Do đó số liệu báo cáo cuối cùng lấy từ lần chạy toàn bộ.
+Một lưu ý cho cả nhóm khi đọc số liệu: lần chạy thử 3.000.000 dòng đầu có 1.435 dòng trùng (`duplicate_ratio = 0.000478`) và 4.694 dòng giá ≤ 0 (`price_le_0_ratio = 0.001565`), khác với toàn tháng (`0.000712` và `0.001618`). Tập thử chỉ phủ từ 2019-10-01 00:00:00 đến 2019-10-03 12:12:19 UTC. Do đó số liệu báo cáo toàn tháng lấy từ lần chạy toàn bộ.
 
 ## 3.3 Yêu cầu làm sạch
 
-Từ khảo sát trên, nhóm rút ra yêu cầu: dữ liệu clean phải (a) không còn dòng trùng, (b) không còn giá không hợp lệ, (c) xác định được người dùng và phiên của mọi sự kiện, (d) giữ lại các dòng chỉ thiếu thông tin mô tả (brand, danh mục), và (e) có thêm các cột thời gian để tính KPI theo ngày/giờ.
+Từ khảo sát trên, nhóm rút ra yêu cầu: (a) loại các bản trùng của raw trước chuẩn hóa, (b) không còn giá không hợp lệ, (c) xác định được người dùng và phiên của mọi sự kiện, (d) giữ lại các dòng chỉ thiếu thông tin mô tả (brand, danh mục), và (e) có thêm các cột thời gian để tính KPI theo ngày/giờ.
 
 Những yêu cầu này được chốt thành **data contract** (`docs/data_contract.md`, phiên bản 1.0). Contract là luật chung: TV2 định nghĩa, TV3 cài đặt trong `jobs/02_cleaning.py`, TV4 dùng khi tính KPI.
 
@@ -77,22 +76,22 @@ Một số quyết định đáng giải thích, vì cả nhóm từng hỏi:
 - **ID dương và UUID chỉ ghi nhận, không loại.** Dữ liệu thật không có vi phạm nào (bảng 3.2), nên thêm luật loại chỉ làm phức tạp mà không đổi kết quả. Nếu sau này profiling phát hiện vi phạm, contract nâng lên v1.1.
 - **`unknown` là nhãn quy ước, không phải thương hiệu thật.** KPI xếp hạng brand/danh mục nên loại `unknown` hoặc báo riêng.
 
-Dự kiến từ khảo sát: clean ≈ 42.448.764 − 30.220 − ~68.673 − 2 ≈ 42,35 triệu dòng. Con số thực tế: **42.349.872 dòng clean**, khớp dự kiến. Cụ thể: 42.448.764 → sau dedup 42.418.544 (loại 30.220 dòng trùng) → sau lọc giá 42.349.874 (loại 68.670 dòng giá ≤ 0; 3 dòng giá 0 còn lại đã nằm trong số dòng trùng) → sau lọc định danh 42.349.872 (loại 2 dòng `user_session` rỗng). Tổng loại 98.892 dòng (0,23%).
+Kết quả thực tế là **42.349.872 dòng clean**. Cụ thể: 42.448.764 → sau dedup 42.418.544 (loại 30.220 dòng trùng) → sau lọc giá 42.349.874 (loại 68.670 dòng giá ≤ 0; chênh 3 dòng so với bộ đếm raw do dedup trước đó) → sau lọc định danh 42.349.872 (loại 2 dòng `user_session` thiếu). Các bước lọc thời gian và loại sự kiện không loại thêm dòng. Tổng loại 98.892 dòng.
 
 ## 3.4 Cách kiểm chứng luật
 
 Việc kiểm chứng có hai lớp, để không chỉ tin vào kết quả của chính job làm sạch:
 
-1. **Dữ liệu giả có đáp án.** `scripts/generate_data.py` sinh dữ liệu cùng schema, cố ý chèn lỗi (trùng, giá 0/âm/NaN, `event_type` lạ, session trống, user trống…) và ghi số lượng thực tế vào `generate_data_truth.json`. `scripts/compare_truth.py` so số lỗi đã chèn với `cleaning_metrics.json`: kết quả đạt 5/5 mục (raw 202.032 → clean 196.492; bỏ đúng 2.032 dòng trùng và 424 `event_type` lạ).
-2. **Dữ liệu thật, hai lần quét độc lập.** Một lần quét toàn bộ để chọn luật (bảng 3.2); một lần `01_profiling.py` trên raw và clean để kiểm tra các bất biến của clean (không còn trùng, giá > 0, không null ở các cột bắt buộc, `event_hour` ∈ [0, 23], ngày nằm trong 1–31/10/2019). Job thoát với mã 1 nếu một bất biến sai.
+1. **Dữ liệu giả có đáp án.** `scripts/generate_data.py` sinh dữ liệu cùng schema, cố ý chèn lỗi (trùng, giá 0/âm/NaN, `event_type` lạ, session trống, user trống…) và ghi số lượng thực tế vào `generate_data_truth.json`. `scripts/compare_truth.py` so với `cleaning_metrics.json`: đạt 5/5 mục; hai mục raw và trùng yêu cầu bằng tuyệt đối, ba mục còn lại dùng ngưỡng sai lệch cho phép vì lỗi có thể giao nhau. Lần M1 có raw 202.032 → clean 196.492; loại 2.032 dòng trùng và 424 `event_type` lạ.
+2. **Dữ liệu thật, đối chiếu profiling với cleaning.** `01_profiling.py` đếm riêng trên raw và clean; so số đếm với các bước cleaning. JSON clean toàn tháng ghi nhận 7 bất biến đều đạt (`invariants.all_pass = true`) và 0 dòng trùng. Số dòng trùng được báo riêng, không phải điều kiện cấm trùng sau chuẩn hóa của contract. Kiểm tra phạm vi ngày so với raw chỉ được thêm khi có `profiling_raw.json` cùng DATA_DIR; không gán kiểm tra này cho JSON toàn tháng vốn chỉ có 7 bất biến. Job thoát mã 1 nếu bất biến được kiểm tra bị sai.
 
-Kết quả thử trên 3 triệu dòng đầu: raw 3.000.000 → sau dedup 2.998.565 → clean 2.993.871 (loại 1.435 dòng trùng và 4.694 dòng giá ≤ 0); số liệu profiling khớp log cleaning, và tầng clean có 0 dòng trùng, 0 giá ≤ 0. Kết quả cho toàn bộ 42,4 triệu dòng như ở mục 3.3: số loại bỏ trùng khớp từng con số của lần quét ban đầu (30.220 dòng trùng, 68.673 dòng giá ≤ 0, 2 session rỗng), và cả 8 lát đều đạt mọi bất biến của clean (0 dòng trùng, 0 giá ≤ 0).
+Kết quả thử trên 3.000.000 dòng đầu: raw 3.000.000 → sau dedup 2.998.565 → clean 2.993.871 (loại 1.435 dòng trùng và 4.694 dòng giá ≤ 0); profiling khớp cleaning, clean có 0 dòng trùng và 0 giá ≤ 0. Trên toàn bộ 42.448.764 dòng, raw có 30.220 dòng trùng, 68.673 dòng giá ≤ 0 và 2 session thiếu; cleaning lần lượt loại 30.220, 68.670 và 2 dòng ở các bước tương ứng. Cả 8 lát đều có `invariants.all_pass = true`, 0 dòng trùng và 0 giá ≤ 0 trong profiling clean.
 
-**Lưu ý phương pháp.** Chạy cleaning một lần trên 42,4 triệu dòng làm executor (2 GB) hết bộ nhớ trên máy 8 GB, hai lần liên tiếp. Nhóm chia raw thành 8 lát theo ngày (1–4, 5–8, …, 29–31; 3,7–6,2 triệu dòng mỗi lát), chạy nguyên `02_cleaning.py` cho từng lát rồi gộp 31 thư mục `event_date`. Cách chia này không làm sai dedup vì hai dòng trùng có cùng `event_time` nên luôn nằm trong cùng một lát. Tổng thời gian cleaning 8 lát là 2.553 giây (≈ 42,5 phút).
+**Lưu ý phương pháp.** Theo ghi chú trong `cleaning_metrics_merged.json`, cleaning toàn bộ 42.448.764 dòng trong một lần gặp lỗi hết bộ nhớ executor trên máy RAM 8 GB. Bộ nguồn này không xác nhận số lần lỗi, mã lỗi hoặc cấu hình executor của lần lỗi. Nhóm chia raw thành 8 lát theo ngày (1–4, 5–8, …, 29–31), từ 3.683.534 đến 6.158.388 dòng mỗi lát; chạy nguyên `02_cleaning.py` từng lát rồi gộp 31 thư mục `event_date`. Dedup được bảo toàn vì các bản trùng có cùng `event_time`, các lát không chồng lấn và bao phủ toàn tháng. Tổng thời gian cleaning lấy nguyên trường `cleaning_seconds_total`: **2552.5 giây**.
 
 ## 3.5 Hạn chế của dữ liệu
 
 - Chỉ có một tháng (10/2019), nên không nhận định được tính mùa vụ.
 - Không có thông tin người dùng (tuổi, vùng) hay trạng thái đơn hàng (hủy, hoàn); `purchase` được coi là giao dịch thành công.
-- 31,8% sự kiện không có danh mục và 14,4% không có brand, nên KPI theo brand/danh mục chỉ phản ánh phần dữ liệu có nhãn.
+- Raw có 13.515.609 dòng thiếu `category_code` và 6.113.008 dòng thiếu `brand`; khi loại nhóm `unknown` khỏi xếp hạng, KPI theo brand/danh mục chỉ phản ánh phần dữ liệu có nhãn.
 - Dữ liệu một tháng đã bị công bố sẵn; không có cách kiểm tra lại với hệ thống nguồn để biết một dòng trùng là lỗi ghi hay hai hành vi thật giống hệt trong cùng một giây.

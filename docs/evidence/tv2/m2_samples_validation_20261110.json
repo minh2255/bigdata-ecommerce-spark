@@ -1,0 +1,308 @@
+{
+  "data_dir": "/data/real_oct_full",
+  "pandas_version": "2.3.3",
+  "pyarrow_version": "25.0.1",
+  "samples": [
+    {
+      "fraction": "0.01",
+      "path": "/data/real_oct_full/samples/frac_0.01",
+      "parquet_files": 1,
+      "success_marker": true,
+      "expected_rows": 424095,
+      "csv_rows": 424095,
+      "parquet_metadata_rows": 424095,
+      "pandas_rows": 424095,
+      "columns": [
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session",
+        "event_ts",
+        "cat_l1",
+        "cat_l2",
+        "event_hour",
+        "day_of_week",
+        "event_date"
+      ],
+      "arrow_schema": [
+        {
+          "name": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "product_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "brand",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "double"
+        },
+        {
+          "name": "user_id",
+          "type": "int64"
+        },
+        {
+          "name": "user_session",
+          "type": "string"
+        },
+        {
+          "name": "event_ts",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "cat_l1",
+          "type": "string"
+        },
+        {
+          "name": "cat_l2",
+          "type": "string"
+        },
+        {
+          "name": "event_hour",
+          "type": "int32"
+        },
+        {
+          "name": "day_of_week",
+          "type": "string"
+        },
+        {
+          "name": "event_date",
+          "type": "date32[day]"
+        }
+      ],
+      "pandas_dtypes": {
+        "event_type": "object",
+        "product_id": "int64",
+        "category_id": "int64",
+        "category_code": "object",
+        "brand": "object",
+        "price": "float64",
+        "user_id": "int64",
+        "user_session": "object",
+        "event_ts": "datetime64[ns]",
+        "cat_l1": "object",
+        "cat_l2": "object",
+        "event_hour": "int32",
+        "day_of_week": "object",
+        "event_date": "object"
+      }
+    },
+    {
+      "fraction": "0.05",
+      "path": "/data/real_oct_full/samples/frac_0.05",
+      "parquet_files": 1,
+      "success_marker": true,
+      "expected_rows": 2118183,
+      "csv_rows": 2118183,
+      "parquet_metadata_rows": 2118183,
+      "pandas_rows": 2118183,
+      "columns": [
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session",
+        "event_ts",
+        "cat_l1",
+        "cat_l2",
+        "event_hour",
+        "day_of_week",
+        "event_date"
+      ],
+      "arrow_schema": [
+        {
+          "name": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "product_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "brand",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "double"
+        },
+        {
+          "name": "user_id",
+          "type": "int64"
+        },
+        {
+          "name": "user_session",
+          "type": "string"
+        },
+        {
+          "name": "event_ts",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "cat_l1",
+          "type": "string"
+        },
+        {
+          "name": "cat_l2",
+          "type": "string"
+        },
+        {
+          "name": "event_hour",
+          "type": "int32"
+        },
+        {
+          "name": "day_of_week",
+          "type": "string"
+        },
+        {
+          "name": "event_date",
+          "type": "date32[day]"
+        }
+      ],
+      "pandas_dtypes": {
+        "event_type": "object",
+        "product_id": "int64",
+        "category_id": "int64",
+        "category_code": "object",
+        "brand": "object",
+        "price": "float64",
+        "user_id": "int64",
+        "user_session": "object",
+        "event_ts": "datetime64[ns]",
+        "cat_l1": "object",
+        "cat_l2": "object",
+        "event_hour": "int32",
+        "day_of_week": "object",
+        "event_date": "object"
+      }
+    },
+    {
+      "fraction": "0.1",
+      "path": "/data/real_oct_full/samples/frac_0.1",
+      "parquet_files": 1,
+      "success_marker": true,
+      "expected_rows": 4238351,
+      "csv_rows": 4238351,
+      "parquet_metadata_rows": 4238351,
+      "pandas_rows": 4238351,
+      "columns": [
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session",
+        "event_ts",
+        "cat_l1",
+        "cat_l2",
+        "event_hour",
+        "day_of_week",
+        "event_date"
+      ],
+      "arrow_schema": [
+        {
+          "name": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "product_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_id",
+          "type": "int64"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "brand",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "double"
+        },
+        {
+          "name": "user_id",
+          "type": "int64"
+        },
+        {
+          "name": "user_session",
+          "type": "string"
+        },
+        {
+          "name": "event_ts",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "cat_l1",
+          "type": "string"
+        },
+        {
+          "name": "cat_l2",
+          "type": "string"
+        },
+        {
+          "name": "event_hour",
+          "type": "int32"
+        },
+        {
+          "name": "day_of_week",
+          "type": "string"
+        },
+        {
+          "name": "event_date",
+          "type": "date32[day]"
+        }
+      ],
+      "pandas_dtypes": {
+        "event_type": "object",
+        "product_id": "int64",
+        "category_id": "int64",
+        "category_code": "object",
+        "brand": "object",
+        "price": "float64",
+        "user_id": "int64",
+        "user_session": "object",
+        "event_ts": "datetime64[ns]",
+        "cat_l1": "object",
+        "cat_l2": "object",
+        "event_hour": "int32",
+        "day_of_week": "object",
+        "event_date": "object"
+      }
+    }
+  ],
+  "all_pass": true
+}

@@ -1,0 +1,38 @@
+{
+    "data_dir":  "/data/synthetic_tv2_m1_20261110_231427",
+    "git_commit":  "bab9f3149a605b16d354b8c6098f8825a26ef46a",
+    "mode":  "--full",
+    "pipeline_exit_code":  0,
+    "driver_memory":  "1g",
+    "executor_memory":  "2g",
+    "executor_cores":  1,
+    "shuffle_partitions":  800,
+    "pipeline_log":  "data/synthetic_tv2_m1_20261110_231427/pipeline_logs/pipeline-20261110T161432Z-1429.log",
+    "raw_rows":  202032,
+    "clean_rows":  196492,
+    "raw_duplicate_ratio":  0.010058,
+    "raw_price_le_0_ratio":  0.011429,
+    "clean_all_pass":  true,
+    "aggregation_success_markers":  [
+                                        {
+                                            "table":  "brand_kpi",
+                                            "success":  true
+                                        },
+                                        {
+                                            "table":  "category_kpi",
+                                            "success":  true
+                                        },
+                                        {
+                                            "table":  "daily_kpi",
+                                            "success":  true
+                                        },
+                                        {
+                                            "table":  "funnel",
+                                            "success":  true
+                                        },
+                                        {
+                                            "table":  "hourly",
+                                            "success":  true
+                                        }
+                                    ]
+}

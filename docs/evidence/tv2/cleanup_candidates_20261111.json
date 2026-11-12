@@ -1,0 +1,28 @@
+{
+  "checked_on": "2026-11-11",
+  "deleted": false,
+  "candidates": [
+    {
+      "path": "D:\\BigData\\bigdata-ecommerce-spark\\data\\synthetic_tv2_test",
+      "exists": false,
+      "files": 0,
+      "logical_bytes": 0,
+      "reports": []
+    },
+    {
+      "path": "D:\\BigData\\bigdata-ecommerce-spark\\data\\synthetic_tv2_gen01",
+      "exists": true,
+      "files": 82,
+      "logical_bytes": 53170674,
+      "reports": [
+        "cleaning_metrics.json",
+        "cleaning_schema.json",
+        "generate_data_truth.json",
+        "ingest_log.csv",
+        "profiling_clean.json",
+        "profiling_raw.json",
+        "source.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "data_dir": "/data/real_sample3m_run01",
+  "sizes": {
+    "landing_visible_bytes": 400957999,
+    "raw_visible_bytes": 98256658,
+    "clean_visible_bytes": 155044118
+  },
+  "clean_partition_dates": [
+    "2019-10-01",
+    "2019-10-02",
+    "2019-10-03"
+  ],
+  "csv_first_two_rows": [
+    {
+      "event_time": "2019-10-01 00:00:00 UTC",
+      "event_type": "view",
+      "product_id": "44600062",
+      "category_id": "2103807459595387724",
+      "category_code": "",
+      "brand": "shiseido",
+      "price": "35.79",
+      "user_id": "541312140",
+      "user_session": "72d76fde-8bb3-4e00-8c23-a032dfed738c"
+    },
+    {
+      "event_time": "2019-10-01 00:00:00 UTC",
+      "event_type": "view",
+      "product_id": "3900821",
+      "category_id": "2053013552326770905",
+      "category_code": "appliances.environment.water_heater",
+      "brand": "aqua",
+      "price": "33.20",
+      "user_id": "554748717",
+      "user_session": "9333dfbd-b87a-4708-9857-6336556b0fcc"
+    }
+  ],
+  "raw_example_rows": [
+    {
+      "event_time": "2019-10-01 00:00:00 UTC",
+      "event_type": "view",
+      "product_id": 44600062,
+      "category_id": 2103807459595387724,
+      "category_code": null,
+      "brand": "shiseido",
+      "price": 35.79,
+      "user_id": 541312140,
+      "user_session": "72d76fde-8bb3-4e00-8c23-a032dfed738c"
+    },
+    {
+      "event_time": "2019-10-01 00:00:00 UTC",
+      "event_type": "view",
+      "product_id": 3900821,
+      "category_id": 2053013552326770905,
+      "category_code": "appliances.environment.water_heater",
+      "brand": "aqua",
+      "price": 33.2,
+      "user_id": 554748717,
+      "user_session": "9333dfbd-b87a-4708-9857-6336556b0fcc"
+    },
+    {
+      "event_time": "2019-10-01 00:00:15 UTC",
+      "event_type": "view",
+      "product_id": 44600062,
+      "category_id": 2103807459595387724,
+      "category_code": null,
+      "brand": "shiseido",
+      "price": 35.79,
+      "user_id": 541312140,
+      "user_session": "72d76fde-8bb3-4e00-8c23-a032dfed738c"
+    }
+  ],
+  "raw_schema": [
+    {
+      "name": "event_time",
+      "type": "string"
+    },
+    {
+      "name": "event_type",
+      "type": "string"
+    },
+    {
+      "name": "product_id",
+      "type": "int64"
+    },
+    {
+      "name": "category_id",
+      "type": "int64"
+    },
+    {
+      "name": "category_code",
+      "type": "string"
+    },
+    {
+      "name": "brand",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+      "name": "user_id",
+      "type": "int64"
+    },
+    {
+      "name": "user_session",
+      "type": "string"
+    }
+  ],
+  "clean_example_rows": [
+    {
+      "event_type": "view",
+      "product_id": 44600062,
+      "category_id": 2103807459595387724,
+      "category_code": null,
+      "brand": "shiseido",
+      "price": 35.79,
+      "user_id": 541312140,
+      "user_session": "72d76fde-8bb3-4e00-8c23-a032dfed738c",
+      "event_ts": "2019-10-01 00:00:15",
+      "cat_l1": "unknown",
+      "cat_l2": "unknown",
+      "event_hour": 0,
+      "day_of_week": "Tue",
+      "event_date": "2019-10-01"
+    },
+    {
+      "event_type": "view",
+      "product_id": 3900821,
+      "category_id": 2053013552326770905,
+      "category_code": "appliances.environment.water_heater",
+      "brand": "aqua",
+      "price": 33.2,
+      "user_id": 554748717,
+      "user_session": "9333dfbd-b87a-4708-9857-6336556b0fcc",
+      "event_ts": "2019-10-01 00:00:00",
+      "cat_l1": "appliances",
+      "cat_l2": "environment",
+      "event_hour": 0,
+      "day_of_week": "Tue",
+      "event_date": "2019-10-01"
+    },
+    {
+      "event_type": "view",
+      "product_id": 44600062,
+      "category_id": 2103807459595387724,
+      "category_code": null,
+      "brand": "shiseido",
+      "price": 35.79,
+      "user_id": 541312140,
+      "user_session": "72d76fde-8bb3-4e00-8c23-a032dfed738c",
+      "event_ts": "2019-10-01 00:00:00",
+      "cat_l1": "unknown",
+      "cat_l2": "unknown",
+      "event_hour": 0,
+      "day_of_week": "Tue",
+      "event_date": "2019-10-01"
+    }
+  ],
+  "clean_schema": [
+    {
+      "name": "event_type",
+      "type": "string"
+    },
+    {
+      "name": "product_id",
+      "type": "int64"
+    },
+    {
+      "name": "category_id",
+      "type": "int64"
+    },
+    {
+      "name": "category_code",
+      "type": "string"
+    },
+    {
+      "name": "brand",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+      "name": "user_id",
+      "type": "int64"
+    },
+    {
+      "name": "user_session",
+      "type": "string"
+    },
+    {
+      "name": "event_ts",
+      "type": "timestamp[ns]"
+    },
+    {
+      "name": "cat_l1",
+      "type": "string"
+    },
+    {
+      "name": "cat_l2",
+      "type": "string"
+    },
+    {
+      "name": "event_hour",
+      "type": "int32"
+    },
+    {
+      "name": "day_of_week",
+      "type": "string"
+    },
+    {
+      "name": "event_date",
+      "type": "string"
+    }
+  ],
+  "full_clean_partition_dates": [
+    "2019-10-01",
+    "2019-10-02",
+    "2019-10-03",
+    "2019-10-04",
+    "2019-10-05",
+    "2019-10-06",
+    "2019-10-07",
+    "2019-10-08",
+    "2019-10-09",
+    "2019-10-10",
+    "2019-10-11",
+    "2019-10-12",
+    "2019-10-13",
+    "2019-10-14",
+    "2019-10-15",
+    "2019-10-16",
+    "2019-10-17",
+    "2019-10-18",
+    "2019-10-19",
+    "2019-10-20",
+    "2019-10-21",
+    "2019-10-22",
+    "2019-10-23",
+    "2019-10-24",
+    "2019-10-25",
+    "2019-10-26",
+    "2019-10-27",
+    "2019-10-28",
+    "2019-10-29",
+    "2019-10-30",
+    "2019-10-31"
+  ]
+}
