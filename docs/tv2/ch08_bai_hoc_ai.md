@@ -2,7 +2,7 @@
 
 ## 8.1. Chia công việc theo giới hạn bộ nhớ
 
-Cleaning toàn bộ 42.448.764 dòng trên máy RAM 8 GB gặp lỗi hết bộ nhớ executor (OOM). Nhóm chia dữ liệu raw thành 8 lát theo ngày, chạy cùng logic cleaning cho từng lát rồi gộp kết quả. Theo [cleaning_metrics_merged.json](../evidence/tv2/cleaning_metrics_merged.json), tổng thời gian là 2.552,5 giây ≈ 42,5 phút, thu được 42.349.872 dòng clean.
+Theo ghi chú trong [cleaning_metrics_merged.json](../evidence/tv2/cleaning_metrics_merged.json), cleaning toàn bộ 42.448.764 dòng trên máy RAM 8 GB gặp lỗi hết bộ nhớ executor (OOM). Nhóm chia dữ liệu raw thành 8 lát theo ngày, chạy cùng logic cleaning cho từng lát rồi gộp kết quả. Trường `cleaning_seconds_total` ghi tổng thời gian **2552.5 giây**, thu được 42.349.872 dòng clean.
 
 Cách chia này bảo toàn kết quả dedup vì các dòng raw trùng hoàn toàn có cùng `event_time`, nên luôn nằm trong cùng một lát. Các khoảng ngày bao phủ toàn bộ nguồn và không chồng lấn. Bài học là chia khối lượng xử lý phù hợp với tài nguyên, đồng thời đối chiếu tổng số dòng đầu vào và đầu ra của các lát để kiểm tra kết quả gộp.
 
@@ -20,9 +20,9 @@ Do đó, số lỗi ở raw mô tả chất lượng đầu vào; hiệu số tr
 
 ## 8.4. Kiểm chứng giả thuyết về dòng trùng ở cart
 
-Hai bản profiling toàn tháng cho thấy số sự kiện `cart` giảm từ 926.516 xuống 898.292 dòng, tức giảm 28.224 dòng qua toàn bộ cleaning. Kết hợp với số dòng giá bằng 0 theo loại sự kiện, hiệu số này gợi ý dòng trùng tập trung ở cart.
+Hai bản profiling toàn tháng cho thấy số sự kiện `cart` giảm từ 926.516 xuống 898.292 dòng, tức giảm 28.224 dòng qua toàn bộ cleaning. Hiệu số này cho biết mức giảm tổng cộng, chưa tách được số dòng bị loại do dedup và do từng quy tắc lọc.
 
-Đây vẫn là giả thuyết suy ra từ hiệu số, chưa được kiểm chứng bằng phép đếm trực tiếp theo `event_type` trước và ngay sau dedup. Bài học là phân biệt kết quả đo trực tiếp với suy luận, đồng thời xác định phép kiểm tra cụ thể cần có để xác nhận suy luận đó.
+Giả thuyết dòng trùng tập trung ở cart cần phép đếm trực tiếp theo `event_type` trước và ngay sau dedup; bộ evidence hiện chưa có bảng chéo này. Bài học là phân biệt kết quả đo trực tiếp với suy luận, đồng thời xác định phép kiểm tra cụ thể cần có để xác nhận suy luận đó.
 
 ## 8.5. Dùng contract để thống nhất giữa các thành viên
 
@@ -34,4 +34,4 @@ Một chi tiết cần thống nhất là `category_code` gốc vẫn có thể 
 
 Nhóm sử dụng **Claude Code** để lập roadmap và review; **ChatGPT/Codex** để hỗ trợ viết code, chạy kiểm chứng và soạn nháp báo cáo. Số liệu thực nghiệm được lấy từ JSON, CSV và log của các lần chạy; các công cụ AI hỗ trợ xử lý và diễn giải những nguồn này.
 
-Phần nhóm đã tự kiểm tra đối với roadmap, kết quả review của Claude Code và code, kết quả kiểm chứng, bản nháp do ChatGPT/Codex hỗ trợ: [TV2 tự điền].
+Các phần đã được kiểm chứng trong quá trình thực hiện, với sự hỗ trợ của ChatGPT/Codex, gồm: đối chiếu roadmap với mã nguồn và bằng chứng trong repo; chạy pipeline synthetic `--full` và kiểm tra kết quả profiling raw/clean; đối chiếu lỗi do generator chèn với cleaning bằng `compare_truth.py`; kiểm tra số dòng samples qua pandas, metadata Parquet và CSV; đối chiếu số liệu KB3/KB5 với JSON/CSV nguồn. Bản rà soát `docs/evidence/tv2/audit_5b_review_20261111.md` ghi các phát hiện ở bản nháp cũ. Lượt sửa ngày 12/11/2026 đã chuẩn hóa số liệu trong Ch.2.1, Ch.3, Ch.6, phụ lục schema và Ch.8 theo nguồn; bỏ các chi tiết thiếu bảng chéo nguồn và giới hạn các kết luận suy ra từ hiệu số. Bằng chứng đối chiếu sau sửa nằm trong `docs/evidence/tv2/report_numbers_recheck_20261112/`; đây là kiểm tra tài liệu với nguồn đã lưu, không phải lần chạy Spark mới. Sinh viên vẫn cần tự đọc lại mã nguồn, báo cáo và nguồn tương ứng, đồng thời tự diễn tập demo và ôn phần giải thích pipeline trước khi bảo vệ.

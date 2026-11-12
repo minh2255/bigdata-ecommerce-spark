@@ -1,0 +1,284 @@
+{
+    "scope":  "Five TV2 report Markdown files; selected source comparisons plus manual review in README.md, no new Spark run",
+    "documents":  [
+                      {
+                          "path":  "docs/tv2/ch02_1_bigdata.md",
+                          "sha256":  "d1f3f1e790e3d8e15c37695a456e53e7ca7a624f470c9984594aa3fdc5645e71"
+                      },
+                      {
+                          "path":  "docs/tv2/ch03_du_lieu.md",
+                          "sha256":  "9a6ffd3c76a163039edd0cd00470d378199647e58650a0e37a8923abff0dfdce"
+                      },
+                      {
+                          "path":  "docs/tv2/ch06_kb3_kb5.md",
+                          "sha256":  "6deb3d148c815f8c12c30496e59aa37927fc8f9a9d17e6f2b3b94343521be89f"
+                      },
+                      {
+                          "path":  "docs/tv2/phu_luc_schema.md",
+                          "sha256":  "de2909bc34c7dc4ceed15cded87443e1de39fd244d608aa73cedfeb225d00a0b"
+                      },
+                      {
+                          "path":  "docs/tv2/ch08_bai_hoc_ai.md",
+                          "sha256":  "6c342c993e7e5661247b70dbabccfda5914d015247989877997d1fc102227a6d"
+                      }
+                  ],
+    "checks":  [
+                   {
+                       "check":  "KB3 count_seconds/csv/1",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/csv/2",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/csv/3",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/csv/mean",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/parquet/1",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/parquet/2",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/parquet/3",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_seconds/parquet/mean",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/csv/1",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/csv/2",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/csv/3",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/csv/mean",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/parquet/1",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/parquet/2",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/parquet/3",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_seconds/parquet/mean",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 size_ratio precision",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 count_speedup precision",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 sum_price_speedup precision",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 csv bytes",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB3 parquet bytes",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Ingest seconds",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 raw",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 after_dedup",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 after_timestamp",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 after_event_type",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 after_price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 after_identity",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 raw/clean rows",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 raw/clean duplicate_rows",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 raw/clean price_le_0",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 view",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 cart",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "KB5 purchase",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Raw/clean counts match merged endpoints",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum raw",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum after_dedup",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum after_timestamp",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum after_event_type",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum after_price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum after_identity",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice sum written",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Full clean seven invariants pass",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 1 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 2 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 3 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 4 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 5 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 6 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 7 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Slice 8 invariants, duplicates, price",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Cleaning seconds precision",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Appendix bytes landing",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Appendix bytes raw",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Appendix bytes clean",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Appendix unknown ratio brand",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Appendix unknown ratio cat_l1",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Full-month partition dates",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Evidence parsed JSON profiling_raw.json",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Evidence parsed JSON profiling_clean.json",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Removed stale claims: ch03_du_lieu.md",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Removed stale claims: ch06_kb3_kb5.md",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Removed stale claims: phu_luc_schema.md",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Removed stale claims: ch08_bai_hoc_ai.md",
+                       "passed":  true
+                   }
+               ],
+    "all_pass":  true
+}

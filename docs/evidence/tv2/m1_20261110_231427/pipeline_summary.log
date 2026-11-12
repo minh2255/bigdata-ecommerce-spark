@@ -1,0 +1,23 @@
+[PREFLIGHT] mode=--full root=/data/synthetic_tv2_m1_20261110_231427 data_kind=synthetic; inputs/config/output guards PASS
+[RUN] 00_ingest.py  DATA_DIR=/data/synthetic_tv2_m1_20261110_231427
+[INGEST] rows=202032 time=20.8s
+[RUN] 01_profiling.py raw DATA_DIR=/data/synthetic_tv2_m1_20261110_231427
+[PROFILE] layer=raw rows=202032 duplicates=2032 price_le_0=2309 status=SUCCESS time=22.415s -> /data/synthetic_tv2_m1_20261110_231427/reports/profiling_raw.json
+[RUN] 02_cleaning.py  DATA_DIR=/data/synthetic_tv2_m1_20261110_231427
+[CLEAN] raw=202032 removed=0 stage_seconds=10.554
+[CLEAN] after_dedup=200000 removed=2032 stage_seconds=58.276
+[CLEAN] after_timestamp=200000 removed=0 stage_seconds=21.131
+[CLEAN] after_event_type=199576 removed=424 stage_seconds=17.085
+[CLEAN] after_price=197078 removed=2498 stage_seconds=17.07
+[CLEAN] after_identity=196492 removed=586 stage_seconds=13.411
+[CLEAN] raw=202032 after_dedup=200000 after_filter=196492 time=177.855s
+[RUN] 01_profiling.py clean DATA_DIR=/data/synthetic_tv2_m1_20261110_231427
+[PROFILE] layer=clean rows=196492 duplicates=0 price_le_0=0 status=SUCCESS time=83.339s -> /data/synthetic_tv2_m1_20261110_231427/reports/profiling_clean.json
+[RUN] 03_aggregation.py  DATA_DIR=/data/synthetic_tv2_m1_20261110_231427
+Saved: /data/synthetic_tv2_m1_20261110_231427/agg/daily_kpi
+Saved: /data/synthetic_tv2_m1_20261110_231427/agg/category_kpi
+Saved: /data/synthetic_tv2_m1_20261110_231427/agg/brand_kpi
+Saved: /data/synthetic_tv2_m1_20261110_231427/agg/funnel
+Saved: /data/synthetic_tv2_m1_20261110_231427/agg/hourly
+[DONE FULL] /data/synthetic_tv2_m1_20261110_231427
+[EXIT] stage=complete code=0 log=data/synthetic_tv2_m1_20261110_231427/pipeline_logs/pipeline-20261110T161432Z-1429.log

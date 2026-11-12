@@ -19,19 +19,19 @@ Cây thư mục của một lần chạy (ví dụ `data/real_sample3m_run01`):
 ```text
 real_sample3m_run01/
 ├── landing/
-│   └── 2019-Oct_first3m.csv               400.957.999 byte ≈ 382,4 MiB
+│   └── 2019-Oct_first3m.csv               400.957.999 byte
 ├── raw/
 │   └── events/
 │       ├── _SUCCESS
 │       ├── part-00000-*.snappy.parquet
-│       └── part-00001-*.snappy.parquet     98.256.658 byte ≈ 93,7 MiB tổng
+│       └── part-00001-*.snappy.parquet     98.256.658 byte tổng raw/events
 ├── clean/
 │   └── events/
 │       ├── _SUCCESS
 │       ├── event_date=2019-10-01/
 │       │   └── part-*.c000.snappy.parquet
 │       ├── event_date=2019-10-02/
-│       └── event_date=2019-10-03/          155.044.118 byte ≈ 147,9 MiB tổng
+│       └── event_date=2019-10-03/          155.044.118 byte tổng clean/events
 └── reports/
     ├── ingest_log.csv
     ├── cleaning_metrics.json
@@ -40,9 +40,11 @@ real_sample3m_run01/
     └── profiling_clean.json
 ```
 
+Dung lượng lấy từ `docs/evidence/tv2/audit_5b_sources_20261111.json`, các trường `sizes.landing_visible_bytes`, `raw_visible_bytes`, `clean_visible_bytes`: cộng kích thước file trong từng cây thư mục, loại dotfiles. Các số tổng raw/clean không phải kích thước một file hoặc một phân vùng ngày.
+
 ## A.2 Schema tầng landing và raw
 
-File CSV có header đúng 9 cột theo thứ tự dưới đây. `00_ingest.py` đọc bằng schema cố định (không dùng `inferSchema`, vì suy kiểu phải quét file 5,7 GB thêm một lần), rồi ghi nguyên sang Parquet. Vì vậy tầng raw có **cùng 9 cột, cùng kiểu** với bảng này.
+File CSV có header đúng 9 cột theo thứ tự dưới đây. `00_ingest.py` đọc bằng schema cố định, không dùng `inferSchema`, rồi ghi sang Parquet. Bảng dưới mô tả kiểu Spark sau khi parse; CSV gốc là văn bản và không lưu schema kiểu dữ liệu.
 
 | # | Cột | Kiểu Spark | Null được | Ý nghĩa | Ví dụ |
 | --- | --- | --- | --- | --- | --- |
@@ -64,13 +66,13 @@ event_time,event_type,product_id,category_id,category_code,brand,price,user_id,u
 2019-10-01 00:00:00 UTC,view,3900821,2053013552326770905,appliances.environment.water_heater,aqua,33.20,554748717,9333dfbd-b87a-4708-9857-6336556b0fcc
 ```
 
-Dòng đầu tiên đã thiếu `category_code` (ô rỗng giữa hai dấu phẩy). Trên toàn tháng 10, 31,8% dòng thiếu `category_code` và 14,4% thiếu `brand` (contract mục 7).
+Dòng đầu tiên đã thiếu `category_code` (ô rỗng giữa hai dấu phẩy). Theo `docs/evidence/tv2/profiling_raw.json`, toàn tháng có 13.515.609 dòng null `category_code` và 6.113.008 dòng null `brand`.
 
 Ghi chú về kiểu:
 
 - Mọi cột đều để null được. Ở raw, Spark không chặn null; việc kiểm tra thuộc về profiling và cleaning.
-- Khi đọc CSV, ô `price` không phải số (ví dụ `nan`, `inf` viết thường) sẽ thành **null**, không thành `NaN`. Vì vậy trong `profiling_raw.json` lỗi này xuất hiện ở `price_null`.
-- `category_id` dùng `bigint` vì giá trị vượt giới hạn `int` (khoảng 2,1 tỷ).
+- Trong lần synthetic M1, generator ghi chuỗi `nan`; sau ingest, profiling ghi nhận `price_nan = 0` và `price_null = 220`. Đây là quan sát cho lần chạy này, không khẳng định mọi cách viết NaN/Infinity đều được parse giống nhau.
+- `category_id` dùng `bigint` vì ví dụ trong bảng vượt giới hạn số nguyên có dấu 32 bit.
 
 ## A.3 Schema tầng clean
 
@@ -137,7 +139,7 @@ Ghi chú khi đọc tầng clean:
 
 - **Đọc từ gốc `clean/events`**, không đọc thẳng một thư mục ngày; như vậy Spark mới nhận ra cột `event_date` từ tên thư mục. Khi đọc lại, Spark đưa cột phân vùng `event_date` xuống **cuối** schema, nên thứ tự cột lúc đọc khác thứ tự trong `cleaning_schema.json`.
 - Spark khai báo mọi cột là `nullable = true`, kể cả các cột đã đảm bảo không null. Bất biến nghiệp vụ được kiểm bằng `jobs/01_profiling.py clean` (mục `invariants` trong `profiling_clean.json`), không dựa vào cờ nullable.
-- `unknown` là nhãn quy ước, không phải thương hiệu hay danh mục thật. Trên toàn tháng 10 (42.349.872 dòng clean), `brand = unknown` chiếm 14,27% (6.043.456 dòng) và `cat_l1 = unknown` chiếm 31,82% (13.475.214 dòng); trên 3 triệu dòng đầu là 14,5% và 31,4%.
+- `unknown` là nhãn quy ước, không phải thương hiệu hay danh mục thật. Trên toàn tháng (42.349.872 dòng clean), `unknown_ratio.brand = 0.142703` (6.043.456 dòng), `unknown_ratio.cat_l1 = 0.318188` (13.475.214 dòng), theo `docs/evidence/tv2/profiling_clean.json`. Trên tập thử 3.000.000 dòng raw, hai tỷ lệ clean tương ứng là `0.145106` và `0.314483`, theo `docs/evidence/tv2/audit_5b_sample3m/profiling_clean.json`. Đây là tỷ lệ thập phân giữ nguyên từ JSON, không phải phần trăm.
 - Clean có thể có dòng giống nhau, vì dedup chạy trên raw **trước** khi chuẩn hóa. Các job sau không `dropDuplicates` lại (contract mục 2).
 - Tập rỗng hợp lệ: khi mọi dòng bị loại, `clean/events` không có thư mục ngày nhưng vẫn có một file Parquet mang schema, và `cleaning_metrics.json` có `status = SUCCESS_EMPTY`.
 

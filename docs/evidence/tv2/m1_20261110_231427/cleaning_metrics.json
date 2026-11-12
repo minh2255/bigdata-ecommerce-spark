@@ -1,0 +1,45 @@
+{
+  "data_dir": "/data/synthetic_tv2_m1_20261110_231427",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 202032,
+    "after_dedup": 200000,
+    "after_timestamp": 200000,
+    "after_event_type": 199576,
+    "after_price": 197078,
+    "after_identity": 196492,
+    "written": 196492
+  },
+  "removed": {
+    "raw_to_after_dedup": 2032,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 424,
+    "after_event_type_to_after_price": 2498,
+    "after_price_to_after_identity": 586
+  },
+  "stage_seconds": {
+    "raw": 10.554,
+    "after_dedup": 58.276,
+    "after_timestamp": 21.131,
+    "after_event_type": 17.085,
+    "after_price": 17.07,
+    "after_identity": 13.411,
+    "write": 22.456,
+    "readback_count": 4.286
+  },
+  "status": "SUCCESS",
+  "data_kind": "synthetic",
+  "application_id": "app-20261110161554-0002",
+  "empty_output": false,
+  "partition_columns": [
+    "event_date"
+  ],
+  "extensions_pending_tv2": [
+    "finite price (reject NaN/Inf)",
+    "reject whitespace-only session",
+    "blank category/brand becomes unknown"
+  ],
+  "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
+  "seconds": 177.855,
+  "rules_source": "BD_Project.docx section 5.3; TV2 contract pending"
+}

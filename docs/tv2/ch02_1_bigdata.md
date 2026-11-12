@@ -6,7 +6,7 @@ Big Data là cách gọi các tập dữ liệu mà việc lưu trữ, xử lý 
 
 | V | Ý nghĩa | Biểu hiện trong dữ liệu của đồ án |
 | --- | --- | --- |
-| Volume (khối lượng) | Dung lượng và số bản ghi lớn | File `2019-Oct.csv` có 5.668.612.855 byte (khoảng 5,7 GB) và 42.448.764 dòng sự kiện |
+| Volume (khối lượng) | Dung lượng và số bản ghi lớn | File `2019-Oct.csv` có 5.668.612.855 byte và 42.448.764 dòng sự kiện, theo `kb3.csv` và `profiling_raw.json` trong `docs/evidence/tv2/` |
 | Velocity (tốc độ) | Dữ liệu sinh ra liên tục, cần xử lý kịp thời | Mỗi lượt xem, thêm giỏ hàng, mua hàng là một sự kiện có dấu thời gian đến từng giây; trên hệ thống thật dữ liệu đến liên tục. Đồ án xử lý theo lô (batch) nên chỉ mô phỏng đặc trưng này |
 | Variety (đa dạng) | Nhiều dạng và cấu trúc dữ liệu | Dữ liệu ở dạng bán cấu trúc (CSV): có cột số, cột chuỗi, danh mục dạng cây (`electronics.smartphone`) và nhiều giá trị thiếu |
 | Veracity (độ tin cậy) | Chất lượng và độ chính xác | Có dòng trùng, giá bằng 0, `user_session` rỗng, `brand` và `category_code` thiếu; đây là lý do cần bước profiling và làm sạch |
@@ -14,7 +14,7 @@ Big Data là cách gọi các tập dữ liệu mà việc lưu trữ, xử lý 
 
 Hai chữ V có ý nghĩa trực tiếp nhất với đồ án là Volume và Veracity. Volume giải thích vì sao cần Spark thay vì Pandas trên một máy (thực nghiệm KB4). Veracity giải thích vì sao phải có data contract và bước làm sạch trước khi tính KPI. Ngược lại, Velocity chỉ được mô phỏng chứ không được kiểm chứng: đồ án không xử lý luồng thời gian thực.
 
-Cần phân biệt "lớn" theo nghĩa tương đối. Với một máy 8 GB RAM, file khoảng 5,7 GB không thể nạp vào bộ nhớ Pandas cùng các bước xử lý phụ, dù với một trung tâm dữ liệu thì đây chỉ là tập dữ liệu nhỏ. Đồ án chạy trên cụm Docker gồm một master và hai worker trên cùng một máy, vì vậy kết quả minh họa cách phân chia công việc chứ không chứng minh khả năng mở rộng ngang trên nhiều máy.
+Cần phân biệt "lớn" theo nghĩa tương đối. Với một máy RAM 8 GB, file 5.668.612.855 byte có nguy cơ vượt bộ nhớ khi Pandas nạp dữ liệu và tạo các bản trung gian; bộ evidence TV2 chưa có phép đo toàn bộ bằng Pandas để kết luận chắc chắn. Đồ án chạy trên cụm Docker gồm một master và hai worker trên cùng một máy, vì vậy kết quả minh họa cách phân chia công việc chứ không chứng minh khả năng mở rộng ngang trên nhiều máy.
 
 <!-- page -->
 
@@ -31,9 +31,9 @@ Data Lake là nơi lưu trữ dữ liệu ở dạng gần với nguyên gốc, 
 | clean | `clean/events` | Dữ liệu đã làm sạch theo data contract, phân vùng theo `event_date` | `02_cleaning.py` |
 | agg | `agg/` | Bảng tổng hợp nhỏ phục vụ KPI và biểu đồ | `03_aggregation.py` |
 
-Báo cáo chất lượng (`profiling_raw.json`, `profiling_clean.json`, `cleaning_metrics.json`) nằm ở `reports/`. Việc tách raw và clean có hai lý do. Thứ nhất, raw là bản đối chứng: mọi số liệu "trước làm sạch" của KB5 đều lấy từ đây. Thứ hai, nếu luật làm sạch thay đổi (ví dụ contract nâng từ 1.0 lên 1.1), chỉ cần chạy lại từ raw mà không phải đọc lại CSV 5,7 GB.
+Báo cáo chất lượng (`profiling_raw.json`, `profiling_clean.json`, `cleaning_metrics.json`) nằm ở `reports/`. Việc tách raw và clean có hai lý do. Thứ nhất, raw là bản đối chứng: mọi số liệu "trước làm sạch" của KB5 đều lấy từ đây. Thứ hai, nếu luật làm sạch thay đổi (ví dụ contract nâng từ 1.0 lên 1.1), chỉ cần chạy lại từ raw mà không phải đọc lại CSV gốc.
 
-Quy tắc của mỗi tầng được ghi trong `docs/data_contract.md`. Điểm cần nhớ là clean **không** loại thêm dòng vì ID không dương hay `user_session` không đúng UUID, vì kiểm tra trên dữ liệu thật không thấy vi phạm nào; đồng thời các dòng thiếu `brand` hoặc `category_code` không bị loại mà được gán nhãn `unknown`, bởi chúng chiếm một phần lớn dữ liệu.
+Quy tắc của mỗi tầng được ghi trong `docs/data_contract.md`. Điểm cần nhớ là clean **không** loại thêm dòng vì ID không dương hay `user_session` không đúng UUID, vì kiểm tra trên dữ liệu thật không thấy vi phạm nào; đồng thời thiếu `brand` hoặc `category_code` không phải điều kiện loại dòng. `brand`, `cat_l1`, `cat_l2` được gán `unknown` khi thiếu; `category_code` gốc vẫn được giữ và có thể null.
 
 <!-- page -->
 

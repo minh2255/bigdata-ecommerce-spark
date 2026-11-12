@@ -1,0 +1,11 @@
+{
+  "requested_rows": 200000,
+  "duplicate_rows": 2032,
+  "price_zero": 2071,
+  "price_negative": 219,
+  "price_nan": 218,
+  "bad_event_type": 424,
+  "blank_session": 405,
+  "null_user_id": 190,
+  "total_rows_written": 202032
+}
