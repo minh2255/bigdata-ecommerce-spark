@@ -32,7 +32,7 @@ def finite(price):
 
 
 def blank(column):
-    return column.isNotNull() & (F.length(F.trim(column)) == 0)
+    return column.isNotNull() & (~column.rlike(r"\S"))
 
 
 def common_exprs(df):
@@ -178,7 +178,7 @@ def check_invariants(report, m, root):
         "no_price_nan_or_inf": m["price_nan"] == 0 and m["price_inf"] == 0,
         "no_null_required_columns": all(report["nulls"][c] == 0 for c in required),
         "no_blank_session": m["blank__user_session"] == 0,
-        "event_type_valid": m["event_type_invalid"] == 0,
+        "event_type_valid": m["event_type_invalid"] == 0 and report["nulls"]["event_type"] == 0,
         "event_hour_0_23": m["rows"] == 0 or (0 <= m["event_hour_min"] and m["event_hour_max"] <= 23),
         "day_of_week_valid": m["day_of_week_invalid"] == 0,
     }

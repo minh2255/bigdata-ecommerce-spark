@@ -17,7 +17,7 @@ if [[ "$MODE" == --available ]]; then
   echo '[ALIAS] --available means --ingest-clean; no profiling or aggregation is run'
   MODE=--ingest-clean
 fi
-case "$MODE" in --full|--ingest-clean|--clean-only) ;; *) fail 2 'Usage: run_pipeline.sh [--full|--ingest-clean|--clean-only]' ;; esac
+case "$MODE" in --full|--quality-check|--ingest-clean|--clean-only) ;; *) fail 2 'Usage: run_pipeline.sh [--full|--quality-check|--ingest-clean|--clean-only]' ;; esac
 DATA_DIR=${DATA_DIR:-/data}
 DATA_KIND=${DATA_KIND:-}
 SPARK_CONTAINER=${SPARK_CONTAINER:-spark-master}
@@ -29,6 +29,7 @@ SPARK_DRIVER_MEMORY=${SPARK_DRIVER_MEMORY:-2g}
 required=(02_cleaning.py)
 if [[ "$MODE" != --clean-only ]]; then required=(00_ingest.py 02_cleaning.py); fi
 if [[ "$MODE" == --full ]]; then required=(00_ingest.py 01_profiling.py 02_cleaning.py 03_aggregation.py); fi
+if [[ "$MODE" == --quality-check ]]; then required=(00_ingest.py 01_profiling.py 02_cleaning.py); fi
 stage=source-preflight
 missing=0
 for job in "${required[@]}"; do
@@ -55,12 +56,16 @@ run_job() {
   if ((code != 0)); then echo "[SUBMIT ERROR] job=$job exit=$code"; exit "$code"; fi
 }
 if [[ "$MODE" != --clean-only ]]; then run_job 00_ingest.py; fi
-if [[ "$MODE" == --full ]]; then run_job 01_profiling.py raw; fi
+if [[ "$MODE" == --full || "$MODE" == --quality-check ]]; then run_job 01_profiling.py raw; fi
 run_job 02_cleaning.py
-if [[ "$MODE" == --full ]]; then
+if [[ "$MODE" == --full || "$MODE" == --quality-check ]]; then
   run_job 01_profiling.py clean
+fi
+if [[ "$MODE" == --full ]]; then
   run_job 03_aggregation.py
   echo "[DONE FULL] $DATA_DIR"
+elif [[ "$MODE" == --quality-check ]]; then
+  echo "[DONE QUALITY] $DATA_DIR; raw and clean profiling complete"
 else
   echo "[DONE TV3] mode=$MODE; profiling and aggregation were not run"
 fi

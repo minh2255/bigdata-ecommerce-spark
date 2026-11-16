@@ -1,4 +1,4 @@
-"""TV3: seven cleaning rules from BD_Project.docx; TV2 contract pending.
+"""TV3: cleaning rules from docs/data_contract.md v1.0.
 
 DATA_DIR selects an isolated Data Lake. Existing output is never overwritten.
 """
@@ -52,11 +52,13 @@ def main():
         if any(actual_types.get(key) != value for key, value in expected_types.items()):
             raise ValueError(f"Raw schema does not match the guide: {actual_types}")
         raw = checkpoint("raw", raw_input)
-        df = checkpoint("after_dedup", raw.dropDuplicates())
+        df = checkpoint("after_dedup", raw.dropDuplicates(list(expected_types)))
         df = checkpoint("after_timestamp", df.withColumn(
-            "event_ts", F.try_to_timestamp(
+            "event_ts", F.when(
+                F.col("event_time").rlike(r"^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC$"),
+                F.try_to_timestamp(
                 F.regexp_replace("event_time", " UTC$", ""),
-                F.lit("yyyy-MM-dd HH:mm:ss"))).filter(F.col("event_ts").isNotNull()))
+                F.lit("yyyy-MM-dd HH:mm:ss")))).filter(F.col("event_ts").isNotNull()))
         df = checkpoint("after_event_type", df.filter(
             F.col("event_type").isin("view", "cart", "purchase")))
         df = checkpoint("after_price", df.filter(
@@ -64,7 +66,7 @@ def main():
             & (F.col("price") < F.lit(float("inf")))))
         df = checkpoint("after_identity", df.filter(
             F.col("user_id").isNotNull() & F.col("user_session").isNotNull()
-            & (F.length(F.trim("user_session")) > 0)))
+            & F.col("user_session").rlike(r"\S")))
 
         def unknown_if_empty(column):
             return F.when(column.isNull() | (F.length(F.trim(column)) == 0),
@@ -102,12 +104,11 @@ def main():
             "application_id": spark.sparkContext.applicationId,
             "empty_output": counts["written"] == 0,
             "partition_columns": ["event_date"],
-            "extensions_pending_tv2": ["finite price (reject NaN/Inf)",
-                                       "reject whitespace-only session",
-                                       "blank category/brand becomes unknown"],
+            "contract_version": "1.0",
+            "extensions_pending_tv2": [],
             "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
             "seconds": round(time.perf_counter() - started, 3),
-            "rules_source": "BD_Project.docx section 5.3; TV2 contract pending",
+            "rules_source": "docs/data_contract.md v1.0",
         }
         report.parent.mkdir(parents=True, exist_ok=True)
         with schema_report.open("x", encoding="utf-8") as handle:

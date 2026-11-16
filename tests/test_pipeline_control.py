@@ -89,6 +89,20 @@ exit 0
         self.assertNotIn("</opt/jobs/01_profiling.py><clean>", trace)
         self.assertNotIn("/opt/jobs/03_aggregation.py", trace)
 
+    def test_quality_order_without_aggregation(self):
+        result, trace = self.run_case("quality-order", "--quality-check", missing="03_aggregation.py", MOCK_FAIL_JOB="never.py")
+        self.assertEqual(result.returncode, 0, result.stdout)
+        jobs = ["</opt/jobs/00_ingest.py>", "</opt/jobs/01_profiling.py><raw>",
+                "</opt/jobs/02_cleaning.py>", "</opt/jobs/01_profiling.py><clean>"]
+        indices = [trace.index(job) for job in jobs]
+        self.assertEqual(indices, sorted(indices))
+        self.assertNotIn("/opt/jobs/03_aggregation.py", trace)
+
+    def test_quality_stops_at_raw_profile_failure(self):
+        result, trace = self.run_case("quality-failure", "--quality-check", MOCK_FAIL_JOB="01_profiling.py")
+        self.assertEqual(result.returncode, 42, result.stdout)
+        self.assertNotIn("/opt/jobs/02_cleaning.py", trace)
+
     def test_clean_only_does_not_require_other_sources(self):
         result, trace = self.run_case("clean-only", "--clean-only", missing="01_profiling.py", MOCK_FAIL_JOB="02_cleaning.py")
         self.assertEqual(result.returncode, 42, result.stdout)

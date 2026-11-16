@@ -7,11 +7,15 @@ Log   : [INGEST] rows=... time=...s  (+ ghi thêm reports/ingest_log.csv)
 import os
 import csv
 import time
+from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (StructType, StructField, StringType,
                                LongType, DoubleType)
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
+
+if (Path(DATA_DIR) / "raw/events").exists() or (Path(DATA_DIR) / "reports/ingest_log.csv").exists():
+    raise FileExistsError("Ingest output exists; choose a new DATA_DIR")
 
 # Schema cố định (không dùng inferSchema vì phải quét file 2 lần, rất chậm với 5 GB)
 schema = StructType([
@@ -32,7 +36,7 @@ spark = SparkSession.builder.appName("00_ingest").getOrCreate()
 start = time.perf_counter()
 
 df = spark.read.csv(f"{DATA_DIR}/landing/*.csv", header=True, schema=schema)
-df.write.mode("overwrite").parquet(f"{DATA_DIR}/raw/events")
+df.write.mode("errorifexists").parquet(f"{DATA_DIR}/raw/events")
 
 elapsed = time.perf_counter() - start
 
