@@ -1,0 +1,7 @@
+Mục                           Đã chèn  Bị loại  Kết quả
+Tổng dòng raw                   20203    20203  OK
+Dòng trùng                        203      203  OK
+event_type lạ                      52       52  OK
+Giá 0/âm/NaN                      273      273  OK
+Session trống + user null          48       48  OK
+status=SUCCESS written=19627

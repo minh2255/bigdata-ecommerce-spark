@@ -1,0 +1,14 @@
+[PREFLIGHT] mode=--ingest-clean root=C:\Users\Khiem\AppData\Local\Temp\tmplim5oour\data\lake data_kind=synthetic; inputs/config/output guards PASS
+[PREFLIGHT] mode=--quality-check root=C:\Users\Khiem\AppData\Local\Temp\tmpod19_k6w\data\lake data_kind=synthetic; inputs/config/output guards PASS
+test_full_still_requires_aggregation (__main__.PreflightTests.test_full_still_requires_aggregation) ... ok
+test_ingest_clean_ignores_unrelated_profile (__main__.PreflightTests.test_ingest_clean_ignores_unrelated_profile) ... ok
+test_quality_does_not_require_aggregation (__main__.PreflightTests.test_quality_does_not_require_aggregation) ... ok
+test_quality_rejects_existing_raw (__main__.PreflightTests.test_quality_rejects_existing_raw) ... ok
+test_quality_rejects_profile_outputs (__main__.PreflightTests.test_quality_rejects_profile_outputs) ... ok
+test_quality_requires_landing (__main__.PreflightTests.test_quality_requires_landing) ... ok
+test_quality_requires_profile (__main__.PreflightTests.test_quality_requires_profile) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.072s
+
+OK

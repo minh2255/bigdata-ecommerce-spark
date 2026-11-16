@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "exit": 1,
+  "command": [
+    "docker",
+    "exec",
+    "-e",
+    "DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad",
+    "spark-master",
+    "/opt/spark/bin/spark-submit",
+    "--master",
+    "spark://spark-master:7077",
+    "/opt/jobs/00_ingest.py"
+  ],
+  "sha256_unchanged": {
+    "data\\synthetic_quality_20261027_095328_f07dad\\raw\\events\\part-00000-d9113735-ada6-47dc-9ee6-e556630c55a3-c000.snappy.parquet": "67500779e53b82d17769b896dcbe77f56e8cb64788ad128f16cbdfebe3d10ab1",
+    "data\\synthetic_quality_20261027_095328_f07dad\\reports\\ingest_log.csv": "429d6a9b1d669c3947ecd75211ca0addd0d6c46c57b893de14c1ea5f71e8af5e"
+  }
+}

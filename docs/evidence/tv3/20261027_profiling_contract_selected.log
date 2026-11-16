@@ -1,0 +1,4 @@
+[PASS] normalized duplicates allowed; strict UTC contract fixture profiles clean
+[PASS] null event_type and whitespace sessions fail clean invariants
+[PASS] schema-bearing empty output profiles successfully
+[APPLICATION] app-20261027025544-0020

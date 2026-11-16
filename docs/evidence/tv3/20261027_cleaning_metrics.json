@@ -1,0 +1,42 @@
+{
+  "data_dir": "/data/synthetic_quality_20261027_095328_f07dad",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 20203,
+    "after_dedup": 20000,
+    "after_timestamp": 20000,
+    "after_event_type": 19948,
+    "after_price": 19675,
+    "after_identity": 19627,
+    "written": 19627
+  },
+  "removed": {
+    "raw_to_after_dedup": 203,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 52,
+    "after_event_type_to_after_price": 273,
+    "after_price_to_after_identity": 48
+  },
+  "stage_seconds": {
+    "raw": 2.766,
+    "after_dedup": 4.179,
+    "after_timestamp": 2.26,
+    "after_event_type": 2.016,
+    "after_price": 1.838,
+    "after_identity": 1.564,
+    "write": 14.368,
+    "readback_count": 7.741
+  },
+  "status": "SUCCESS",
+  "data_kind": "synthetic",
+  "application_id": "app-20261027025400-0017",
+  "empty_output": false,
+  "partition_columns": [
+    "event_date"
+  ],
+  "contract_version": "1.0",
+  "extensions_pending_tv2": [],
+  "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
+  "seconds": 41.578,
+  "rules_source": "docs/data_contract.md v1.0"
+}

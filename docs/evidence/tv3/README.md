@@ -52,3 +52,7 @@ Lượt lỗi giữ lại: data/reports/tv3_handoff_20261018/20261018_233703_57a
 Kiểm tra baseline: data/reports/tv3_handoff_20261018/baseline_distributed_validation.log.
 Word QA: data/reports/tv3_handoff_20261018/word_qa/final/.
 Các vùng data bị Git bỏ qua; gói được chọn này có thể review mà không cần nộp dataset.
+
+## Lần kiểm chứng 27 tháng 10 năm 2026
+
+Các file 20261027_* là bộ minh chứng mới theo contract TV2 v1.0: synthetic 20.203 raw → 19.627 clean, profiling all_pass=true, compare_truth và validator đạt. Bao gồm 5 fixture Spark, unit/preflight, clone sạch riêng, lỗi schema thật và guard ingest trực tiếp. Log *_selected.log chỉ trích các dòng stdout liên quan; log đầy đủ ở data/reports/tv3_quality/20261027_095328_f07dad/. Không có dữ liệu Kaggle và không xác nhận máy khác. Manifest bổ sung hash, giữ nguyên bộ minh chứng lịch sử. Xem docs/tv3_run_20261027.md.

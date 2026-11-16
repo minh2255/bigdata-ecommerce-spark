@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "base": "1249075",
+  "snapshot": "D:\\Desktop\\BigData\\data\\reports\\tv3_clean_checkout\\a60e1344",
+  "method": "fresh local git clone + uncommitted patch; no existing data copied",
+  "tests": [
+    {
+      "script": "tests/test_pipeline_control.py",
+      "exit": 0
+    },
+    {
+      "script": "tests/test_preflight.py",
+      "exit": 0
+    }
+  ],
+  "source_sha256": {
+    "jobs/00_ingest.py": "25452ef63d50719af1715f39cdcb4c944c0e63308f63f8e0dde61e13a45e06e4",
+    "jobs/01_profiling.py": "1a1e55beaadc48890d64ec6621284c872628455d7fdd1c0be8e0b8e98fc57ee4",
+    "jobs/02_cleaning.py": "01f9c864bb5a140da28c039830f66a118e6bb100ca540a268f78de4c6beea535",
+    "jobs/validate_cleaning.py": "36663841d510d622289838534e0e23ece0a21dbac2b09fbe1d30b83f48bf32f7",
+    "scripts/run_pipeline.sh": "6054323a952d3c3390f60e19437279f6386fe80986c3162d53328546d76948c3",
+    "scripts/pipeline_preflight.py": "285569c2fe0c28a4225627faf631d0c3bc12e5be3e4f8609a42717bc24d39cc9",
+    "scripts/check_cleaning.py": "9ab42d593c91100463107069989747b0169f4551f653d1bc4e56c247f0ed184d"
+  },
+  "spark_scope": "Spark full quality run occurs in primary checkout with identical sources; no other machine verification"
+}

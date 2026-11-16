@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "real Spark submit failure, not mock",
+  "expected_exit": 1,
+  "actual_exit": 1,
+  "reason": "raw price has string type instead of double",
+  "data_dir": "/data/tv3 rejected schema e5a5929197",
+  "clean_output_created": false,
+  "pipeline_stopped": true,
+  "log": "data\\reports\\tv3_handoff_20261018\\schema_rejection_e5a5929197\\actual_spark_schema_failure.log"
+}
