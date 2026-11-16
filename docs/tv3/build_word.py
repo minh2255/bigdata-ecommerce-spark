@@ -125,7 +125,7 @@ def table(lines):
 
 doc.add_paragraph("Báo cáo phần việc TV3", "Title")
 doc.add_paragraph("Làm sạch dữ liệu thương mại điện tử bằng Apache Spark")
-doc.add_paragraph("Ngày 18 tháng 10 năm 2026. Kết quả hiện có là synthetic; dữ liệu Kaggle và xác nhận tích hợp còn chờ.")
+doc.add_paragraph("Cập nhật ngày 27 tháng 10 năm 2026. Tích hợp TV2–TV3 đạt trên synthetic; còn Kaggle, aggregation TV4 và kiểm tra máy khác.")
 for file_index, name in enumerate(FILES):
     if file_index:
         doc.add_page_break()

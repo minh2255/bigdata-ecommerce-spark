@@ -30,7 +30,7 @@ def main():
                  & F.col("price").isNotNull() & (F.col("price") > 0)
                  & ~F.isnan("price") & (F.col("price") < F.lit(float("inf")))
                  & F.col("user_id").isNotNull() & F.col("user_session").isNotNull()
-                 & (F.length(F.trim("user_session")) > 0)
+                 & F.col("user_session").rlike(r"\S")
                  & F.col("event_date").eqNullSafe(F.to_date("event_ts"))
                  & F.col("event_hour").eqNullSafe(F.hour("event_ts"))
                  & F.col("day_of_week").eqNullSafe(F.date_format("event_ts", "E")))

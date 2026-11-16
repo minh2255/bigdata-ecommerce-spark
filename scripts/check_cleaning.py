@@ -8,6 +8,7 @@ Use jobs/validate_cleaning.py for large datasets. This is not TV2 profiling.
 import csv
 import json
 import math
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -23,10 +24,15 @@ def fixture(root, kind="mixed"):
     rows = [base, base.copy(),
             dict(base, user_session="session-blank", category_code="", brand=" "),
             dict(base, user_session="session-short", category_code="apparel", brand=None)]
-    for col, value in [("event_time", "bad-time"), ("event_type", "remove"),
+    for col, value in [("event_time", "bad-time"),
+                       ("event_time", "2019-10-01 23:45:00"),
+                       ("event_time", "2019-10-1 23:45:00 UTC"),
+                       ("event_time", "2019-02-30 23:45:00 UTC"),
+                       ("event_time", "2019-10-01T23:45:00 UTC"),
+                       ("event_time", "2019-10-01 23:45:00 UTC "), ("event_type", "remove"),
                        ("price", 0), ("price", -1), ("price", None),
-                       ("price", "NaN"), ("price", "Infinity"),
-                       ("user_id", None), ("user_session", None), ("user_session", " ")]:
+                       ("price", "NaN"), ("price", "Infinity"), ("price", "-Infinity"),
+                       ("user_id", None), ("user_session", None), ("user_session", " "), ("user_session", "\t\r\n")]:
         rows.append(dict(base, **{col: value}))
     if kind == "empty":
         rows = []
@@ -35,6 +41,10 @@ def fixture(root, kind="mixed"):
     elif kind == "valid-repeat":
         rows = [base, dict(base, event_type="view"),
                 dict(base, event_time="2019-10-02 00:15:00 UTC", user_id=-3)]
+    elif kind == "contract":
+        rows += [dict(base, brand="apple"),
+                 dict(base, event_time="2019-10-01 23:59:59 UTC", user_id=0, product_id=None),
+                 dict(base, event_time="2019-10-02 00:00:00 UTC", user_id=-1, category_id=-2, category_code=" . ")]
     elif kind != "mixed":
         raise ValueError(kind)
     (root / "landing").mkdir(parents=True, exist_ok=True)
@@ -69,6 +79,8 @@ def verify(root):
     valid_time = []
     for row in dedup:
         try:
+            if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC", row["event_time"] or ""):
+                continue
             ts = datetime.strptime(row["event_time"], "%Y-%m-%d %H:%M:%S UTC")
         except (ValueError, TypeError):
             continue

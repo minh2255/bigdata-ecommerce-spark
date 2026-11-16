@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "data_dir": "/data/synthetic_quality_20261027_095328_f07dad",
+  "local_data_dir": "D:\\Desktop\\BigData\\data\\synthetic_quality_20261027_095328_f07dad",
+  "evidence": "D:\\Desktop\\BigData\\data\\reports\\tv3_quality\\20261027_095328_f07dad",
+  "source": "scripts/generate_data.py seed=42; synthetic, not Kaggle",
+  "requested_rows": 20000,
+  "counts": {
+    "raw": 20203,
+    "after_dedup": 20000,
+    "after_timestamp": 20000,
+    "after_event_type": 19948,
+    "after_price": 19675,
+    "after_identity": 19627,
+    "written": 19627
+  },
+  "application_ids": {
+    "cleaning_metrics": "app-20261027025400-0017",
+    "profiling_raw": "app-20261027025345-0016",
+    "profiling_clean": "app-20261027025445-0018",
+    "cleaning_validation_spark": "app-20261027025508-0019"
+  },
+  "cleaning_seconds": 41.578,
+  "steps": [
+    {
+      "label": "generate",
+      "command": [
+        "docker",
+        "exec",
+        "-e",
+        "DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad",
+        "spark-master",
+        "python3",
+        "/opt/scripts/generate_data.py",
+        "20000"
+      ],
+      "exit": 0,
+      "seconds": 0.642,
+      "log": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\generate.log"
+    },
+    {
+      "label": "quality_pipeline",
+      "command": [
+        "C:/Program Files/Git/bin/bash.exe",
+        "scripts/run_pipeline.sh",
+        "--quality-check"
+      ],
+      "exit": 0,
+      "seconds": 97.075,
+      "log": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\quality_pipeline.log"
+    },
+    {
+      "label": "compare_truth",
+      "command": [
+        "docker",
+        "exec",
+        "spark-master",
+        "python3",
+        "/opt/scripts/compare_truth.py",
+        "/data/synthetic_quality_20261027_095328_f07dad"
+      ],
+      "exit": 0,
+      "seconds": 0.301,
+      "log": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\compare_truth.log"
+    },
+    {
+      "label": "validator",
+      "command": [
+        "docker",
+        "exec",
+        "-e",
+        "DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad",
+        "-e",
+        "DATA_KIND=synthetic",
+        "spark-master",
+        "/opt/spark/bin/spark-submit",
+        "--master",
+        "spark://spark-master:7077",
+        "--driver-memory",
+        "2g",
+        "/opt/jobs/validate_cleaning.py"
+      ],
+      "exit": 0,
+      "seconds": 17.156,
+      "log": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\validator.log"
+    }
+  ],
+  "other_machine_tested": false,
+  "spark_config": {
+    "master": "spark://spark-master:7077",
+    "driver_memory": "2g",
+    "workers": 2,
+    "worker_cores": 2,
+    "worker_memory": "2g"
+  },
+  "truth_limits": "raw/dedup exact; other removals near: 2% injected + 20; not row equivalence"
+}

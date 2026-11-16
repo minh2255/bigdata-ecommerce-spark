@@ -18,7 +18,8 @@ runtime = Path(sys.executable).parent.parent if Path(sys.executable).parent.name
 deps = runtime.parent
 poppler = next((deps / "native/poppler").rglob("pdftoppm.exe")).parent
 os.environ["PATH"] = str(poppler) + os.pathsep + os.environ["PATH"]
-skill = Path("C:/Users/Khiem/.codex/plugins/cache/openai-primary-runtime/documents/26.1015.12040/skills/documents")
+skill = Path(os.environ.get("CODEX_DOCUMENTS_SKILL",
+    "C:/Users/Khiem/.codex/plugins/cache/openai-primary-runtime/documents/26.1025.11240/skills/documents"))
 spec = importlib.util.spec_from_file_location("packaged_docx_renderer", skill / "render_docx.py")
 renderer = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(renderer)

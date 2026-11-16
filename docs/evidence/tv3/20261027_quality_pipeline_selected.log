@@ -1,0 +1,16 @@
+[PREFLIGHT] mode=--quality-check root=/data/synthetic_quality_20261027_095328_f07dad data_kind=synthetic; inputs/config/output guards PASS
+[RUN] 00_ingest.py  DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad
+[RUN] 01_profiling.py raw DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad
+[PROFILE] layer=raw rows=20203 duplicates=203 price_le_0=252 status=SUCCESS time=7.229s -> /data/synthetic_quality_20261027_095328_f07dad/reports/profiling_raw.json
+[RUN] 02_cleaning.py  DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad
+[CLEAN] raw=20203 removed=0 stage_seconds=2.766
+[CLEAN] after_dedup=20000 removed=203 stage_seconds=4.179
+[CLEAN] after_timestamp=20000 removed=0 stage_seconds=2.26
+[CLEAN] after_event_type=19948 removed=52 stage_seconds=2.016
+[CLEAN] after_price=19675 removed=273 stage_seconds=1.838
+[CLEAN] after_identity=19627 removed=48 stage_seconds=1.564
+[CLEAN] raw=20203 after_dedup=20000 after_filter=19627 time=41.578s
+[RUN] 01_profiling.py clean DATA_DIR=/data/synthetic_quality_20261027_095328_f07dad
+[PROFILE] layer=clean rows=19627 duplicates=0 price_le_0=0 status=SUCCESS time=11.653s -> /data/synthetic_quality_20261027_095328_f07dad/reports/profiling_clean.json
+[DONE QUALITY] /data/synthetic_quality_20261027_095328_f07dad; raw and clean profiling complete
+[EXIT] stage=complete code=0 log=/d/Desktop/BigData/data/reports/tv3_pipeline_logs/pipeline-20261027T025328Z-1667.log

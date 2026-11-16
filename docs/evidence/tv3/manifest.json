@@ -285,5 +285,117 @@
     "purpose": "Support data for TV2 KB5, not official profiling",
     "bytes": 5050,
     "sha256": "522048cc7035bff204b35e4b2c656dc1f28b083e5f1b57d394394adba48eee02"
+  },
+  {
+    "file": "20261027_quality_summary.json",
+    "origin": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\summary.json",
+    "purpose": "Actual synthetic TV2-TV3 full quality chain; commands, application IDs, timing",
+    "bytes": 2881,
+    "sha256": "389b77a081249cb5ec8f1a0bb2db803c2dbdd638a41272a7b9c1518666a2ae4c"
+  },
+  {
+    "file": "20261027_fixture_summary.json",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\summary.json",
+    "purpose": "Five actual Spark fixtures; same Windows host only",
+    "bytes": 7442,
+    "sha256": "6be0cd7b14c69e0192777ab6176f0aacf5bd91b710be0eda4460830b11b5b891"
+  },
+  {
+    "file": "20261027_clean_checkout_summary.json",
+    "origin": "data\\reports\\tv3_clean_checkout\\a60e1344\\summary.json",
+    "purpose": "Fresh local clone plus uncommitted patch; unit tests and source hashes",
+    "bytes": 1240,
+    "sha256": "bf66d7ff3b7e802b43d29547e2b70146762941858e27c832b271998b4878d1a5"
+  },
+  {
+    "file": "20261027_ingest_overwrite_guard.json",
+    "origin": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\ingest_overwrite_guard.json",
+    "purpose": "Direct Spark ingest refusal, protected raw/log hashes",
+    "bytes": 684,
+    "sha256": "8c36dcd88b858ab1301da2a04ac9e5995236006c2da1e46618242f8ed36c3aa9"
+  },
+  {
+    "file": "20261027_schema_rejection.json",
+    "origin": "data\\reports\\tv3_handoff_20261018\\schema_rejection_e5a5929197\\summary.json",
+    "purpose": "Actual Spark schema failure returns exit 1 without clean output",
+    "bytes": 408,
+    "sha256": "2381bc35c528579377a49fad32cda569223ad78bf34381b898d4176f5c681d49"
+  },
+  {
+    "file": "20261027_preflight.log",
+    "origin": "data\\reports\\tv3_clean_checkout\\a60e1344\\test_preflight.log",
+    "purpose": "Seven real filesystem preflight unit cases",
+    "bytes": 1146,
+    "sha256": "131fc31a10d3d79bb4251a3daf01ef88be95528ca5930f5ed10f01c0d753c0b8"
+  },
+  {
+    "file": "20261027_control_flow.log",
+    "origin": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\unit_control_flow.log",
+    "purpose": "Nine shell unit cases; mock Docker, not Spark proof",
+    "bytes": 1091,
+    "sha256": "89921f09cbfb47408ca1095cebd73f9897fa7a3b852fcdcd2fe447ecfbdb7e84"
+  },
+  {
+    "file": "20261027_compare_truth.log",
+    "origin": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\compare_truth.log",
+    "purpose": "Five truth comparisons; near tolerance documented",
+    "bytes": 364,
+    "sha256": "64891273c59d4ab5f42ca37bc2a5eb293910d2ddea815cdddabd4c3580d53da2"
+  },
+  {
+    "file": "20261027_cleaning_metrics.json",
+    "origin": "data\\synthetic_quality_20261027_095328_f07dad\\reports\\cleaning_metrics.json",
+    "purpose": "Actual synthetic reports from the same lake",
+    "bytes": 1118,
+    "sha256": "4c27ec44291103694186ed9809f09d8d3df5cdad4a18be4dd29905cd822dcaf5"
+  },
+  {
+    "file": "20261027_cleaning_schema.json",
+    "origin": "data\\synthetic_quality_20261027_095328_f07dad\\reports\\cleaning_schema.json",
+    "purpose": "Actual synthetic reports from the same lake",
+    "bytes": 1560,
+    "sha256": "311feeffeaf6500bf09ee18e39fc43b4712758467781d7cd323e6a7248115d32"
+  },
+  {
+    "file": "20261027_profiling_raw.json",
+    "origin": "data\\synthetic_quality_20261027_095328_f07dad\\reports\\profiling_raw.json",
+    "purpose": "Actual synthetic reports from the same lake",
+    "bytes": 1670,
+    "sha256": "962656a120555f1e28c7cebb16306172a4afbdf2e46742d62f702cea3a599fb9"
+  },
+  {
+    "file": "20261027_profiling_clean.json",
+    "origin": "data\\synthetic_quality_20261027_095328_f07dad\\reports\\profiling_clean.json",
+    "purpose": "Actual synthetic reports from the same lake",
+    "bytes": 2327,
+    "sha256": "5f95c0c75f7249938505579d78f8d7ed3ee3a3dd9d24a1a64938d600fc86da0b"
+  },
+  {
+    "file": "20261027_cleaning_validation_spark.json",
+    "origin": "data\\synthetic_quality_20261027_095328_f07dad\\reports\\cleaning_validation_spark.json",
+    "purpose": "Actual synthetic reports from the same lake",
+    "bytes": 700,
+    "sha256": "9ffbbc13e00fe1eb209278a4febffaa10e0aefe7cbe9fb9585882f0b0e182023"
+  },
+  {
+    "file": "20261027_quality_pipeline_selected.log",
+    "origin": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\quality_pipeline.log",
+    "purpose": "Selected actual stdout lines; full log kept ignored under data/reports",
+    "bytes": 1433,
+    "sha256": "0b555606d081708800eed26aef2ac43118aa6bef12f3096098e7c092289f9537"
+  },
+  {
+    "file": "20261027_profiling_contract_selected.log",
+    "origin": "data\\reports\\tv3_quality\\20261027_095328_f07dad\\profiling_contract_regression.log",
+    "purpose": "Selected actual stdout lines; full log kept ignored under data/reports",
+    "bytes": 249,
+    "sha256": "677b1b6398ee7fb9e7860465770b1f87b5b5d42add575773301c4f5cd4e56bec"
+  },
+  {
+    "file": "20261027_word_qa.json",
+    "origin": "Word render and OOXML audit in this session",
+    "purpose": "Final 12-page Word QA; font, black text/tables and visual inspection",
+    "bytes": 692,
+    "sha256": "ee9328215d29aa2b147187d3120deb539ec7e868a7c2bccb26761b1bee0774e6"
   }
 ]

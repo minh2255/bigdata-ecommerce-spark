@@ -1,3 +1,5 @@
+> Cập nhật 27/10/2026: contract v1.0, generator và profiling TV2 đã merge. Dùng --quality-check đến profiling clean; --full còn thiếu aggregation TV4. Nội dung bên dưới lưu lịch sử thiết lập 18–19/10, các mục chờ TV2 không còn là trạng thái hiện tại. Xem [biên bản mới](tv3_run_20261027.md).
+
 # Thiết lập Windows 11 và kiểm thử phần TV3
 
 Tài liệu này lưu lịch sử thiết lập ban đầu. Gói TV3 đã được hoàn thiện tiếp tại

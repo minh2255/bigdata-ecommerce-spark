@@ -20,11 +20,11 @@ Không chạy trước cleaning vào cùng vùng, vì job từ chối ghi đè. 
 | Thời gian | Nội dung trình bày và hành động |
 | --- | --- |
 | 0:00–0:25 | Tôi phụ trách raw → clean. Đây là fixture synthetic 14 dòng, có lỗi chủ động; không phải Kaggle. Chỉ ra raw/events và vị trí clean sẽ được tạo. |
-| 0:25–0:45 | Chạy clean-only ở lệnh dưới; giải thích full pipeline còn chờ profiling/aggregation, mode này chỉ gọi TV3. |
-| 0:45–1:30 | Trong lúc Spark chạy, giải thích thứ tự bỏ trùng, parse UTC, loại event lạ, giá lỗi và thiếu định danh; brand/category được chuẩn hóa. NaN/Inf, session trắng và chuỗi rỗng là quy tắc mở rộng chờ TV2 xác nhận. |
+| 0:25–0:45 | Chạy clean-only ở lệnh dưới; giải thích --full cần cả profiling và aggregation (TV2/TV4, có trên origin/main), mode này chỉ gọi TV3. |
+| 0:45–1:30 | Trong lúc Spark chạy, giải thích thứ tự bỏ trùng, parse UTC, loại event lạ, giá lỗi và thiếu định danh; brand/category được chuẩn hóa. NaN/Inf, session trắng và chuỗi rỗng được quy định trong contract TV2 v1.0. |
 | 1:30–2:00 | Đọc log theo các bước 14 → 13 → 12 → 11 → 6 → 3; chỉ ra removed và stage_seconds. Nếu chưa kết thúc, xem log đang chạy, không khẳng định kết quả trước khi có [EXIT] 0. |
 | 2:00–2:35 | Mở metrics và thư mục event_date=2019-10-01; giải thích đây là phân vùng lưu trữ. Có thể mở Application UI khi còn driver, hoặc ảnh đã lưu và nêu nguồn ảnh. |
-| 2:35–3:00 | Nêu kiểm tra đọc lại, không ghi đè, xử lý rỗng và giao diện TV4. Kết luận phạm vi cá nhân đã kiểm chứng; còn Kaggle/data contract/tích hợp/chạy máy khác. |
+| 2:35–3:00 | Nêu kiểm tra đọc lại, không ghi đè, xử lý rỗng và giao diện TV4. Kết luận phạm vi cá nhân đã kiểm chứng; nhắc kết quả Kaggle thật do TV2 chạy theo 8 lát (42.448.764 → 42.349.872 dòng, 2552.5 giây); còn tích hợp TV4 và chạy máy khác. |
 
 ```powershell
 & 'C:/Program Files/Git/bin/bash.exe' scripts/run_pipeline.sh --clean-only
@@ -50,8 +50,14 @@ Get-ChildItem -LiteralPath "$local/clean/events"
 
 **Dữ liệu rỗng xử lý thế nào?** Trả SUCCESS_EMPTY, ghi Parquet rỗng có schema và readback 0; không tạo ngày/hàng giả. TV4 phải xử lý không có dữ liệu để tổng hợp.
 
-**Giá trị NaN/Inf hoặc ID âm ra sao?** NaN/Inf bị loại theo mở rộng đang chờ xác nhận. user_id chỉ yêu cầu không null, nên ID âm chưa tự bị loại; không áp thêm luật dương hoặc UUID.
+**Giá trị NaN/Inf hoặc ID âm ra sao?** NaN/Inf bị loại theo contract TV2 v1.0. user_id chỉ yêu cầu không null, nên ID âm chưa tự bị loại; không áp thêm luật dương hoặc UUID.
 
 **Tại sao không collect toàn bộ?** Driver có bộ nhớ hữu hạn. Fixture nhỏ được giới hạn 10000 dòng; kiểm tra tập lớn dùng phép giảm phân tán và chỉ lấy scalar.
 
-**Đã hoàn tất dữ liệu thật chưa?** Chưa. Cần CSV Kaggle, contract TV2, profiling/aggregation và xác nhận tái lập trên máy khác.
+**Đã hoàn tất dữ liệu thật chưa?** Phần cleaning thật đã được TV2 chạy: raw 42.448.764 → clean 42.349.872 dòng, 2552.5 giây, nhưng theo 8 lát ngày vì chạy nguyên khối bị hết bộ nhớ trên máy 8 GB (`cleaning_metrics_merged.json`). TV3 chưa chạy lại trên máy mình, TV4 chưa xác nhận đọc clean thật và chưa có xác nhận tái lập trên máy khác.
+
+**Tại sao chia lát vẫn đúng?** Các dòng trùng có cùng event_time nên cùng một lát; dedup từng lát bằng dedup cả tháng. Nguyên nhân hết bộ nhớ (shuffle của dropDuplicates, 6 điểm persist) chỉ là giải thích khả dĩ, chưa đo riêng.
+
+Demo tích hợp mới: dùng lệnh --quality-check ở phụ lục Windows, mở profiling_clean.json
+và kiểm tra invariants.all_pass; đọc counts/application_id từ cleaning_metrics.json.
+Bộ dữ liệu phải được giới thiệu là synthetic. Xem docs/tv3_run_20261027.md.

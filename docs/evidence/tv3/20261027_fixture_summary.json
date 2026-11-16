@@ -1,0 +1,228 @@
+{
+  "status": "PASS",
+  "run_id": "20261027_094836_cc57cb",
+  "data_base": "/data/tv3 handoff 20261027_094836_cc57cb",
+  "benchmark_unchanged_sha256": "af1635c152c42b6268436935d8b7d59e822f7a624364ed4b281686512f872b1b",
+  "tests": [
+    {
+      "test": "unit_control_flow",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\unit_control_flow.log"
+    },
+    {
+      "test": "full_missing_jobs",
+      "exit": 3,
+      "expected": 3,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\full_missing_jobs.log"
+    },
+    {
+      "test": "mixed_fixture",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed_fixture.log"
+    },
+    {
+      "test": "mixed_pipeline",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed_pipeline.log"
+    },
+    {
+      "test": "mixed_independent_values",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed_independent_values.log"
+    },
+    {
+      "test": "mixed_distributed_schema_constraints",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed_distributed_schema_constraints.log"
+    },
+    {
+      "test": "mixed_overwrite_guard",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed_overwrite_guard.log"
+    },
+    {
+      "test": "empty_fixture",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\empty_fixture.log"
+    },
+    {
+      "test": "empty_pipeline",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\empty_pipeline.log"
+    },
+    {
+      "test": "empty_independent_values",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\empty_independent_values.log"
+    },
+    {
+      "test": "empty_distributed_schema_constraints",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\empty_distributed_schema_constraints.log"
+    },
+    {
+      "test": "empty_overwrite_guard",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\empty_overwrite_guard.log"
+    },
+    {
+      "test": "all-invalid_fixture",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\all-invalid_fixture.log"
+    },
+    {
+      "test": "all-invalid_pipeline",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\all-invalid_pipeline.log"
+    },
+    {
+      "test": "all-invalid_independent_values",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\all-invalid_independent_values.log"
+    },
+    {
+      "test": "all-invalid_distributed_schema_constraints",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\all-invalid_distributed_schema_constraints.log"
+    },
+    {
+      "test": "all-invalid_overwrite_guard",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\all-invalid_overwrite_guard.log"
+    },
+    {
+      "test": "valid-repeat_fixture",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_fixture.log"
+    },
+    {
+      "test": "valid-repeat_ingest",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_ingest.log"
+    },
+    {
+      "test": "valid-repeat_pipeline",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_pipeline.log"
+    },
+    {
+      "test": "valid-repeat_independent_values",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_independent_values.log"
+    },
+    {
+      "test": "valid-repeat_distributed_schema_constraints",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_distributed_schema_constraints.log"
+    },
+    {
+      "test": "valid-repeat_overwrite_guard",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\valid-repeat_overwrite_guard.log"
+    },
+    {
+      "test": "contract_fixture",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\contract_fixture.log"
+    },
+    {
+      "test": "contract_pipeline",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\contract_pipeline.log"
+    },
+    {
+      "test": "contract_independent_values",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\contract_independent_values.log"
+    },
+    {
+      "test": "contract_distributed_schema_constraints",
+      "exit": 0,
+      "expected": 0,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\contract_distributed_schema_constraints.log"
+    },
+    {
+      "test": "contract_overwrite_guard",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\contract_overwrite_guard.log"
+    },
+    {
+      "test": "missing-input",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\missing-input.log"
+    },
+    {
+      "test": "mixed-input",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\mixed-input.log"
+    },
+    {
+      "test": "bad-header",
+      "exit": 4,
+      "expected": 4,
+      "status": "PASS",
+      "log": "data\\reports\\tv3_handoff_20261018\\20261027_094836_cc57cb\\bad-header.log"
+    }
+  ],
+  "test_host": "same Windows machine as initial setup",
+  "other_member_machine_tested": false,
+  "submit_error_scope": "unit mock failure only; no fake production jobs"
+}

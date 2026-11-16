@@ -12,11 +12,14 @@ HEADER = ["event_time", "event_type", "product_id", "category_id", "category_cod
 
 def preflight():
     mode = sys.argv[1]
+    if mode not in {"--clean-only", "--ingest-clean", "--quality-check", "--full"}:
+        raise ValueError("Unknown mode")
     root = Path(os.environ["DATA_DIR"])
     if not root.is_absolute() or not root.resolve().is_relative_to(Path("/data").resolve()):
         raise ValueError("DATA_DIR must be an absolute directory inside /data")
     required = (["02_cleaning.py"] if mode == "--clean-only" else
                 ["00_ingest.py", "02_cleaning.py"] if mode == "--ingest-clean" else
+                ["00_ingest.py", "01_profiling.py", "02_cleaning.py"] if mode == "--quality-check" else
                 ["00_ingest.py", "01_profiling.py", "02_cleaning.py", "03_aggregation.py"])
     for name in required:
         if not (Path("/opt/jobs") / name).is_file():
@@ -53,14 +56,18 @@ def preflight():
                     raise ValueError(f"CSV header/order differs from the guide: {path.name}")
     if not kind:
         raise ValueError("Raw provenance unknown; provide source.json or explicit DATA_KIND")
-    layers = ["clean"] if mode == "--clean-only" else ["raw", "clean", "agg"]
+    layers = ["clean"] if mode == "--clean-only" else ["raw", "clean"]
+    if mode == "--full":
+        layers.append("agg")
     for layer in layers:
         path = root / layer
         if path.exists() and any(item.name != ".gitkeep" for item in path.iterdir()):
             raise ValueError(f"Existing {layer} output: choose a new DATA_DIR")
     reports = ["cleaning_metrics.json", "cleaning_schema.json"]
     if mode != "--clean-only":
-        reports += ["ingest_log.csv", "profiling_raw.json", "profiling_clean.json"]
+        reports.append("ingest_log.csv")
+    if mode in {"--quality-check", "--full"}:
+        reports += ["profiling_raw.json", "profiling_clean.json"]
     for name in reports:
         if (root / "reports" / name).exists():
             raise ValueError(f"Existing report: {name}; choose a new DATA_DIR")

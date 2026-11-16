@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "pages": 12,
+  "docx_sha256": "2e9a889db25eb721f697437bfeff73aaad5247036c5ed2733b13dd0afd3a82c9",
+  "renderer": "Microsoft Word COM export + packaged documents render_docx.rasterize",
+  "render_directory": "D:\\Desktop\\BigData\\data\\reports\\tv3_quality\\20261027_095328_f07dad\\word_qa",
+  "visual_review": "All 12 pages reviewed; final pages 1-9 pixel-identical to inspected preceding render; final pages 10-12 inspected after pagination repair",
+  "font": "Times New Roman 12pt",
+  "text_and_table_color": "000000",
+  "previous_report_backup": "D:\\Desktop\\BigData\\data\\reports\\tv3_quality\\20261027_095328_f07dad\\TV3_BaoCao_before_20261027.docx"
+}

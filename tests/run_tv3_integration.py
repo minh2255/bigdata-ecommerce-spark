@@ -46,7 +46,7 @@ def main():
     bench_hash = hashlib.sha256(previous_bench.read_bytes()).hexdigest() if previous_bench.exists() else None
     run("unit_control_flow", [sys.executable, "tests/test_pipeline_control.py"])
     run("full_missing_jobs", [BASH, "scripts/run_pipeline.sh", "--full"], expected=3)
-    for case in ["mixed", "empty", "all-invalid", "valid-repeat"]:
+    for case in ["mixed", "empty", "all-invalid", "valid-repeat", "contract"]:
         root = DATA_BASE + "/" + case + " case"
         run(case + "_fixture", ["docker", "exec", "spark-master", "python3",
                                 "/opt/scripts/check_cleaning.py", "fixture", root, case])
@@ -62,7 +62,7 @@ def main():
         run(case + "_distributed_schema_constraints", submit(root, "validate_cleaning.py"))
         local = ROOT / "data" / Path(root.removeprefix("/data/"))
         metrics = json.loads((local / "reports/cleaning_metrics.json").read_text())
-        expected_rows = {"mixed": 3, "empty": 0, "all-invalid": 0, "valid-repeat": 3}[case]
+        expected_rows = {"mixed": 3, "empty": 0, "all-invalid": 0, "valid-repeat": 3, "contract": 6}[case]
         assert metrics["counts"]["written"] == expected_rows, metrics
         if expected_rows == 0:
             assert metrics["status"] == "SUCCESS_EMPTY"
