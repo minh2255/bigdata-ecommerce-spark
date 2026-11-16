@@ -97,12 +97,12 @@ Lệnh verify bằng PyArrow chỉ dành cho fixture tối đa 10000 dòng, khô
 
 ## Chạy theo lát cho máy RAM thấp (8 GB)
 
-TV2 chạy `02_cleaning.py` nguyên khối trên 42.448.764 dòng bị hết bộ nhớ executor trên máy 8 GB nên phải chia 8 lát theo ngày (`docs/evidence/tv2/cleaning_metrics_merged.json`, `TV2_Plan_Roadmap.md`). TV3 chưa thử chạy nguyên khối trên máy nào khác, nên không khẳng định ngưỡng RAM đủ. Script `jobs/slice_raw_by_day.py` do TV2 viết, có trong repo từ `origin/main` (nhánh TV3 đã rebase). Lệnh dưới suy từ docstring và chưa được TV3 chạy thử. Điều kiện: đã ingest, có `/data/real_oct_run01/raw/events`.
+TV2 chạy `02_cleaning.py` nguyên khối trên 42.448.764 dòng bị hết bộ nhớ executor trên máy 8 GB nên phải chia 8 lát theo ngày (`docs/evidence/tv2/cleaning_metrics_merged.json`, `TV2_Plan_Roadmap.md`). TV3 chưa thử chạy nguyên khối trên máy nào khác, nên không khẳng định ngưỡng RAM đủ. Script `jobs/slice_raw_by_day.py` do TV2 viết, có trong repo từ `origin/main` (nhánh TV3 đã rebase). Ngày 16/11/2026 TV3 đã chạy thử lệnh dưới trên synthetic 20.203 dòng (8 lát, tổng đúng 20.203 dòng). Lệnh `python3 slice_raw_by_day.py` ghi trong docstring không chạy được trong container vì thiếu `pyspark`, nên dùng `spark-submit`. Vòng `--clean-only` 8 lát trên synthetic cũng đã chạy, cả 8 exit 0 và tổng written 19.627 bằng lần nguyên khối. Chưa chạy trên dữ liệu thật. Điều kiện: đã ingest, có `/data/real_oct_run01/raw/events`.
 
 Bước 1, tách raw thành 8 lát (cú pháp theo docstring của script: SRC_DIR, OUT_PREFIX và các khoảng ngày; khoảng ngày theo mẫu 1–4, 5–8, …, 29–31 của `docs/tv2/ch03_du_lieu.md`). Lát k ghi ra `/data/real_oct_s<k>/raw/events`; script bỏ qua lát đã có Parquet.
 
 ```powershell
-docker exec -e SRC_DIR=/data/real_oct_run01 -e OUT_PREFIX=/data/real_oct_s spark-master python3 /opt/jobs/slice_raw_by_day.py 1-4 5-8 9-12 13-16 17-20 21-24 25-28 29-31
+docker exec -e SRC_DIR=/data/real_oct_run01 -e OUT_PREFIX=/data/real_oct_s spark-master /opt/spark/bin/spark-submit --master spark://spark-master:7077 --driver-memory 2g /opt/jobs/slice_raw_by_day.py 1-4 5-8 9-12 13-16 17-20 21-24 25-28 29-31
 ```
 
 Bước 2, chạy cleaning từng lát với DATA_DIR riêng. Mỗi lát chạy tuần tự, không chạy song song để tránh tranh bộ nhớ, và dùng DATA_KIND=real vì các lát không có source.json.

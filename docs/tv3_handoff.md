@@ -34,7 +34,7 @@ phiên phát hành chỉ rà soát và kiểm tra nhẹ, không chạy lại ben
 | Log số dòng/số loại/thời gian | Đã hoàn thiện và kiểm chứng | stdout + cleaning_metrics.json; stage_seconds; cleaning_schema.json |
 | Ghi dữ liệu và đọc lại | Đã kiểm chứng | Nonempty giữ repartition theo ngày; zero rows có schema và SUCCESS_EMPTY |
 | Pipeline cá nhân | Đã kiểm chứng | ingest-clean, clean-only; log tự tạo; DATA_DIR có khoảng trắng |
-| Full pipeline | Đã chạy ở TV2 trên synthetic; TV3 chưa chạy lại | TV2 chạy `--full` exit 0 (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`); nhánh TV3 đã rebase nên có `03_aggregation.py`, nhưng `--full` chưa được chạy trên cụm Spark của TV3 (Docker chưa bật) |
+| Full pipeline | Đã chạy ở TV2 trên synthetic; TV3 đã chạy `--full` exit 0 trên synthetic ngày 16/11/2026 (chưa chạy trên dữ liệu thật) | TV2 chạy `--full` exit 0 (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`); nhánh TV3 đã rebase nên có `03_aggregation.py`, và `--full` đã chạy exit 0 trên synthetic ngày 16/11/2026 |
 | Kiểm thử độc lập | Đã kiểm chứng | Fixture bị chặn trên 10000 dòng; so toàn bộ hàng và multiplicity, không coi session là khóa |
 | Kiểm tra tập lớn | Đã kiểm chứng trên synthetic | Validator Spark: 197973 dòng, 0 vi phạm, schema và UTC đúng; chỉ trả scalar |
 | Rỗng/toàn bộ bị loại | Đã kiểm chứng | Hai trường hợp khác nhau đều đọc lại 0 với schema đúng |

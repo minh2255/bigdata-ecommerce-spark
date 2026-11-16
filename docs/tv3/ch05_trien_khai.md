@@ -107,7 +107,7 @@ Bảng 5.2. Số dòng và thời gian theo lát (nguồn: `cleaning_metrics_mer
 
 **Nguyên nhân khả dĩ của lỗi bộ nhớ (giải thích, chưa đo riêng).** Hai yếu tố trong `02_cleaning.py` có thể làm tăng áp lực bộ nhớ: dropDuplicates trên chín cột cần shuffle toàn bộ dữ liệu theo khóa, và job có 6 điểm checkpoint, mỗi điểm persist MEMORY_AND_DISK rồi count, nên tại một thời điểm hai DataFrame trung gian có thể cùng được giữ. Chưa có phép đo hoặc log tách riêng từng yếu tố nên đây chỉ là giải thích khả dĩ, không phải kết luận nguyên nhân.
 
-**Hạn chế.** Script tách lát `jobs/slice_raw_by_day.py` có trong repo sau khi rebase; TV3 chưa chạy thử. Script chạy từng lát (`data/real_oct_run01/run_slices.sh`) và bước gộp vào `/data/real_oct_full` không có trong repo; theo `TV2_Plan_Roadmap.md` đó là thao tác của TV2 trên máy TV2. Số liệu gộp đã có trong JSON nhưng TV3 chưa xác nhận lại việc gộp bằng một lần chạy độc lập.
+**Hạn chế.** Script tách lát `jobs/slice_raw_by_day.py` có trong repo sau khi rebase; TV3 đã chạy thử trên synthetic (không phải dữ liệu thật). Script chạy từng lát (`data/real_oct_run01/run_slices.sh`) và bước gộp vào `/data/real_oct_full` không có trong repo; theo `TV2_Plan_Roadmap.md` đó là thao tác của TV2 trên máy TV2. Số liệu gộp đã có trong JSON nhưng TV3 chưa xác nhận lại việc gộp bằng một lần chạy độc lập.
 
 ## 5.10 Tích hợp với TV2 và TV4
 
@@ -116,5 +116,7 @@ TV2 đã bàn giao contract v1.0 và profiling; tích hợp TV2–TV3 chạy the
 Các sửa đổi benchmark TV1 từ phiên trước được giữ nguyên và ghi riêng: force phép tổng hợp bằng collect bảng nhóm nhỏ, ghi cấu hình/timing JSONL và truyền DATA_DIR qua script benchmark. Chúng không được tính là sản phẩm cá nhân TV3 trong gói này và không được chạy lại. Biểu đồ KPI, baseline Pandas và job aggregation vẫn thuộc TV4. Tài liệu bàn giao phân biệt lịch sử thiết lập với phần TV3 vừa hoàn thiện để tránh nhầm trách nhiệm.
 
 File 2019-Oct.csv thật (5.668.612.855 byte, 42.448.764 dòng, header đúng chín cột theo `TV2_Plan_Roadmap.md`) đã được TV2 tải về vùng /data/real_oct_run01 và xử lý ở mục 5.8–5.9. Máy TV3 chưa chạy lại bước này. Các việc chưa có xác nhận là TV4 nhận bàn giao và đối chiếu KPI trên clean thật, kiểm thử tái lập trên máy thành viên khác, cùng ảnh Spark UI lúc cleaning thật chạy. Các phần độc lập đã chuẩn bị không được dùng để đánh dấu toàn bộ nhiệm vụ TV3 đã hoàn tất.
+
+Lần kiểm chứng 16/11/2026 sau rebase lên `origin/main` `014777a`: `run_pipeline.sh --full` trên synthetic 20.000 dòng (vùng `/data/synthetic_tv3_full_20261116_120201`) trả exit 0 với 20.203 raw → 20.000 → 19.948 → 19.675 → 19.627 clean, năm bảng KPI của TV4 đều có `_SUCCESS` (chưa kiểm nội dung KPI). Cùng raw được tách 8 lát bằng `slice_raw_by_day.py` (tổng 20.203 dòng) và chạy `--clean-only` từng lát; tổng written của 8 lát là 19.627, bằng lần chạy nguyên khối. Đây là synthetic, không thay cho dữ liệu thật.
 
 Lần kiểm chứng 27/10/2026 chạy generator TV2 20.000 dòng: 20.203 raw → 20.000 dedup → 19.627 clean; cleaning 41,578 giây. Profiling clean all_pass=true, compare_truth và validator đạt (0 vi phạm). Đây là synthetic trên cùng máy; kết quả Kaggle ở mục 5.8 do TV2 chạy. Chi tiết application ID, log, lệnh và giới hạn xem docs/tv3_run_20261027.md.
