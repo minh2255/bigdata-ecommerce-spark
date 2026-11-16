@@ -12,7 +12,7 @@
 - [ ] Chạy clean-only từ raw mới, xác nhận không ingest lại và không gọi TV2/TV4.
 - [ ] Chạy empty/all-invalid, đọc được schema Parquet và count bằng 0.
 - [ ] Chạy lại cùng vùng bị chặn; không mất hoặc đổi dữ liệu/báo cáo đã tạo.
-- [ ] Full mode: nếu nhánh chưa có 03_aggregation.py thì dừng trước ingest với exit 3 (ghi rõ job thiếu); nếu đã cập nhật từ origin/main thì ghi exit code và kết quả.
+- [ ] Full mode: ghi exit code và kết quả; nếu nhánh thiếu job thì dừng trước ingest với exit 3 (ghi rõ job thiếu).
 - [ ] Thử đường dẫn dữ liệu có khoảng trắng theo môi trường thực tế của máy đó.
 - [ ] Đọc contract TV2 v1.0; kiểm tra UTC bắt buộc, NaN/Inf/session trắng/chuỗi rỗng.
 - [ ] Với dữ liệu Kaggle thật: xác nhận nguồn/header/tài nguyên; máy RAM thấp chạy theo lát (phụ lục, mục chạy theo lát), lưu metrics/validation từng lát và đối chiếu tổng với `docs/evidence/tv2/cleaning_metrics_merged.json` (raw 42.448.764; written 42.349.872).

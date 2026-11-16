@@ -55,7 +55,7 @@ $env:DATA_KIND = 'real' # hoặc synthetic đúng theo nguồn của vùng
 $LASTEXITCODE
 ```
 
-Full kiểm tra đủ 00_ingest.py, 01_profiling.py, 02_cleaning.py và 03_aggregation.py trước khi submit. Chuỗi chạy là ingest, profiling raw, cleaning, profiling clean, aggregation. `03_aggregation.py` của TV4 đã có trên `origin/main` và TV2 đã chạy `--full` thành công trên synthetic (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`). Trên nhánh TV3 chưa cập nhật từ `origin/main`, exit 3 do thiếu file đó vẫn là kết quả đúng; không coi là lỗi Docker. --available còn được hỗ trợ nhưng chỉ là alias của --ingest-clean, không tự chạy các job thành viên khác đã xuất hiện.
+Full kiểm tra đủ 00_ingest.py, 01_profiling.py, 02_cleaning.py và 03_aggregation.py trước khi submit. Chuỗi chạy là ingest, profiling raw, cleaning, profiling clean, aggregation. `03_aggregation.py` của TV4 đã có trên `origin/main` và TV2 đã chạy `--full` thành công trên synthetic (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`). Nếu một nhánh chưa có file đó thì exit 3 là kết quả đúng; không coi là lỗi Docker. Nhánh TV3 đã rebase lên `origin/main` nên có file này. --available còn được hỗ trợ nhưng chỉ là alias của --ingest-clean, không tự chạy các job thành viên khác đã xuất hiện.
 
 Trong Git Bash, các biến có thể đặt như sau. Dấu nháy kép là bắt buộc khi giá trị có khoảng trắng.
 
@@ -97,7 +97,7 @@ Lệnh verify bằng PyArrow chỉ dành cho fixture tối đa 10000 dòng, khô
 
 ## Chạy theo lát cho máy RAM thấp (8 GB)
 
-TV2 chạy `02_cleaning.py` nguyên khối trên 42.448.764 dòng bị hết bộ nhớ executor trên máy 8 GB nên phải chia 8 lát theo ngày (`docs/evidence/tv2/cleaning_metrics_merged.json`, `TV2_Plan_Roadmap.md`). TV3 chưa thử chạy nguyên khối trên máy nào khác, nên không khẳng định ngưỡng RAM đủ. Script `jobs/slice_raw_by_day.py` có trên `origin/main`; nhánh TV3 tạo từ `1249075` chưa chứa, nên cần cập nhật nhánh từ `origin/main` trước (không tự sao chép file). Điều kiện: đã ingest, có `/data/real_oct_run01/raw/events`.
+TV2 chạy `02_cleaning.py` nguyên khối trên 42.448.764 dòng bị hết bộ nhớ executor trên máy 8 GB nên phải chia 8 lát theo ngày (`docs/evidence/tv2/cleaning_metrics_merged.json`, `TV2_Plan_Roadmap.md`). TV3 chưa thử chạy nguyên khối trên máy nào khác, nên không khẳng định ngưỡng RAM đủ. Script `jobs/slice_raw_by_day.py` do TV2 viết, có trong repo từ `origin/main` (nhánh TV3 đã rebase). Lệnh dưới suy từ docstring và chưa được TV3 chạy thử. Điều kiện: đã ingest, có `/data/real_oct_run01/raw/events`.
 
 Bước 1, tách raw thành 8 lát (cú pháp theo docstring của script: SRC_DIR, OUT_PREFIX và các khoảng ngày; khoảng ngày theo mẫu 1–4, 5–8, …, 29–31 của `docs/tv2/ch03_du_lieu.md`). Lát k ghi ra `/data/real_oct_s<k>/raw/events`; script bỏ qua lát đã có Parquet.
 
@@ -129,7 +129,7 @@ Bước 3, gộp. **Repo không có script gộp.** Theo ghi chú trong `cleanin
 | 0 và DONE TV3/QUALITY | Phạm vi cá nhân thành công; chưa chứng minh full pipeline |
 | 0 và DONE FULL | Cả năm bước full đã trả thành công; vẫn cần đối chiếu kết quả nghiệp vụ |
 | 2 | Tham số/memory/master URL không hợp lệ; kiểm tra giá trị trước khi submit |
-| 3 | Thiếu job/helper (ví dụ nhánh chưa cập nhật từ origin/main); cập nhật nhánh hoặc chọn mode phù hợp, không tạo job rỗng |
+| 3 | Thiếu job/helper (ví dụ nhánh thiếu file từ origin/main); cập nhật nhánh hoặc chọn mode phù hợp, không tạo job rỗng |
 | 4 | Preflight/config/container/input/đầu ra cũ không đạt; đọc thông báo trước [EXIT] |
 | Mã submit khác 0 | Job thất bại, chuỗi dừng; giữ log và đầu ra một phần, chọn vùng mới khi chạy lại |
 | SUCCESS_EMPTY | Job chạy xong nhưng clean có 0 dòng; kiểm tra nguồn và counts, downstream xử lý tập rỗng |

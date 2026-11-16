@@ -8,7 +8,7 @@ nguồn `docs/evidence/tv2/cleaning_metrics_merged.json`) và `03_aggregation.py
 Chưa có xác nhận TV4 nhận bàn giao, ảnh Spark UI lúc cleaning thật hoặc chạy trên máy thành viên khác.
 Kết quả hiện tại, lệnh và minh chứng: [biên bản 27/10/2026](tv3_run_20261027.md).
 
-Nhánh hiện tại: `codex/tv3-contract-quality`, tạo từ `origin/main` `1249075`.
+Nhánh hiện tại: `codex/tv3-contract-quality`, tạo từ `origin/main` `1249075`, đã rebase lên `014777a` ngày 16/11/2026 (chưa push).
 Fetch GitHub ngày 27/10/2026 xác nhận PR #1 và #2 đã merge, TV4 chưa có aggregation.
 Workspace trước khi sửa sạch; không có AGENTS.md trong checkout. Không commit,
 push, PR hoặc merge trong phiên này. Không chạy lại benchmark.
@@ -34,7 +34,7 @@ phiên phát hành chỉ rà soát và kiểm tra nhẹ, không chạy lại ben
 | Log số dòng/số loại/thời gian | Đã hoàn thiện và kiểm chứng | stdout + cleaning_metrics.json; stage_seconds; cleaning_schema.json |
 | Ghi dữ liệu và đọc lại | Đã kiểm chứng | Nonempty giữ repartition theo ngày; zero rows có schema và SUCCESS_EMPTY |
 | Pipeline cá nhân | Đã kiểm chứng | ingest-clean, clean-only; log tự tạo; DATA_DIR có khoảng trắng |
-| Full pipeline | Đã chạy ở TV2 trên synthetic; nhánh này chưa cập nhật | TV2 chạy `--full` exit 0 (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`); nhánh TV3 tạo từ `1249075` chưa có `03_aggregation.py` nên `--full` ở đây vẫn exit 3 đến khi cập nhật từ `origin/main` |
+| Full pipeline | Đã chạy ở TV2 trên synthetic; TV3 chưa chạy lại | TV2 chạy `--full` exit 0 (`docs/evidence/tv2/m1_20261110_231427/run_summary.json`); nhánh TV3 đã rebase nên có `03_aggregation.py`, nhưng `--full` chưa được chạy trên cụm Spark của TV3 (Docker chưa bật) |
 | Kiểm thử độc lập | Đã kiểm chứng | Fixture bị chặn trên 10000 dòng; so toàn bộ hàng và multiplicity, không coi session là khóa |
 | Kiểm tra tập lớn | Đã kiểm chứng trên synthetic | Validator Spark: 197973 dòng, 0 vi phạm, schema và UTC đúng; chỉ trả scalar |
 | Rỗng/toàn bộ bị loại | Đã kiểm chứng | Hai trường hợp khác nhau đều đọc lại 0 với schema đúng |
@@ -93,7 +93,7 @@ Bảy unit tests dùng sandbox có tên repo chứa khoảng trắng; submit fai
 test là mock exit 42 và không mô phỏng full success. Kiểm tra bổ sung
 `schema_rejection_4c07ecbfac` submit job cleaning thật với raw.price sai kiểu:
 job từ chối schema, pipeline truyền nguyên exit 1, không có clean/metrics mới.
-Full mode thật hiện exit 3 vì thiếu job. Mã 4 dùng cho preflight/config/input/đầu ra.
+Ở lần chạy 27/10 full mode exit 3 vì thiếu job (trước khi rebase). Mã 4 dùng cho preflight/config/input/đầu ra.
 
 Lần tích hợp đầu của phiên này gặp lỗi Compose hiểu sai đường dẫn Git Bash
 `/d/...` khi MSYS_NO_PATHCONV bật. Đã sửa dùng đường dẫn config tương đối sau cd repo;

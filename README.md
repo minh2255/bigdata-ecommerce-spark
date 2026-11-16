@@ -23,9 +23,8 @@ data/        # Data Lake (không lên Git): landing, raw, clean, agg, samples, r
 ## Chạy nhanh (Lưu ý: Master UI ở http://localhost:8080 (máy TV1 đổi sang 9090 do trùng cổng).)
 
 **Trạng thái 15/11/2026:** `origin/main` đã có contract v1.0, generator, `01_profiling.py`,
-`03_aggregation.py` (TV4), `make_sample.py` và `slice_raw_by_day.py`. Nhánh TV3 này tạo từ `1249075`
-nên cần cập nhật từ `origin/main` để có các file mới; trước đó `--full` trên nhánh này dừng trước ingest
-(exit 3, thiếu `03_aggregation.py`). TV2 đã chạy `--full` thành công trên synthetic
+`03_aggregation.py` (TV4), `make_sample.py` và `slice_raw_by_day.py`. Nhánh TV3 đã rebase lên `origin/main` `014777a`
+(16/11/2026) nên có đủ các file này; `--full` trên nhánh này chưa được TV3 chạy thử. TV2 đã chạy `--full` thành công trên synthetic
 (`docs/evidence/tv2/m1_20261110_231427/`) và chạy cleaning trên Kaggle thật: raw 42.448.764 → clean
 42.349.872 dòng, 2552.5 giây (`docs/evidence/tv2/cleaning_metrics_merged.json`).
 Dùng `--quality-check` cho ingest → profiling raw → cleaning → profiling clean.
