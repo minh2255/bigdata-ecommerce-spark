@@ -1,3 +1,5 @@
+> Cập nhật 27/10/2026: contract v1.0, generator và profiling TV2 đã merge. Dùng --quality-check đến profiling clean; --full còn thiếu aggregation TV4. Nội dung bên dưới lưu lịch sử thiết lập 18–19/10, các mục chờ TV2 không còn là trạng thái hiện tại. Xem [biên bản mới](tv3_run_20261027.md).
+
 # Kết quả thiết lập và kiểm thử TV3 ngày 18 tháng 10 năm 2026
 
 Đây là hồ sơ thiết lập/benchmark đã có. Phiên hoàn thiện phần cá nhân tiếp theo

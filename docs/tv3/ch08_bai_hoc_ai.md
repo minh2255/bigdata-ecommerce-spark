@@ -10,9 +10,9 @@ Kiểm thử biên phát hiện lỗi khó thấy ở mẫu thông thường. Ra
 
 ## Hạn chế và hướng hoàn thiện
 
-Data contract TV2 chưa được bàn giao. Các mở rộng về giá hữu hạn, session trắng và giá trị chuỗi rỗng của brand/category cần được nhóm xác nhận bằng dữ liệu thật và mục tiêu nghiệp vụ. Chưa áp ràng buộc ID dương hoặc session UUID. Quy tắc dedup là theo raw trước chuẩn hóa, nên không khẳng định mọi hàng clean đều khác nhau nếu các raw khác nhau trở nên giống sau chuẩn hóa.
+Data contract TV2 v1.0 đã được bàn giao qua PR #2. Giá hữu hạn, session không trắng và blank brand/category thành unknown đã là luật chính thức. Kiểm chứng lần này dùng synthetic/fixture; chưa thay thế kết quả Kaggle thật. Chưa áp ràng buộc ID dương hoặc session UUID. Quy tắc dedup là theo raw trước chuẩn hóa, nên không khẳng định mọi hàng clean đều khác nhau nếu các raw khác nhau trở nên giống sau chuẩn hóa.
 
-Môi trường hiện tại là ba container trên một máy, dùng cùng ổ gắn /data. Nó cho phép quan sát task phân phối trên hai worker, nhưng không thay cho thực nghiệm nhiều máy hay lưu trữ phân tán có dự phòng. Test mới được chạy trên máy hiện tại. TV3 chưa nhận file Kaggle, chưa chạy cleaning tháng thật, chưa có profiling chính thức hay đối chiếu KPI với TV4. Đây là các việc phụ thuộc bên ngoài, không thể suy ra từ fixture đã PASS.
+Môi trường hiện tại là ba container trên một máy, dùng cùng ổ gắn /data. Nó cho phép quan sát task phân phối trên hai worker, nhưng không thay cho thực nghiệm nhiều máy hay lưu trữ phân tán có dự phòng. Test mới được chạy trên máy hiện tại. TV2 đã chạy cleaning tháng thật theo 8 lát vì nguyên khối hết bộ nhớ trên máy 8 GB; TV3 chưa tự chạy lại trên dữ liệu thật và chưa đối chiếu KPI với TV4. Đây là các việc phụ thuộc bên ngoài, không thể suy ra từ fixture đã PASS.
 
 Khi tích hợp, cần chốt contract trước, giữ nguồn dữ liệu tách biệt, chọn DATA_DIR mới và lưu mã phiên bản mã nguồn cùng metrics. Sau đó đánh giá file-size/skew trên Kaggle, chạy profiling trước/sau, bàn giao schema/UTC và nhờ thành viên khác thực hiện checklist tái lập. Chỉ đánh dấu hoàn thành những bước có log hoặc xác nhận thật; không chuyển các mục chờ thành kết quả giả định.
 
@@ -22,4 +22,4 @@ Codex hỗ trợ đọc ba tài liệu nhóm, rà soát code/bằng chứng, cle
 
 Những việc được kiểm tra tự động gồm cú pháp Python/Bash, guard thiếu job/input/config, log/exit code, fixture lỗi/rỗng/toàn bộ bị loại, nhiều sự kiện chung session, schema/UTC/cột dẫn xuất, số dòng đọc lại và bảo vệ hash đầu ra khi chạy lại. Đối chiếu giá trị toàn bộ chỉ áp dụng fixture nhỏ có giới hạn; validator Spark cho tập lớn kiểm tra tập điều kiện và số liệu tổng hợp, không thay cho chứng minh tương đương từng hàng.
 
-Người trình bày cần tự đọc và giải thích từng phép biến đổi, tập demo thực tế, xác nhận các quy tắc mở rộng với TV2, xác minh nguồn Kaggle và đối chiếu dữ liệu thật sau khi có. TV4 cần xác nhận đọc được clean và hiểu quy ước ngày/thứ; thành viên khác cần thực sự chạy checklist trên máy của họ. Các chỗ điền họ tên/MSSV/tỷ lệ đóng góp và việc nhóm chấp nhận nội dung báo cáo vẫn do người dùng thực hiện, không được AI tự xác nhận thay.
+Người trình bày cần tự đọc và giải thích từng phép biến đổi, tập demo thực tế, đọc contract v1.0 của TV2, xác minh nguồn Kaggle và đối chiếu dữ liệu thật sau khi có. TV4 cần xác nhận đọc được clean và hiểu quy ước ngày/thứ; thành viên khác cần thực sự chạy checklist trên máy của họ. Các chỗ điền họ tên/MSSV/tỷ lệ đóng góp và việc nhóm chấp nhận nội dung báo cáo vẫn do người dùng thực hiện, không được AI tự xác nhận thay.
