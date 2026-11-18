@@ -27,7 +27,11 @@ shuffle_parts = spark.conf.get("spark.sql.shuffle.partitions")
 
 df = spark.read.parquet(f"{DATA_DIR}/clean/events")
 if fraction < 1.0:
-    df = df.sample(fraction=fraction, seed=42)
+    if os.environ.get("BENCH_MODE") == "days":
+        n_days = max(1, round(31 * fraction))
+        df = df.filter(F.col("event_date") <= f"2019-10-{n_days:02d}")
+    else:
+        df = df.sample(fraction=fraction, seed=42)
 
 start = time.perf_counter()
 query = (df.groupBy("event_date", "event_type")
