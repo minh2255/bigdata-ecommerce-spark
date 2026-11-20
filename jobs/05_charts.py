@@ -71,7 +71,7 @@ save_chart("funnel.png")
 
 
 # 4. Bieu do benchmark Pandas va Spark
-benchmark_path = REPORT_DIR / "benchmark.csv"
+benchmark_path = REPORT_DIR / "kb4_benchmark.csv"
 
 if benchmark_path.exists():
     benchmark = pd.read_csv(benchmark_path)
