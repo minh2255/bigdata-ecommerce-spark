@@ -27,7 +27,7 @@ Thời gian là UTC; `user_session` không phải khóa duy nhất (xem [bàn gi
 | Doanh thu (3 bảng) | 592.819,22 | 592.819,22 (sai lệch dấu phẩy động ~1e-9) |
 | Số phiên funnel view / cart / purchase | 17.705 / 1.342 / 580 | giống nhau |
 
-Trên synthetic số phiên funnel trùng đúng số sự kiện từng loại (mỗi phiên chỉ có một sự kiện); dữ liệu thật hcó nhiều sự kiện mỗi phiên nên hai số sẽ khác nhau.
+Trên synthetic số phiên funnel trùng đúng số sự kiện từng loại (mỗi phiên chỉ có một sự kiện); dữ liệu thật có nhiều sự kiện mỗi phiên nên hai số sẽ khác nhau.
 Funnel hiện đếm phiên theo từng loại riêng lẻ, không phải chuyển đổi view→cart→purchase trong cùng phiên.
 
 ## 3. KB4 – Pandas so với Spark
