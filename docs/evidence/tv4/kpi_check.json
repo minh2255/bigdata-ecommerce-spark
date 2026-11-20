@@ -1,0 +1,92 @@
+{
+  "data_dir": "/data/synthetic_tv4_20261120",
+  "clean_rows": 19627,
+  "purchases": 580,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "daily_kpi: so ngay",
+      "expected": 31.0,
+      "actual": 31.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong views",
+      "expected": 17705.0,
+      "actual": 17705.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong carts",
+      "expected": 1342.0,
+      "actual": 1342.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong purchases",
+      "expected": 580.0,
+      "actual": 580.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong doanh thu",
+      "expected": 592819.22,
+      "actual": 592819.2199999999,
+      "ok": true
+    },
+    {
+      "check": "category_kpi: tong so don",
+      "expected": 580.0,
+      "actual": 580.0,
+      "ok": true
+    },
+    {
+      "check": "category_kpi: tong doanh thu",
+      "expected": 592819.22,
+      "actual": 592819.22,
+      "ok": true
+    },
+    {
+      "check": "brand_kpi: tong so don",
+      "expected": 580.0,
+      "actual": 580.0,
+      "ok": true
+    },
+    {
+      "check": "brand_kpi: tong doanh thu",
+      "expected": 592819.22,
+      "actual": 592819.2200000001,
+      "ok": true
+    },
+    {
+      "check": "hourly: tong su kien",
+      "expected": 19627.0,
+      "actual": 19627.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien purchase",
+      "expected": 580.0,
+      "actual": 580.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien view",
+      "expected": 17705.0,
+      "actual": 17705.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien cart",
+      "expected": 1342.0,
+      "actual": 1342.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: active_users khong vuot so user duy nhat",
+      "expected": 0.0,
+      "actual": 0.0,
+      "ok": true
+    }
+  ]
+}

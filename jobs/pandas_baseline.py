@@ -9,12 +9,8 @@ import pandas as pd
 DATA_DIR = Path(os.environ.get("DATA_DIR", "/data"))
 
 
-def run_pandas(fraction):
-    sample_path = (
-    DATA_DIR / "samples" / "test_full"
-    if fraction == 1.0
-    else DATA_DIR / "samples" / f"frac_{fraction}"
-)
+def run_pandas(fraction, run=1):
+    sample_path = DATA_DIR / "samples" / f"frac_{fraction}"
 
     if not sample_path.exists():
         print(f"Khong tim thay du lieu mau: {sample_path}")
@@ -44,7 +40,7 @@ def run_pandas(fraction):
     # Ghi ket qua benchmark
     report_dir = DATA_DIR / "reports"
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_file = report_dir / "benchmark.csv"
+    report_file = report_dir / "kb4_benchmark.csv"
 
     is_new = not report_file.exists()
 
@@ -57,13 +53,15 @@ def run_pandas(fraction):
             )
 
         writer.writerow(
-            ["pandas", fraction, 1, seconds]
+            ["pandas", fraction, run, seconds]
         )
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Cach dung: python pandas_baseline.py 0.01")
+        print("Cach dung: python pandas_baseline.py 0.01 [so_lan_lap]")
         sys.exit(1)
 
-    run_pandas(float(sys.argv[1]))
+    repeats = int(sys.argv[2]) if len(sys.argv) > 2 else 3
+    for i in range(1, repeats + 1):
+        run_pandas(float(sys.argv[1]), i)

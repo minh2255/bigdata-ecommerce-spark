@@ -1,0 +1,5 @@
+{
+  "data_kind": "SYNTHETIC_TEST_ONLY",
+  "generator": "scripts/generate_data.py",
+  "seed": 42
+}
