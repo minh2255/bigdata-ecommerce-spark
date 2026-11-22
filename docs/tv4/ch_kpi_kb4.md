@@ -5,7 +5,7 @@
 > Số liệu trong chương này chạy ngày 22/11/2026 trên **dữ liệu Kaggle thật** (`2019-Oct.csv`, tầng clean 42.349.872 dòng, 31 ngày).
 > Vùng chạy `DATA_DIR=/data/real_oct_tv4_20261122` (không đưa lên Git) gồm bản sao 8 lát clean `tv3_real_s1..s8` do TV3 tự chạy ngày 22/11
 > (khớp tổng 42.349.872 của TV2). Phần tổng hợp KPI và đối chiếu ở Ch.7 (mục 7.2–7.3). Minh chứng nằm ở [`docs/evidence/tv4/real/`](../evidence/tv4/real/). Kết quả cũ trên synthetic
-> (19.627 dòng) giữ ở [`docs/evidence/tv4/`](../evidence/tv4/) để tham khảo và **không dùng** trong báo cáo.
+> (19.627 dòng) đã bỏ khỏi thư mục minh chứng (còn trong lịch sử Git) và **không dùng** trong báo cáo.
 
 ### 6.5.1 Cách đo
 
@@ -40,3 +40,4 @@ Spark đã nhanh hơn Pandas từ 5%. Hai cách tính cho cùng kết luận đ�
 chưa được thử ở 100% (42 triệu dòng) vì thực nghiệm chỉ theo phạm vi 1–10%. Điều đã thấy ở 100% là bước kiểm KPI bằng pandas nguyên bảng bị kết thúc vì hết bộ nhớ (mục 7.3),
 tức là chỉ gián tiếp ủng hộ lập luận này trên bảng nhiều cột.
 
+**Đối chiếu chéo.** Một lần chạy độc lập khác trên vùng `/data/real_oct_full` ([`run_real_oct_full/`](../evidence/tv4/real/run_real_oct_full/)) cũng cho KPI 14/14 và cùng xu hướng KB4: Pandas trung bình 0,59 / 1,85 / 4,08 s, Spark 3,53 / 3,79 / 3,84 s ở 1% / 5% / 10%. Ở lần này Spark chỉ nhỉnh hơn Pandas ở 10% (3,84 so với 4,08 s), nên điểm giao nằm gần 10%; khác biệt giữa hai lần chạy cho thấy ngưỡng giao phụ thuộc vào lần đo và chỉ nên nêu là khoảng 5–10%.
