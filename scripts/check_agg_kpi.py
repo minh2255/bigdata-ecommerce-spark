@@ -10,6 +10,7 @@ import os
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 ROOT = Path(os.environ.get("DATA_DIR", "/data"))
@@ -17,36 +18,52 @@ TOL = 0.01  # sai số tuyệt đối cho tổng tiền (đã làm tròn 2 chữ
 
 
 def main():
-    clean = pd.read_parquet(ROOT / "clean/events")
     agg = {n: pd.read_parquet(ROOT / "agg" / n)
            for n in ["daily_kpi", "category_kpi", "brand_kpi", "funnel", "hourly"]}
-    buy = clean[clean["event_type"] == "purchase"]
+    # Đọc từng thư mục ngày, chỉ lấy cột cần; phiên/người dùng đếm duy nhất qua hash uint64
+    # để vừa bộ nhớ khi clean có hàng chục triệu dòng (đọc nguyên bảng vào pandas bị OOM).
+    ev = ["view", "cart", "purchase"]
+    counts = {e: 0 for e in ev}
+    n_rows = n_days = 0
+    revenue = 0.0
+    sess_hash = {e: [] for e in ev}
+    user_hash = []
+    for day in sorted((ROOT / "clean/events").glob("event_date=*")):
+        d = pd.read_parquet(day, columns=["event_type", "price", "user_id", "user_session"])
+        n_days += 1
+        n_rows += len(d)
+        for e in ev:
+            m = d["event_type"] == e
+            counts[e] += int(m.sum())
+            sess_hash[e].append(np.unique(pd.util.hash_array(d.loc[m, "user_session"].to_numpy())))
+        revenue += float(d.loc[d["event_type"] == "purchase", "price"].sum())
+        user_hash.append(np.unique(d["user_id"].to_numpy()))
+    sess = {e: len(np.unique(np.concatenate(sess_hash[e]))) for e in ev}
+    n_users = len(np.unique(np.concatenate(user_hash)))
     checks = []
 
     def add(name, expected, actual, tol=0.0):
         ok = abs(float(expected) - float(actual)) <= tol
         checks.append({"check": name, "expected": float(expected), "actual": float(actual), "ok": bool(ok)})
 
-    n_days = clean["event_date"].nunique()
     add("daily_kpi: so ngay", n_days, len(agg["daily_kpi"]))
     for col, et in [("views", "view"), ("carts", "cart"), ("purchases", "purchase")]:
-        add(f"daily_kpi: tong {col}", (clean["event_type"] == et).sum(), agg["daily_kpi"][col].sum())
-    add("daily_kpi: tong doanh thu", buy["price"].sum(), agg["daily_kpi"]["revenue"].sum(),
+        add(f"daily_kpi: tong {col}", counts[et], agg["daily_kpi"][col].sum())
+    add("daily_kpi: tong doanh thu", revenue, agg["daily_kpi"]["revenue"].sum(),
         TOL * max(1, len(agg["daily_kpi"])))
-    add("category_kpi: tong so don", len(buy), agg["category_kpi"]["orders"].sum())
-    add("category_kpi: tong doanh thu", buy["price"].sum(), agg["category_kpi"]["revenue"].sum(),
+    add("category_kpi: tong so don", counts["purchase"], agg["category_kpi"]["orders"].sum())
+    add("category_kpi: tong doanh thu", revenue, agg["category_kpi"]["revenue"].sum(),
         TOL * max(1, len(agg["category_kpi"])))
-    add("brand_kpi: tong so don", len(buy), agg["brand_kpi"]["orders"].sum())
-    add("brand_kpi: tong doanh thu", buy["price"].sum(), agg["brand_kpi"]["revenue"].sum(),
+    add("brand_kpi: tong so don", counts["purchase"], agg["brand_kpi"]["orders"].sum())
+    add("brand_kpi: tong doanh thu", revenue, agg["brand_kpi"]["revenue"].sum(),
         TOL * max(1, len(agg["brand_kpi"])))
-    add("hourly: tong su kien", len(clean), agg["hourly"]["count"].sum())
-    sess = clean.groupby("event_type")["user_session"].nunique()
+    add("hourly: tong su kien", n_rows, agg["hourly"]["count"].sum())
     for _, row in agg["funnel"].iterrows():
         add(f"funnel: so phien {row['event_type']}", sess.get(row["event_type"], 0), row["sessions"])
     add("daily_kpi: active_users khong vuot so user duy nhat",
-        0, max(0, int(agg["daily_kpi"]["active_users"].max()) - clean["user_id"].nunique()))
+        0, max(0, int(agg["daily_kpi"]["active_users"].max()) - n_users))
 
-    summary = {"data_dir": str(ROOT), "clean_rows": int(len(clean)), "purchases": int(len(buy)),
+    summary = {"data_dir": str(ROOT), "clean_rows": int(n_rows), "purchases": int(counts["purchase"]),
                "all_pass": all(c["ok"] for c in checks), "checks": checks}
     out = ROOT / "reports/kpi_check.json"
     out.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")

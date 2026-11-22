@@ -1,81 +1,42 @@
-# TV4 – Tổng hợp KPI, đối chiếu và KB4 (Pandas so với Spark)
+# Chương 6 (phần TV4). Thực nghiệm KB4 – Pandas so với Spark
 
-> **SYNTHETIC TEST ONLY.** Mọi số liệu dưới đây lấy từ bản sao clean của lần chạy synthetic
-> `synthetic_tv3_full_20261116_120201` (19.627 dòng clean, 31 ngày), chạy ngày 20/11/2026 trong vùng
-> `DATA_DIR=/data/synthetic_tv4_20261120` (không đưa lên Git). Máy này không có dữ liệu Kaggle thật
-> (42.349.872 dòng clean nằm trên máy TV2), nên **chưa có KPI hay KB4 trên dữ liệu thật**.
+## 6.5 KB4 – Pandas so với Spark
 
-## 1. Đầu vào và bảng tổng hợp
+> Số liệu trong chương này chạy ngày 22/11/2026 trên **dữ liệu Kaggle thật** (`2019-Oct.csv`, tầng clean 42.349.872 dòng, 31 ngày).
+> Vùng chạy `DATA_DIR=/data/real_oct_tv4_20261122` (không đưa lên Git) gồm bản sao 8 lát clean `tv3_real_s1..s8` do TV3 tự chạy ngày 22/11
+> (khớp tổng 42.349.872 của TV2). Phần tổng hợp KPI và đối chiếu ở Ch.7 (mục 7.2–7.3). Minh chứng nằm ở [`docs/evidence/tv4/real/`](../evidence/tv4/real/). Kết quả cũ trên synthetic
+> (19.627 dòng) giữ ở [`docs/evidence/tv4/`](../evidence/tv4/) để tham khảo và **không dùng** trong báo cáo.
 
-`jobs/03_aggregation.py` đọc `clean/events` và ghi 5 bảng vào `agg/`: `daily_kpi` (31 dòng: views, carts,
-purchases, revenue, active_users theo `event_date`), `category_kpi` (6 danh mục), `brand_kpi` (6 thương hiệu),
-`funnel` (số phiên khác nhau theo `event_type`) và `hourly` (số sự kiện theo giờ và loại).
-Doanh thu và số đơn chỉ tính từ `purchase`. Giá trị `unknown` trong brand/danh mục là nhãn hợp lệ theo contract
-v1.0 nên xuất hiện như một nhóm riêng (trên synthetic, `unknown` là nhóm đứng đầu về doanh thu thương hiệu).
-Thời gian là UTC; `user_session` không phải khóa duy nhất (xem [bàn giao clean](../tv3/ban_giao_clean_tv4.md)).
+### 6.5.1 Cách đo
 
-## 2. Đối chiếu KPI với clean
+Cùng phép tính ở hai phía: đọc `samples/frac_<tỷ lệ>`, `groupby(event_date, event_type)` tính count và sum(price), ghi thời gian
+gồm cả bước đọc Parquet, **3 lần lặp** mỗi cấu hình. Mẫu do `jobs/make_sample.py` cắt từ clean thật (seed 42, 1 file Parquet). Pandas chạy trong
+container `spark-master` (`jobs/pandas_baseline.py`, 1 tiến trình, không giới hạn RAM riêng ngoài 7,6 GiB của Docker); Spark là cụm 1 master + 2 worker
+(2 core, 2 GB mỗi worker), driver 2 GB (`jobs/kb4_spark_baseline.py`). Máy: Windows 11, 20 CPU logic, Docker được cấp khoảng 7,6 GiB RAM.
+Dữ liệu thô: [`kb4_benchmark.csv`](../evidence/tv4/real/kb4_benchmark.csv).
 
-`scripts/check_agg_kpi.py` tính lại bằng pandas từ `clean/events` rồi so từng bảng agg. Kết quả
-[`kpi_check.json`](../evidence/tv4/kpi_check.json): **14/14 kiểm tra đạt, `all_pass=true`**.
+### 6.5.2 Kết quả
 
-| Chỉ số | Từ clean | Từ agg |
-|---|---|---|
-| Tổng sự kiện (`hourly`) | 19.627 | 19.627 |
-| view / cart / purchase (`daily_kpi`) | 17.705 / 1.342 / 580 | 17.705 / 1.342 / 580 |
-| Số đơn (`category_kpi`, `brand_kpi`) | 580 | 580 |
-| Doanh thu (3 bảng) | 592.819,22 | 592.819,22 (sai lệch dấu phẩy động ~1e-9) |
-| Số phiên funnel view / cart / purchase | 17.705 / 1.342 / 580 | giống nhau |
+| Tỷ lệ mẫu | Số dòng | Pandas TB (s) | Spark TB, 3 lần (s) | Spark TB, bỏ lần 1 (s) |
+|---|---|---|---|---|
+| 0,01 | 424.672 | 0,717 | 2,445 | 0,943 |
+| 0,05 | 2.118.424 | 2,432 | 2,834 | 1,270 |
+| 0,10 | 4.238.423 | 4,415 | 3,028 | 1,584 |
 
-Trên synthetic số phiên funnel trùng đúng số sự kiện từng loại (mỗi phiên chỉ có một sự kiện); dữ liệu thật có nhiều sự kiện mỗi phiên nên hai số sẽ khác nhau.
-Funnel hiện đếm phiên theo từng loại riêng lẻ, không phải chuyển đổi view→cart→purchase trong cùng phiên.
+![Thời gian trung bình Pandas và Spark theo tỷ lệ mẫu (3 lần, kể cả lần chạy đầu)](../evidence/tv4/real/pandas_vs_spark.png)
 
-## 3. KB4 – Pandas so với Spark
+### 6.5.3 Diễn giải
 
-Cùng phép đo ở hai phía: đọc `samples/frac_<tỷ lệ>` (tạo bằng `jobs/make_sample.py`, seed 42), `groupby(event_date,
-event_type)` tính count và sum(price), 3 lần lặp. Pandas: `jobs/pandas_baseline.py`; Spark (cụm 1 master + 2 worker):
-`jobs/kb4_spark_baseline.py`. Dữ liệu thô: [`kb4_benchmark.csv`](../evidence/tv4/kb4_benchmark.csv).
+ Pandas tăng gần tuyến tính theo số dòng (0,72 → 2,43 → 4,42 s khi dữ liệu tăng 5× rồi 2×) vì xử lý trên một tiến trình;
+Spark gần như phẳng (2,4 → 3,0 s) vì chi phí cố định lên lịch job và shuffle chiếm phần lớn. Ở 1% Pandas nhanh hơn 3,4 lần; ở 5% Pandas vẫn nhanh hơn
+(2,43 so với 2,83 s); ở 10% Spark nhanh hơn 1,5 lần (3,03 so với 4,42 s). Điểm giao nằm giữa 5% và 10% (khoảng 2–4 triệu dòng) với
+số liệu trung bình. Lần Spark đầu tiên của mỗi cấu hình luôn chậm (5,4–6,0 s, khởi tạo ứng dụng và đọc metadata); nếu bỏ lần này,
+Spark đã nhanh hơn Pandas từ 5%. Hai cách tính cho cùng kết luận định tính: Pandas thắng ở mẫu rất nhỏ, Spark thắng khi dữ liệu đủ lớn.
 
-| Tỷ lệ mẫu | Số dòng | Pandas TB (s) | Spark TB (s) |
-|---|---|---|---|
-| 0,01 | 232 | 0,118 | 2,79 |
-| 0,05 | 1.002 | 0,114 | 2,73 |
-| 0,10 | 1.989 | 0,119 | 2,71 |
-| 1,00 | 19.627 | 0,151 | 2,43 |
+### 6.5.4 Giới hạn
 
-**Diễn giải đúng phạm vi:** trên tập chỉ ~20 nghìn dòng, Pandas nhanh hơn Spark hơn 15 lần vì Spark mất chi phí
-lên lịch job và shuffle cố định (lần chạy đầu ~5 s, sau đó ~1–2 s). Kết quả này **không chứng minh** điểm giao nhau
-nơi Spark vượt Pandas; muốn kết luận về khả năng mở rộng phải chạy lại cùng lệnh trên samples của dữ liệu Kaggle
-(424 nghìn, 2,1 triệu, 4,2 triệu dòng, TV2 đã tạo). Số lần lặp ít (3) và chưa loại lần khởi động nóng.
+ Chỉ 3 lần mỗi cấu hình, chưa kiểm định thống kê; cụm Spark chạy trên cùng một máy với Pandas nên hai bên tranh chấp tài nguyên và không có
+độ trễ mạng; chưa xóa cache hệ điều hành giữa các lần. Pandas **chưa hết bộ nhớ** ở 10% (4,2 triệu dòng); kỳ vọng "Pandas hết RAM ở dữ liệu lớn" của đề
+chưa được thử ở 100% (42 triệu dòng) vì thực nghiệm chỉ theo phạm vi 1–10%. Điều đã thấy ở 100% là bước kiểm KPI bằng pandas nguyên bảng bị kết thúc vì hết bộ nhớ (mục 7.3),
+tức là chỉ gián tiếp ủng hộ lập luận này trên bảng nhiều cột.
 
-## 4. Biểu đồ
-
-[`daily_revenue.png`](../evidence/tv4/daily_revenue.png), [`category_revenue.png`](../evidence/tv4/category_revenue.png),
-[`funnel.png`](../evidence/tv4/funnel.png), [`pandas_vs_spark.png`](../evidence/tv4/pandas_vs_spark.png), sinh bởi `jobs/05_charts.py`.
-
-## 5. Thay đổi code trong phiên này
-
-- `jobs/pandas_baseline.py`: đọc `samples/frac_1.0` (trước đây tìm `test_full` không tồn tại), nhận số lần lặp,
-  ghi `kb4_benchmark.csv`.
-- `jobs/kb4_spark_baseline.py` (mới): phía Spark của KB4, cùng cột `engine,fraction,run,seconds`.
-- `jobs/05_charts.py`: đọc `kb4_benchmark.csv`. Trước đó cùng đọc `benchmark.csv` của `04_benchmark.py` có cột
-  `label,...,cores,...` khác cột Pandas, nên biểu đồ KB4 sẽ lỗi hoặc trộn số liệu.
-- `scripts/check_agg_kpi.py` (mới): đối chiếu agg với clean.
-
-## 6. Cách chạy lại
-
-```bash
-export DATA_DIR=/data/<vung_moi>   # cần clean/events; script không ghi đè agg ở 03 (mode overwrite) nên dùng vùng mới
-spark-submit /opt/jobs/03_aggregation.py
-python3 /opt/scripts/check_agg_kpi.py
-spark-submit /opt/jobs/make_sample.py 0.01 0.05 0.1 1.0
-for f in 0.01 0.05 0.1 1.0; do python3 /opt/jobs/pandas_baseline.py $f 3; spark-submit /opt/jobs/kb4_spark_baseline.py $f 3; done
-python3 /opt/jobs/05_charts.py
-```
-
-## 7. Chưa làm / hạn chế
-
-- Chưa chạy trên dữ liệu Kaggle thật (cần máy của TV2 hoặc chép `real_oct_full`).
-- TV4 thật chưa xác nhận nhận bàn giao clean; tài liệu này không thay xác nhận đó.
-- Chưa có ảnh Spark UI và chưa tập demo.
-- `03_aggregation.py` ghi `overwrite`, khác quy ước "không ghi đè" của các job khác; chưa sửa vì ngoài phạm vi phiên này.

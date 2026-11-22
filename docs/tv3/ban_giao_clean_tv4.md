@@ -51,3 +51,8 @@ Xem bảng số dòng từng bước trong docs/tv3_run_20261027.md và cleaning
 ## Lượt tích hợp contract v1.0 ngày 27 tháng 10 năm 2026
 
 Clean synthetic mới: /data/synthetic_quality_20261027_095328_f07dad/clean/events, 19.627 dòng, 31 ngày. Windows: D:/Desktop/BigData/data/synthetic_quality_20261027_095328_f07dad/clean/events. Metadata/schema và profiling raw/clean chính thức ở reports của cùng vùng, validator 0 vi phạm. KB5: raw 20.203; dedup 20.000; timestamp 20.000; event_type 19.948; price 19.675; identity/written 19.627. Xem docs/tv3_run_20261027.md để lấy application ID, lệnh và giới hạn phép đo. Số liệu Kaggle do TV2 chạy; xác nhận của TV4 chưa có.
+
+
+## Xác nhận của TV4 (22/11/2026)
+
+TV4 đã đọc clean thật (bản sao 8 lát `tv3_real_s1..s8`, 42.349.872 dòng, 31 ngày) bằng Spark và pandas, hiểu quy ước UTC, không dùng `user_session` làm khóa duy nhất, phân biệt `unknown` với nhãn thật và đối chiếu KPI bằng truy vấn độc lập: 14/14 đạt ([`kpi_check.json`](../evidence/tv4/real/kpi_check.json)).
