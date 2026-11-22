@@ -82,6 +82,8 @@ sự kiện vào 4–6/10 và 14–27/10, so với khoảng 16.000–20.000 ở 
 | xiaomi | 56.609 | 9.192.640,24 | 4,0% |
 | unknown | 58.210 | 8.539.747,08 | 3,7% |
 
+![Doanh thu theo thương hiệu](../evidence/tv4/real/brand_revenue.png)
+
 Điện tử chiếm hơn ba phần tư doanh thu. Apple dẫn đầu doanh thu dù Samsung có nhiều đơn hơn (172.878 so với 142.858), nghĩa là giá trị đơn của Apple cao hơn
 đáng kể. Nhóm `unknown` ở danh mục chiếm 23,3% số đơn do `category_code` gốc thiếu; đây là hạn chế của dữ liệu (xem Ch.3), cần đọc cùng các con số trên.
 
@@ -103,6 +105,8 @@ cột đếm phiên riêng theo loại nên chỉ nên đọc 6,8% như tỷ l�
 
 Hoạt động cao nhất lúc 16 giờ UTC (3.048.360 sự kiện), sau đó 15 giờ (2.974.234), 17 giờ (2.727.824) và 14 giờ (2.672.330). Giờ là UTC, chưa quy đổi theo
 múi giờ của khách hàng nên không nên gọi là "giờ cao điểm địa phương".
+
+![Số sự kiện theo giờ trong ngày (UTC)](../evidence/tv4/real/hourly_activity.png)
 
 ## 7.9 Kết quả KB4 Pandas so với Spark
 

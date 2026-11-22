@@ -430,6 +430,8 @@ def build():
     emit_section("tv2/ch08_bai_hoc_ai.md", "8.6", "D.1 Phần TV2", 2)
     emit_section("tv3/ch08_bai_hoc_ai.md", "Ghi chú sử dụng AI", "D.2 Phần TV3", 2)
     emit_section(K1, "8.D", "D.3 Phần TV4", 2)
+    render(["## D.4 Phần TV1", "", "[TV1 điền: công cụ AI đã dùng, mục đích, phần đã tự kiểm tra. Theo hướng dẫn đồ án, ai dùng AI phải ghi lại ở đây; "
+            "phần này chưa có nội dung vì TV4 không biết TV1 đã dùng AI hay không.]"], DOCS)
     emit_file("tv3/nguon_chinh_thuc.md", retitle="Phụ lục E. Tài liệu tham khảo")
 
     f = sec.footer.paragraphs[0]
