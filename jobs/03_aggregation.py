@@ -1,9 +1,21 @@
 
+"""03_aggregation.py - Tổng hợp KPI từ clean/events.   [TV4]
+
+DATA_DIR chọn vùng dữ liệu. Không ghi đè: nếu agg/<bảng> đã tồn tại, job dừng với FileExistsError
+trước khi chạy Spark; dùng DATA_DIR mới để giữ kết quả cũ (cùng quy ước với 00_ingest, 02_cleaning).
+"""
 import os
+from pathlib import Path
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
+
+TABLE_NAMES = ["daily_kpi", "category_kpi", "brand_kpi", "funnel", "hourly"]
+existing = [str(Path(DATA_DIR) / "agg" / n) for n in TABLE_NAMES if (Path(DATA_DIR) / "agg" / n).exists()]
+if existing:
+    raise FileExistsError(f"Aggregation output exists: {existing}; choose a new DATA_DIR to preserve it")
 
 spark = (
     SparkSession.builder
@@ -65,7 +77,7 @@ tables = {
 
 for name, table in tables.items():
     output_path = f"{DATA_DIR}/agg/{name}"
-    table.write.mode("overwrite").parquet(output_path)
+    table.write.mode("errorifexists").parquet(output_path)
     print(f"Saved: {output_path}")
 
 spark.stop()

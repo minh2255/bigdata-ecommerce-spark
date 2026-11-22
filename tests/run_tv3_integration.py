@@ -11,10 +11,13 @@ import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
+import sys
+from pathlib import Path as _P
+sys.path.insert(0, str(_P(__file__).resolve().parent))
+from bash_locator import BASH  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BASH = "C:/Program Files/Git/bin/bash.exe"
 RUN_ID = datetime.now().strftime("%Y%m%d_%H%M%S") + "_" + uuid.uuid4().hex[:6]
 EVIDENCE = ROOT / "data/reports/tv3_handoff_20261018" / RUN_ID
 EVIDENCE.mkdir(parents=True, exist_ok=False)

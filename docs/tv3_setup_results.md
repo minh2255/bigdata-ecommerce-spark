@@ -1,4 +1,4 @@
-> Cập nhật 27/10/2026: contract v1.0, generator và profiling TV2 đã merge. Dùng --quality-check đến profiling clean; --full còn thiếu aggregation TV4. Nội dung bên dưới lưu lịch sử thiết lập 18–19/10, các mục chờ TV2 không còn là trạng thái hiện tại. Xem [biên bản mới](tv3_run_20261027.md).
+> Cập nhật 27/10/2026: contract v1.0, generator và profiling TV2 đã merge. Dùng --quality-check đến profiling clean; `03_aggregation.py` của TV4 đã có trên main (từ 03/11/2026) và `--full` đã chạy exit 0 trên synthetic (16/11/2026). Nội dung bên dưới lưu lịch sử thiết lập 18–19/10, các mục chờ TV2 không còn là trạng thái hiện tại. Xem [biên bản mới](tv3_run_20261027.md).
 
 # Kết quả thiết lập và kiểm thử TV3 ngày 18 tháng 10 năm 2026
 
