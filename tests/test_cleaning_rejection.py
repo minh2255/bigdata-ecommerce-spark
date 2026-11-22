@@ -7,6 +7,10 @@ import os
 import subprocess
 import uuid
 from pathlib import Path
+import sys
+from pathlib import Path as _P
+sys.path.insert(0, str(_P(__file__).resolve().parent))
+from bash_locator import BASH  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,7 +30,7 @@ pq.write_table(pa.table({"event_time":["2019-10-01 00:00:00 UTC"],"event_type":[
 subprocess.run(["docker", "exec", "spark-master", "python3", "-c", fixture_code, data_dir], check=True)
 log = evidence / "actual_spark_schema_failure.log"
 with log.open("w", encoding="utf-8") as handle:
-    result = subprocess.run(["C:/Program Files/Git/bin/bash.exe", "scripts/run_pipeline.sh", "--clean-only"],
+    result = subprocess.run([BASH, "scripts/run_pipeline.sh", "--clean-only"],
                             cwd=ROOT, env=dict(os.environ, DATA_DIR=data_dir, DATA_KIND="synthetic"),
                             stdout=handle, stderr=subprocess.STDOUT, timeout=120)
 text = log.read_text(encoding="utf-8", errors="replace")

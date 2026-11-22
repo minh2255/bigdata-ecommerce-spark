@@ -1,0 +1,10 @@
+slice=1 exit=0 seconds=126
+slice=2 exit=0 seconds=136
+slice=3 exit=0 seconds=128
+slice=4 exit=0 seconds=148
+slice=5 exit=0 seconds=132
+slice=6 exit=0 seconds=129
+slice=4 exit=0 (orphaned after session restart; completed on its own, log shows EXIT code=0)
+slice=5 exit=4 seconds=2
+slice=7 exit=0 seconds=130
+slice=8 exit=0 seconds=102
