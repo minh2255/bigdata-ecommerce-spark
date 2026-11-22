@@ -1,0 +1,92 @@
+{
+  "data_dir": "/data/real_oct_tv4_20261122",
+  "clean_rows": 42349872,
+  "purchases": 742773,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "daily_kpi: so ngay",
+      "expected": 31.0,
+      "actual": 31.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong views",
+      "expected": 40708807.0,
+      "actual": 40708807.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong carts",
+      "expected": 898292.0,
+      "actual": 898292.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong purchases",
+      "expected": 742773.0,
+      "actual": 742773.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: tong doanh thu",
+      "expected": 229933212.63000003,
+      "actual": 229933212.63000003,
+      "ok": true
+    },
+    {
+      "check": "category_kpi: tong so don",
+      "expected": 742773.0,
+      "actual": 742773.0,
+      "ok": true
+    },
+    {
+      "check": "category_kpi: tong doanh thu",
+      "expected": 229933212.63000003,
+      "actual": 229933212.63000003,
+      "ok": true
+    },
+    {
+      "check": "brand_kpi: tong so don",
+      "expected": 742773.0,
+      "actual": 742773.0,
+      "ok": true
+    },
+    {
+      "check": "brand_kpi: tong doanh thu",
+      "expected": 229933212.63000003,
+      "actual": 229933212.63000003,
+      "ok": true
+    },
+    {
+      "check": "hourly: tong su kien",
+      "expected": 42349872.0,
+      "actual": 42349872.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien purchase",
+      "expected": 629560.0,
+      "actual": 629560.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien view",
+      "expected": 9237562.0,
+      "actual": 9237562.0,
+      "ok": true
+    },
+    {
+      "check": "funnel: so phien cart",
+      "expected": 573019.0,
+      "actual": 573019.0,
+      "ok": true
+    },
+    {
+      "check": "daily_kpi: active_users khong vuot so user duy nhat",
+      "expected": 0.0,
+      "actual": 0.0,
+      "ok": true
+    }
+  ]
+}

@@ -9,7 +9,7 @@ Chưa có xác nhận TV4 nhận bàn giao, ảnh Spark UI lúc cleaning thật 
 Kết quả hiện tại, lệnh và minh chứng: [biên bản 27/10/2026](tv3_run_20261027.md).
 
 Nhánh hiện tại: `codex/tv3-contract-quality`, tạo từ `origin/main` `1249075`, đã rebase lên `014777a` ngày 16/11/2026 (chưa push).
-Fetch GitHub ngày 27/10/2026 xác nhận PR #1 và #2 đã merge, TV4 chưa có aggregation.
+Fetch GitHub ngày 27/10/2026 xác nhận PR #1 và #2 đã merge, TV4 chưa có aggregation (lịch sử: đã có trên main từ 03/11/2026).
 Workspace trước khi sửa sạch; không có AGENTS.md trong checkout. Không commit,
 push, PR hoặc merge trong phiên này. Không chạy lại benchmark.
 
@@ -121,5 +121,5 @@ $env:DATA_KIND='real'
 
 Nếu vùng đã có đầu ra, dùng DATA_DIR mới và chuẩn bị landing tương ứng, không ghi đè.
 Không yêu cầu mật khẩu/token trong chat. Dữ liệu/kết quả do TV3 tự chạy trong gói này là
-synthetic hoặc fixture; clean Kaggle thật do TV2 tạo (máy TV2), chưa được TV3 chạy lại hay TV4 xác nhận. Cụm giữ chạy; khi người dùng không dùng
+synthetic hoặc fixture; clean Kaggle thật do TV2 tạo; TV3 đã tự chạy lại 22/11/2026 (8 lát, written 42.349.872, khớp TV2; xem docs/evidence/tv3/real_cleaning_tv3_result.md), TV4 chưa xác nhận. Cụm giữ chạy; khi người dùng không dùng
 nữa, `docker compose down` giữ dữ liệu mount.
