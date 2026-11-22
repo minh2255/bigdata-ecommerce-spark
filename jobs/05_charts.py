@@ -1,4 +1,5 @@
 
+import json
 import os
 from pathlib import Path
 
@@ -104,5 +105,59 @@ if benchmark_path.exists():
         plt.ylabel("Average Execution Time (seconds)")
         plt.legend()
         save_chart("pandas_vs_spark.png")
+
+
+# 5. Bieu do hoat dong theo gio (bang hourly)
+hourly = pd.read_parquet(AGG_DIR / "hourly")
+hourly_pivot = (
+    hourly.pivot_table(index="event_hour", columns="event_type",
+                       values="count", aggfunc="sum", fill_value=0)
+    .sort_index()
+)
+
+plt.figure(figsize=(10, 5))
+for event_type in ["view", "cart", "purchase"]:
+    if event_type in hourly_pivot.columns:
+        plt.plot(hourly_pivot.index, hourly_pivot[event_type],
+                 marker="o", label=event_type)
+plt.title("Events by Hour (UTC)")
+plt.xlabel("Hour of day (UTC)")
+plt.ylabel("Number of events")
+plt.xticks(range(0, 24))
+plt.legend()
+save_chart("hourly_activity.png")
+
+
+# 6. Bieu do top thuong hieu theo doanh thu (bang brand_kpi)
+brand = pd.read_parquet(AGG_DIR / "brand_kpi")
+top_brand = brand.sort_values("revenue", ascending=False).head(10)
+top_brand = top_brand.iloc[::-1]  # dao thu tu de thuong hieu lon nhat nam tren cung
+
+plt.figure(figsize=(10, 6))
+plt.barh(top_brand["brand"].astype(str), top_brand["revenue"])
+plt.title("Top 10 Brands by Revenue")
+plt.xlabel("Revenue")
+plt.ylabel("Brand")
+save_chart("brand_revenue.png")
+
+
+# 7. Ty le chuyen doi tu bang funnel (so phien theo tung loai su kien)
+sessions = funnel.set_index("event_type")["sessions"]
+n_view = float(sessions.get("view", 0))
+n_cart = float(sessions.get("cart", 0))
+n_purchase = float(sessions.get("purchase", 0))
+
+conversion = {
+    "sessions_view": int(n_view),
+    "sessions_cart": int(n_cart),
+    "sessions_purchase": int(n_purchase),
+    "view_to_cart": round(n_cart / n_view, 4) if n_view else None,
+    "cart_to_purchase": round(n_purchase / n_cart, 4) if n_cart else None,
+    "view_to_purchase": round(n_purchase / n_view, 4) if n_view else None,
+    "note": "Moi loai su kien dem so phien rieng; khong phai chuyen doi trong cung mot phien",
+}
+with open(REPORT_DIR / "conversion_rate.json", "w", encoding="utf-8") as f:
+    json.dump(conversion, f, indent=2, ensure_ascii=False)
+print("Ty le chuyen doi:", conversion)
 
 print("Hoan thanh tao bieu do!")
