@@ -9,11 +9,14 @@ import subprocess
 import unittest
 import uuid
 from pathlib import Path
+import sys
+from pathlib import Path as _P
+sys.path.insert(0, str(_P(__file__).resolve().parent))
+from bash_locator import BASH  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SANDBOX = ROOT / "data/reports/tv3_handoff_20261018/unit sandbox" / uuid.uuid4().hex[:8]
-BASH = "C:/Program Files/Git/bin/bash.exe"
 
 
 class PipelineControlTests(unittest.TestCase):

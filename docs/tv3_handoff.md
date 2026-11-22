@@ -121,5 +121,5 @@ $env:DATA_KIND='real'
 
 Nếu vùng đã có đầu ra, dùng DATA_DIR mới và chuẩn bị landing tương ứng, không ghi đè.
 Không yêu cầu mật khẩu/token trong chat. Dữ liệu/kết quả do TV3 tự chạy trong gói này là
-synthetic hoặc fixture; clean Kaggle thật do TV2 tạo (máy TV2), chưa được TV3 chạy lại hay TV4 xác nhận. Cụm giữ chạy; khi người dùng không dùng
+synthetic hoặc fixture; clean Kaggle thật do TV2 tạo; TV3 đã tự chạy lại 22/11/2026 (8 lát, written 42.349.872, khớp TV2; xem docs/evidence/tv3/real_cleaning_tv3_result.md, có ảnh Spark UI), TV4 chưa xác nhận. Cụm giữ chạy; khi người dùng không dùng
 nữa, `docker compose down` giữ dữ liệu mount.

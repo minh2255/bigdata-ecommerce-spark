@@ -1,0 +1,42 @@
+{
+  "data_dir": "/data/tv3_real_s5",
+  "timezone": "UTC",
+  "counts": {
+    "raw": 5848091,
+    "after_dedup": 5843106,
+    "after_timestamp": 5843106,
+    "after_event_type": 5843106,
+    "after_price": 5836241,
+    "after_identity": 5836241,
+    "written": 5836241
+  },
+  "removed": {
+    "raw_to_after_dedup": 4985,
+    "after_dedup_to_after_timestamp": 0,
+    "after_timestamp_to_after_event_type": 0,
+    "after_event_type_to_after_price": 6865,
+    "after_price_to_after_identity": 0
+  },
+  "stage_seconds": {
+    "raw": 16.048,
+    "after_dedup": 20.451,
+    "after_timestamp": 15.761,
+    "after_event_type": 8.525,
+    "after_price": 8.582,
+    "after_identity": 8.435,
+    "write": 35.456,
+    "readback_count": 2.084
+  },
+  "status": "SUCCESS",
+  "data_kind": "real",
+  "application_id": "app-20261122095603-0006",
+  "empty_output": false,
+  "partition_columns": [
+    "event_date"
+  ],
+  "contract_version": "1.0",
+  "extensions_pending_tv2": [],
+  "id_rules": "user_id non-null only; no positive-ID or UUID constraint",
+  "seconds": 121.236,
+  "rules_source": "docs/data_contract.md v1.0"
+}

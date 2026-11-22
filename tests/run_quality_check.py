@@ -7,6 +7,10 @@ import time
 import uuid
 from datetime import datetime
 from pathlib import Path
+import sys
+from pathlib import Path as _P
+sys.path.insert(0, str(_P(__file__).resolve().parent))
+from bash_locator import BASH  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN_ID = datetime.now().strftime("%Y%m%d_%H%M%S") + "_" + uuid.uuid4().hex[:6]
@@ -36,7 +40,7 @@ def run(label, command):
 def main():
     rows = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
     run("generate", ["docker", "exec", "-e", "DATA_DIR=" + LAKE, "spark-master", "python3", "/opt/scripts/generate_data.py", str(rows)])
-    run("quality_pipeline", ["C:/Program Files/Git/bin/bash.exe", "scripts/run_pipeline.sh", "--quality-check"])
+    run("quality_pipeline", [BASH, "scripts/run_pipeline.sh", "--quality-check"])
     run("compare_truth", ["docker", "exec", "spark-master", "python3", "/opt/scripts/compare_truth.py", LAKE])
     run("validator", ["docker", "exec", "-e", "DATA_DIR=" + LAKE, "-e", "DATA_KIND=synthetic", "spark-master",
                       "/opt/spark/bin/spark-submit", "--master", "spark://spark-master:7077", "--driver-memory", "2g", "/opt/jobs/validate_cleaning.py"])
