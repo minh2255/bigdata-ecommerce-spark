@@ -69,7 +69,7 @@ log host riêng mỗi lần, giữ mã lỗi submit và không ghi đè đầu r
 dùng session làm khóa. `jobs/validate_cleaning.py` dùng phép giảm phân tán cho tập lớn,
 không collect/toPandas toàn bộ. `tests/test_pipeline_control.py` kiểm tra điều khiển
 shell bằng mock lỗi; `tests/run_tv3_integration.py` chạy bốn fixture mới trên cụm thật.
-`tests/test_cleaning_rejection.py` bổ sung kiểm tra job Spark thật từ chối price sai kiểu,
+`tests/spark_cleaning_rejection.py` bổ sung kiểm tra job Spark thật từ chối price sai kiểu,
 pipeline trả 1 và không tạo clean; không phải lỗi submit mô phỏng.
 Không thêm job profiling/aggregation giả vào jobs.
 

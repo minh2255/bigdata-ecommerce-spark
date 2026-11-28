@@ -26,6 +26,11 @@ Giá trị `unknown` ở brand và danh mục là nhãn hợp lệ theo contract
 trước khi khởi tạo Spark và dừng với `FileExistsError` nếu tồn tại; ghi bằng `errorifexists`. Đã chạy thử lần hai trên cùng `DATA_DIR`:
 job dừng, không đổi dữ liệu cũ. Muốn chạy lại phải dùng `DATA_DIR` mới.
 
+**Bổ sung sau lần chạy 22/11/2026 (chưa chạy lại trên dữ liệu thật).** Job đặt `spark.sql.session.timeZone=UTC` như các job khác,
+ghi thêm bảng `agg/conversion` (1 dòng, 3 tỷ lệ chuyển đổi tính từ `funnel`, trước đây chỉ có trong `05_charts.py`) và
+`reports/aggregation_metrics.json` (số dòng clean, số dòng từng bảng, thời gian chạy). Hai script kiểm KPI đối chiếu thêm 3 tỷ lệ
+nếu có bảng `conversion`, nên lần chạy mới có 17 kiểm tra thay vì 14. Các số trong chương này vẫn là của lần chạy 22/11/2026.
+
 ## 7.3 Đối chiếu KPI với clean
 
 `scripts/check_agg_kpi.py` tính lại độc lập bằng pandas/numpy từ `clean/events` (đọc từng thư mục ngày, chỉ lấy cột cần, đếm phiên và

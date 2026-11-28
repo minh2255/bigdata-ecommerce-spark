@@ -62,6 +62,13 @@ def main():
         add(f"funnel: so phien {row['event_type']}", sess.get(row["event_type"], 0), row["sessions"])
     add("daily_kpi: active_users khong vuot so user duy nhat",
         0, max(0, int(agg["daily_kpi"]["active_users"].max()) - n_users))
+    # Bảng conversion chỉ có từ bản 03_aggregation.py mới; vùng agg cũ không có thì bỏ qua
+    if (ROOT / "agg/conversion").exists():
+        conv = pd.read_parquet(ROOT / "agg/conversion").iloc[0]
+        v, c, p = (sess.get(e, 0) for e in ev)
+        for col, num, den in [("view_to_cart", c, v), ("cart_to_purchase", p, c), ("view_to_purchase", p, v)]:
+            add(f"conversion: {col}", round(num / den, 4) if den else 0,
+                0 if pd.isna(conv[col]) else conv[col], 1e-4)
 
     summary = {"data_dir": str(ROOT), "clean_rows": int(n_rows), "purchases": int(counts["purchase"]),
                "all_pass": all(c["ok"] for c in checks), "checks": checks}

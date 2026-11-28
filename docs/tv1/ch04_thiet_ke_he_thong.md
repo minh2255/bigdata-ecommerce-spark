@@ -39,7 +39,7 @@ Dữ liệu đi qua bốn tầng, mỗi tầng một thư mục con của `DATA_
 | landing | `landing/*.csv` | CSV | đặt tay (Kaggle) | `2019-Oct.csv`, 9 cột, 5.668.612.855 byte |
 | raw | `raw/events` | Parquet snappy | `00_ingest.py` | giữ nguyên dữ liệu, schema cố định, không inferSchema |
 | clean | `clean/events` | Parquet, phân vùng `event_date` | `02_cleaning.py` | theo [data contract v1.0](../data_contract.md), thời gian UTC |
-| agg | `agg/{daily_kpi,category_kpi,brand_kpi,funnel,hourly}` | Parquet | `03_aggregation.py` | KPI cho báo cáo và biểu đồ |
+| agg | `agg/{daily_kpi,category_kpi,brand_kpi,funnel,hourly,conversion}` | Parquet | `03_aggregation.py` | KPI cho báo cáo và biểu đồ |
 
 Ngoài ra `samples/frac_<tỷ lệ>` (từ `make_sample.py`) phục vụ KB4 và `reports/` chứa JSON/CSV đo đạc và biểu đồ PNG.
 

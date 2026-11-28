@@ -19,7 +19,8 @@ DATA_DIR = os.environ.get("DATA_DIR", "/data")
 fraction = float(sys.argv[1]) if len(sys.argv) > 1 else 1.0
 label = sys.argv[2] if len(sys.argv) > 2 else "spark"
 
-spark = SparkSession.builder.appName(f"04_benchmark_{label}_{fraction}").getOrCreate()
+spark = (SparkSession.builder.appName(f"04_benchmark_{label}_{fraction}")
+         .config("spark.sql.session.timeZone", "UTC").getOrCreate())
 
 # spark.cores.max chính là giá trị của --total-executor-cores (nếu không đặt -> "all")
 cores = spark.conf.get("spark.cores.max", "all")
