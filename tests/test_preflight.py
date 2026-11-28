@@ -70,6 +70,18 @@ class PreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "03_aggregation.py"):
             self.run_preflight("--full")
 
+    def test_full_rejects_existing_aggregation_metrics(self):
+        (self.base / "jobs/03_aggregation.py").touch()
+        (self.lake / "reports").mkdir()
+        (self.lake / "reports/aggregation_metrics.json").touch()
+        with self.assertRaisesRegex(ValueError, "Existing report: aggregation_metrics.json"):
+            self.run_preflight("--full")
+
+    def test_quality_ignores_aggregation_metrics(self):
+        (self.lake / "reports").mkdir()
+        (self.lake / "reports/aggregation_metrics.json").touch()
+        self.run_preflight("--quality-check")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

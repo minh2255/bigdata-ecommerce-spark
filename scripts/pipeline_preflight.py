@@ -68,6 +68,8 @@ def preflight():
         reports.append("ingest_log.csv")
     if mode in {"--quality-check", "--full"}:
         reports += ["profiling_raw.json", "profiling_clean.json"]
+    if mode == "--full":
+        reports.append("aggregation_metrics.json")
     for name in reports:
         if (root / "reports" / name).exists():
             raise ValueError(f"Existing report: {name}; choose a new DATA_DIR")

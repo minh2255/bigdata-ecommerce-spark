@@ -62,6 +62,14 @@ for _, row in agg["funnel"].iterrows():
     add(f"funnel: so phien {row['event_type']}", sessions.get(row["event_type"], 0), row["sessions"])
 add("daily_kpi: active_users khong vuot so user duy nhat",
     0, max(0, int(daily["active_users"].max()) - int(exp["users"])))
+# Bang conversion chi co tu ban 03_aggregation.py moi; vung agg cu khong co thi bo qua
+conv_path = ROOT / "agg/conversion"
+if conv_path.exists():
+    conv = spark.read.parquet(str(conv_path)).first().asDict()
+    v, c, p = (sessions.get(e, 0) for e in ("view", "cart", "purchase"))
+    add("conversion: view_to_cart", round(c / v, 4) if v else 0, conv["view_to_cart"] or 0, 1e-4)
+    add("conversion: cart_to_purchase", round(p / c, 4) if c else 0, conv["cart_to_purchase"] or 0, 1e-4)
+    add("conversion: view_to_purchase", round(p / v, 4) if v else 0, conv["view_to_purchase"] or 0, 1e-4)
 
 summary = {"data_dir": str(ROOT), "clean_rows": int(exp["rows"]), "purchases": int(exp["purchases"]),
            "all_pass": all(c["ok"] for c in checks), "checks": checks}
@@ -72,4 +80,5 @@ for c in checks:
     print(("OK   " if c["ok"] else "FAIL ") + f"{c['check']}: expected={c['expected']} actual={c['actual']}", flush=True)
 print(f"all_pass={summary['all_pass']} -> {out}", flush=True)
 spark.stop()
+sys.exit(0 if summary["all_pass"] else 1)
 sys.exit(0 if summary["all_pass"] else 1)

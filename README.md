@@ -81,6 +81,9 @@ Kiểm thử không cần cụm Spark (mock, preflight):
 python -m unittest tests.test_pipeline_control tests.test_preflight
 ```
 
+`tests/spark_cleaning_rejection.py` và `tests/spark_profiling_contract.py` là kiểm tra Spark thật (cần cụm đang chạy),
+không thuộc `unittest`; cách chạy xem [docs/tv3_run_20261027.md](docs/tv3_run_20261027.md).
+
 ## Quy tắc làm việc nhóm
 
 Mỗi người một branch, tạo Pull Request, TV1 review rồi merge vào `main`. Không commit thư mục `data/`.
